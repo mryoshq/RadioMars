@@ -252,8 +252,8 @@ return [
     |
     */
 
-    'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'use_route_url' => '',
+    'dashboard_url' => '',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => null,
@@ -308,31 +308,31 @@ return [
         ],
         [
             'text'        => 'Dashboard',
-            'url'         => '',
+            'url'         => 'dashboard',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
         [
             'text'        => 'Users',
-            'url'         => '#',
+            'url'         => 'users',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
         [
             'text'        => 'Packs',
-            'url'         => '#',
+            'url'         => 'packs',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
         [
             'text'        => 'Payments',
-            'url'         => '#',
+            'url'         => 'payments',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
         [
             'text'        => 'ADS',
-            'url'         => '#',
+            'url'         => 'ads',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
@@ -466,7 +466,7 @@ return [
             ],
         ],
         'Pace' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'css',
@@ -497,8 +497,8 @@ return [
 
     'iframe' => [
         'default_tab' => [
-            'url' => null,
-            'title' => null,
+            'url' => 'dashboard',
+            'title' => 'Dashboard',
         ],
         'buttons' => [
             'close' => true,
@@ -509,7 +509,7 @@ return [
             'fullscreen' => true,
         ],
         'options' => [
-            'loading_screen' => 1000,
+            'loading_screen' => 500,
             'auto_show_new_tab' => true,
             'use_navbar_items' => true,
         ],
