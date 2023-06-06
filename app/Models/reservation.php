@@ -1,6 +1,6 @@
 <?php
 
-// Reservation Model
+// Reservation Model 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +12,7 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ad_id', 'user_id', 'status'];
+    protected $fillable = ['user_id','ad_id', 'pack_id', 'status'];
 
     public function ad(): BelongsTo
     {

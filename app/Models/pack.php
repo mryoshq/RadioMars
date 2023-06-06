@@ -11,10 +11,10 @@ class Pack extends Model
 {
 
 
-    protected $fillable = ['price', 'spots_number', 'availability'];
+    protected $fillable = ['name', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability'];
 
     public function ads(): HasMany
     {
         return $this->hasMany(Ad::class);
     }
-}
+} 

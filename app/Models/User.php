@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class);
     }
+    public function payments(): HasMany
+    {
+    return $this->hasManyThrough(Payment::class, Reservation::class);
+    }
+
 }

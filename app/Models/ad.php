@@ -19,7 +19,7 @@ class Ad extends Model
     {
         return $this->belongsTo(Campaign::class);
     }
-
+ 
     public function pack(): BelongsTo
     {
         return $this->belongsTo(Pack::class);

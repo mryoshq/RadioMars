@@ -11,10 +11,15 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reservation_id', 'amount', 'payment_date', 'status', 'payment_method'];
+    protected $fillable = ['reservation_id', 'amount', 'status', 'payment_method'];
 
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
     }
+    public function user(): BelongsTo
+    {
+        return $this->reservation->user;
+    }
+
 }

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Spot extends Model
 {
 
-    protected $fillable = ['ad_id', 'day_of_week', 'time_of_day'];
+    protected $fillable = ['ad_id', 'day_of_week', 'time_of_day', 'status'];
 
     public function ad(): BelongsTo
     {
