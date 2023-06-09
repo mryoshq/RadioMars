@@ -6,20 +6,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Payment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['reservation_id', 'amount', 'status', 'payment_method'];
+    protected $fillable = ['user_id','reservation_id', 'amount','payment_method', 'status',];
 
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
     }
-    public function user(): BelongsTo
-    {
-        return $this->reservation->user;
-    }
-
 }

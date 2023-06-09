@@ -14,7 +14,7 @@ class CampaignFactory extends Factory
      */
     protected $model = Campaign::class;
 
-    /**
+    /** 
      * Define the model's default state.
      *
      * @return array

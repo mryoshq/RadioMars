@@ -9,12 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Spot extends Model
 {
-    use HasFactory;
-    protected $fillable = ['ad_id', 'day_of_week', 'time_of_day', 'status'];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ['pack_id','reservation_id', 'day_of_week', 'time_of_day', 'status'];
 
-    public function ad(): BelongsTo
+    public function reservation(): BelongsTo
     {
-        return $this->belongsTo(Ad::class);
+        return $this->belongsTo(Reservation::class);
+    }
+      
+    public function pack(): BelongsTo
+    {
+        return $this->belongsTo(Pack::class);
     }
 }
 

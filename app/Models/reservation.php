@@ -12,20 +12,20 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','ad_id', 'pack_id', 'status'];
+    protected $fillable = ['ad_id', 'status'];
 
     public function ad(): BelongsTo
     {
         return $this->belongsTo(Ad::class);
     }
 
-    public function user(): BelongsTo
+    public function payments(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Payment::class); 
     }
 
-    public function payment(): HasOne
+    public function spots(): HasMany
     {
-        return $this->hasOne(Payment::class);
+        return $this->hasMany(Spot::class);
     }
 }

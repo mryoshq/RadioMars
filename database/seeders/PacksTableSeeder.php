@@ -12,7 +12,7 @@ class PacksTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run() 
     {
         Pack::factory()->create([
             'name' => 'Pack Classique 1 semaine',

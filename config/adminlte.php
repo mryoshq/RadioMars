@@ -428,6 +428,7 @@ return [
                     'asset' => false,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
+        
             ],
         ],
         'Select2' => [
@@ -480,7 +481,27 @@ return [
                 ],
             ],
         ],
+        'jsGrid' => [
+            'active' => false,
+            'files' => [ 
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css',
+                ],
+            ],
     ],
+],
 
     /*
     |--------------------------------------------------------------------------
