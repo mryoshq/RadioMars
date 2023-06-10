@@ -16,6 +16,7 @@ class CreatePaymentsTable extends Migration
             $table->enum('payment_method', ['cc', 'transfer', 'wire']);
             $table->enum('status', ['pending', 'paid', 'failed']);
             $table->timestamps();
+            $table->softDeletes(); 
 
            
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('set null');

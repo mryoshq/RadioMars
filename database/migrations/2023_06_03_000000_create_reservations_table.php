@@ -13,6 +13,7 @@ class CreateReservationsTable extends Migration
             $table->unsignedBigInteger('ad_id'); 
             $table->enum('status', ['pending', 'confirmed', 'cancelled']);
             $table->timestamps();
+            $table->softDeletes(); 
 
         
            

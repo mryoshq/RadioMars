@@ -26,7 +26,7 @@ class SpotController extends Controller
             'day_of_week' => 'required',
             'time_of_day' => 'required',
         ]);
-
+ 
         $spot = Spot::create($validated);
 
         return redirect()->route('spots.show', $spot);

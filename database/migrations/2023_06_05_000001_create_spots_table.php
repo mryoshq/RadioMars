@@ -21,7 +21,7 @@ class CreateSpotsTable extends Migration
             $table->string('day_of_week'); 
             $table->enum('status', ['booked', 'available']);
             $table->timestamps();
-
+            $table->softDeletes(); 
     
             
             
@@ -33,7 +33,7 @@ class CreateSpotsTable extends Migration
 
     /** 
      * Reverse the migrations.
-     *
+     * 
      * @return void
      */
     public function down()

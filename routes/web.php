@@ -46,8 +46,8 @@ Route::resource('packs', PackController::class);
 Route::resource('spots', SpotController::class);
 
 
-Route::resource('reservations', ReservationsController::class);
+Route::resource('reservations', ReservationController::class);
 Route::resource('payments', PaymentController::class);
 
-Route::resource('Roles', RoleController::class);
+Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
