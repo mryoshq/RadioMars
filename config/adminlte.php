@@ -306,88 +306,98 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        ['header' => 'Overview'],
         [
             'text'        => 'Dashboard',
             'url'         => 'dashboard',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
-        [ 
-            'text'        => 'Roles',
-            'url'         => 'roles',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
         [
-            'text'        => 'Users',
-            'url'         => 'users',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Packs',
-            'url'         => 'packs',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Campaigns',
-            'url'         => 'campaigns',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],  
-        [
-            'text'        => 'Ads',
-            'url'         => 'ads',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Reservations',
-            'url'         => 'reservations',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Payments',
-            'url'         => 'payments',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Spots',
-            'url'         => 'spots',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'CALENDAR',
+            'text'        => 'Calendrier',
             'url'         => '#',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
-        ['header' => 'section'],
+        ['header' => 'Management'],
         [
-            'text'    => 'multilevel + labels',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Users management',
+            'icon'    => '',
             'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'icon_color' => 'red',
-                    'url'  => '#',
+                [ 
+                    'text'        => 'Roles',
+                    'url'         => 'roles',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
                 ],
                 [
-                    'text'       => 'warning',
-                    'icon_color' => 'yellow',
-                    'url'        => '#',
-                ],
-                [
-                    'text'       => 'information',
-                    'icon_color' => 'cyan',
-                    'url'        => '#',
+                    'text'        => 'Users',
+                    'url'         => 'users',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
                 ],
             ],
         ],
+
+
+        [
+            'text'    => 'Spot management',
+            'icon'    => '',
+            'submenu' => [
+                [
+                    'text'        => 'Packs',
+                    'url'         => 'packs',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text'        => 'Spots',
+                    'url'         => 'spots',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+
+        [
+            'text'    => 'Payments management',
+            'icon'    => '',
+            'submenu' => [
+                [
+                    'text'        => 'Reservations',
+                    'url'         => 'reservations',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text'        => 'Payments',
+                    'url'         => 'payments',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+        
+
+        [
+            'text'    => 'Ads management',
+            'icon'    => '',
+            'submenu' => [
+                [
+                    'text'        => 'Campaigns',
+                    'url'         => 'campaigns',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],  
+                [
+                    'text'        => 'Ads',
+                    'url'         => 'ads',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+    
        
        
     ],
