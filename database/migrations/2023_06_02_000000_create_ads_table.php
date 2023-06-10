@@ -11,7 +11,7 @@ class CreateAdsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->id();

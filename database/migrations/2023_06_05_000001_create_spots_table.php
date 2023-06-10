@@ -15,14 +15,14 @@ class CreateSpotsTable extends Migration
     {
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pack_id')->nullable();
             $table->unsignedBigInteger('reservation_id');
+            $table->unsignedBigInteger('pack_id')->nullable();
             $table->time('time_of_day');
-            $table->string('day_of_week');
+            $table->string('day_of_week'); 
             $table->enum('status', ['booked', 'available']);
             $table->timestamps();
 
-            // Foreign key constraint
+    
             
             
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
@@ -31,7 +31,7 @@ class CreateSpotsTable extends Migration
         });
     }
 
-    /**
+    /** 
      * Reverse the migrations.
      *
      * @return void

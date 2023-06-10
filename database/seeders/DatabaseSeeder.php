@@ -19,9 +19,11 @@ class DatabaseSeeder extends Seeder
             CampaignsTableSeeder::class,
             PacksTableSeeder::class,
             AdsTableSeeder::class,
-            SpotsTableSeeder::class,
             ReservationsTableSeeder::class,
             PaymentsTableSeeder::class,
+            SpotsTableSeeder::class,
+            
+            
         ]);
     }
 }

@@ -14,6 +14,6 @@ class CampaignsTableSeeder extends Seeder
      */
     public function run()
     {
-        Campaign::factory()->count(100)->create();
+        Campaign::factory()->count(150)->create();
     }
 }

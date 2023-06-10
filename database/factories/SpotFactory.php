@@ -17,14 +17,17 @@ class SpotFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array 
      */
     public function definition()
     {
         return [
-            'ad_id' => \App\Models\Ad::all()->random()->id,
-            'day_of_week' => $this->faker->dayOfWeek, // Generates a random day of the week.
-            'time_of_day' => $this->faker->time($format = 'H:i:s'), // Generates a random time.
+            'reservation_id' => \App\Models\Reservation::all()->random()->id,
+            'pack_id' => \App\Models\Pack::all()->random()->id,
+            'time_of_day' => $this->faker->randomElement(json_decode(\App\Models\Pack::all()->random()->times_of_day, true)),
+            'day_of_week' => $this->faker->randomElement(json_decode(\App\Models\Pack::all()->random()->days_of_week, true)),
+            
+            
             'status' => $this->faker->randomElement(['booked', 'available']), // Assigns either 'booked' or 'available'.
         ];
     }

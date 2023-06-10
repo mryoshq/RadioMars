@@ -22,10 +22,12 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => \App\Models\User::all()->random()->id,
             'reservation_id' => \App\Models\Reservation::all()->random()->id,
-            'amount' => $this->faker->randomFloat(2, 1, 1000), // Amount between 1.00 and 1000.00
+            'amount' => $this->faker->randomFloat(2, 3000, 17000), 
             'payment_method' => $this->faker->randomElement(['cc', 'transfer', 'wire']),
             'status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
         ];
     }
 }
+ 

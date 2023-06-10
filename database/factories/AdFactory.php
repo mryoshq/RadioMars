@@ -24,7 +24,8 @@ class AdFactory extends Factory
         return [
             'campaign_id' => \App\Models\Campaign::all()->random()->id,
             'pack_id' => \App\Models\Pack::all()->random()->id,
-            'text_content' => $this->faker->text(200), // Generates a random text with maximum 200 characters.
+            'text_content' => $this->faker->text(200),
+            'audio_content' => $this->faker->text(200), 
             'status' => $this->faker->randomElement(['active', 'not_active', 'paused']), // Assigns one of the possible status values.
         ];
     }

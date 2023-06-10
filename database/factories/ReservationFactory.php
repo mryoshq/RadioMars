@@ -22,11 +22,9 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => \App\Models\User::all()->random()->id,
+           
             'ad_id' => \App\Models\Ad::all()->random()->id,
-            'pack_id' => \App\Models\Pack::all()->random()->id,
-
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']), // Assigns either 'pending', 'confirmed' or 'cancelled'.
         ];
     }
-}
+} 
