@@ -15,7 +15,7 @@ class PacksTableSeeder extends Seeder
     public function run() 
     {
         Pack::factory()->create([
-            'name' => 'Pack Classique 1 semaine',
+            'name' => 'Classique 1w',
             'price' => 10500,
             'spots_number' => 35,
             'days_of_week' => json_encode(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']),
@@ -24,7 +24,7 @@ class PacksTableSeeder extends Seeder
         ]);
 
         Pack::factory()->create([
-            'name' => 'Pack Classique 2 semaines',
+            'name' => 'Classique 2w',
             'price' => 17500,
             'spots_number' => 70,
             'days_of_week' => json_encode(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']),
@@ -33,7 +33,7 @@ class PacksTableSeeder extends Seeder
         ]);
 
         Pack::factory()->create([
-            'name' => 'Pack Sabahyat 1 semaine',
+            'name' => 'Sabahyat 1w',
             'price' => 7500,
             'spots_number' => 15,
             'days_of_week' => json_encode(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
@@ -42,7 +42,7 @@ class PacksTableSeeder extends Seeder
         ]);
 
         Pack::factory()->create([
-            'name' => 'Pack Sabahyat 2 semaines',
+            'name' => 'Sabahyat 2w',
             'price' => 12000,
             'spots_number' => 30,
             'days_of_week' => json_encode(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
@@ -51,7 +51,7 @@ class PacksTableSeeder extends Seeder
         ]);
 
         Pack::factory()->create([
-            'name' => 'Pack Weekend 1 WE',
+            'name' => 'Weekend 1w',
             'price' => 3000,
             'spots_number' => 6,
             'days_of_week' => json_encode(['Saturday', 'Sunday']),
@@ -60,7 +60,7 @@ class PacksTableSeeder extends Seeder
         ]);
 
         Pack::factory()->create([
-            'name' => 'Pack Weekend 2 WE',
+            'name' => 'Weekend 2w',
             'price' => 4800,
             'spots_number' => 12,
             'days_of_week' => json_encode(['Saturday', 'Sunday']),

@@ -4,6 +4,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\User;
+use App\Models\Reservation;
+
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -16,23 +19,27 @@ class PaymentController extends Controller
 
     public function create()
     {
-        return view('payments.create');
+        $users = User::all();
+        $reservations = Reservation::all();
+        return view('payments.create', compact('users', 'reservations'));
     }
+    
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
+            'user_id' => 'required|exists:users,id',
+            'reservation_id' => 'nullable|exists:reservations,id',
             'amount' => 'required|numeric',
-            'payment_date' => 'required|date',
-            'status' => 'required',
-            'payment_method' => 'required',
+            'payment_method' => 'required|in:cc,transfer,wire',
+            'status' => 'required|in:pending,paid,failed',
         ]);
-
+    
         $payment = Payment::create($validated);
-
-        return redirect()->route('payments.show', $payment);
+    
+        return redirect()->route('payments.show', $payment)->with('success', 'Payment created successfully');
     }
+    
 
     public function show(Payment $payment)
     {

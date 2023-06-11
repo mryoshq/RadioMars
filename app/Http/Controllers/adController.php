@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use Illuminate\Http\Request;
+use App\Models\Campaign;
+use App\Models\Pack;
 
 class AdController extends Controller
 {
@@ -16,22 +18,26 @@ class AdController extends Controller
 
     public function create()
     {
-        return view('ads.create');
+        $campaigns = Campaign::all();
+        $packs = Pack::all();
+        return view('ads.create', compact('campaigns', 'packs'));
     }
-
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
             'campaign_id' => 'required|exists:campaigns,id',
             'pack_id' => 'required|exists:packs,id',
-            'text_content' => 'required',
-            'status' => 'required',
+            'text_content' => 'nullable|string',
+            'audio_content' => 'nullable|string',
+            'status' => 'required|in:active,not_active,paused',
         ]);
-
+    
         $ad = Ad::create($validated);
-
-        return redirect()->route('ads.show', $ad);
+    
+        return redirect()->route('ads.show', $ad)->with('success', 'Ad created successfully');
     }
+    
 
     public function show(Ad $ad)
     {

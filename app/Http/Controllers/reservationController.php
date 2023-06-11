@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Ad;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -16,21 +17,23 @@ class ReservationController extends Controller
 
     public function create()
     {
-        return view('reservations.create');
+        $ads = Ad::all();
+        return view('reservations.create', compact('ads'));
     }
+    
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'ad_id' => 'required|exists:ads,id',
-            'user_id' => 'required|exists:users,id',
-            'status' => 'required',
+            'status' => 'required|in:pending,confirmed,cancelled',
         ]);
-
+    
         $reservation = Reservation::create($validated);
-
-        return redirect()->route('reservations.show', $reservation);
+    
+        return redirect()->route('reservations.show', $reservation)->with('success', 'Reservation created successfully');
     }
+    
 
     public function show(Reservation $reservation)
     {

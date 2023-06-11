@@ -3,7 +3,7 @@
 @section('title', 'Packs')
 
 @section('content_header')
-    <h1>Rôles</h1>
+    <h1>Packs</h1>
 @stop
 
 

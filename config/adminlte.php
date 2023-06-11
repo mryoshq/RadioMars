@@ -3,10 +3,8 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
     | Title
     |--------------------------------------------------------------------------
-    |
     | Here you can change the default title of your admin panel.
     |
     | For detailed instructions you can look the title section here:
@@ -15,14 +13,12 @@ return [
     */
 
     'title' => 'Radio MARS',
-    'title_prefix' => '',
+    'title_prefix' => 'Panel admimistrateur',
     'title_postfix' => '',
 
     /*
-    |--------------------------------------------------------------------------
     | Favicon
     |--------------------------------------------------------------------------
-    |
     | Here you can activate the favicon.
     |
     | For detailed instructions you can look the favicon section here:
@@ -34,10 +30,8 @@ return [
     'use_full_favicon' => false,
 
     /*
-    |--------------------------------------------------------------------------
     | Google Fonts
     |--------------------------------------------------------------------------
-    |
     | Here you can allow or not the use of external google fonts. Disabling the
     | google fonts may be useful if your admin panel internet access is
     | restricted somehow.
@@ -52,10 +46,8 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
     | Admin Panel Logo
     |--------------------------------------------------------------------------
-    |
     | Here you can change the logo of your admin panel.
     |
     | For detailed instructions you can look the logo section here:
@@ -64,17 +56,15 @@ return [
     */
 
     'logo' => '<b>Radio</b>MARS',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin Logo',
 
     /*
-    |--------------------------------------------------------------------------
     | Authentication Logo
     |--------------------------------------------------------------------------
-    |
     | Here you can setup an alternative logo to use on your login and register
     | screens. When disabled, the admin panel logo will be used instead.
     |
@@ -95,10 +85,8 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
     | Preloader Animation
     |--------------------------------------------------------------------------
-    |
     | Here you can change the preloader animation configuration.
     |
     | For detailed instructions you can look the preloader section here:
@@ -118,10 +106,8 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
     | User Menu
     |--------------------------------------------------------------------------
-    |
     | Here you can activate and change the user menu.
     |
     | For detailed instructions you can look the user menu section here:
@@ -137,10 +123,8 @@ return [
     'usermenu_profile_url' => false,
 
     /*
-    |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
-    |
     | Here we change the layout of your admin panel.
     |
     | For detailed instructions you can look the layout section here:
@@ -156,10 +140,8 @@ return [
     'layout_dark_mode' => null,
 
     /*
-    |--------------------------------------------------------------------------
     | Authentication Views Classes
     |--------------------------------------------------------------------------
-    |
     | Here you can change the look and behavior of the authentication views.
     |
     | For detailed instructions you can look the auth classes section here:
@@ -175,7 +157,6 @@ return [
     'classes_auth_btn' => 'btn-flat btn-primary',
 
     /*
-    |--------------------------------------------------------------------------
     | Admin Panel Classes
     |--------------------------------------------------------------------------
     |
@@ -199,7 +180,6 @@ return [
     'classes_topnav_container' => 'container',
 
     /*
-    |--------------------------------------------------------------------------
     | Sidebar
     |--------------------------------------------------------------------------
     |
@@ -338,8 +318,6 @@ return [
                 ],
             ],
         ],
-
-
         [
             'text'    => 'Spot management',
             'icon'    => '',
@@ -456,22 +434,27 @@ return [
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
         
-            ],
+            ], 
         ],
         'Select2' => [
             'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/select2/js/select2.full.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    'asset' => true,
+                    'location' => 'vendor/select2/css/select2.min.css',
                 ],
-            ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
+                ],
+            ], 
         ],
         'Chartjs' => [
             'active' => true,
@@ -508,26 +491,7 @@ return [
                 ],
             ],
         ],
-        'jsGrid' => [
-            'active' => false,
-            'files' => [ 
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css',
-                ],
-            ],
-    ],
+     
 ],
 
     /*

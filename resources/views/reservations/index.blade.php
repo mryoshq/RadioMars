@@ -3,7 +3,7 @@
 @section('title', 'Reservation')
 
 @section('content_header')
-    <h1>reservation</h1>
+    <h1>Reservations</h1>
 @stop
 
 

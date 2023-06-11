@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Campaign;
 use Illuminate\Http\Request;
+use App\Models\User;    
+use App\Models\Ad;
+
 
 class CampaignController extends Controller
 {
@@ -16,20 +19,23 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('campaigns.create');
+        $users = User::all();
+        return view('campaigns.create', compact('users'));
     }
+    
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'status' => 'required',
+            'status' => 'required|in:planning,active,ended',
         ]);
-
+    
         $campaign = Campaign::create($validated);
-
-        return redirect()->route('campaigns.show', $campaign);
+    
+        return redirect()->route('campaigns.show', $campaign)->with('success', 'Campaign created successfully');
     }
+    
 
     public function show(Campaign $campaign)
     {

@@ -48,10 +48,10 @@
     @endphp
 
     <div class="mb-4" style="text-align: right;">
-    <a href="{{ route('users.create') }}" class="btn btn-primary">
-        Create User
-    </a>
-</div>
+        <a href="{{ route('users.create') }}" class="btn btn-primary">
+            Create User
+        </a>
+    </div>
 
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>

@@ -22,15 +22,19 @@ class PackController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'name' => 'required',
             'price' => 'required|numeric',
             'spots_number' => 'required|integer',
-            'availability' => 'required',
+            'days_of_week' => 'nullable|array',
+            'times_of_day' => 'nullable|array',
+            'availability' => 'required|boolean',
         ]);
-
+    
         $pack = Pack::create($validated);
-
-        return redirect()->route('packs.show', $pack);
+    
+        return redirect()->route('packs.show', $pack)->with('success', 'Pack created successfully');
     }
+    
 
     public function show(Pack $pack)
     {

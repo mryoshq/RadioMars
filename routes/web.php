@@ -50,4 +50,4 @@ Route::resource('reservations', ReservationController::class);
 Route::resource('payments', PaymentController::class);
 
 Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class); 

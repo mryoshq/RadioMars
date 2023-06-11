@@ -4,7 +4,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,24 +19,34 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        $user = new User();
+        $roles = Role::all(); 
+        return view('users.create', compact('user', 'roles'));
     }
+    
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'phone_number' => 'required|unique:users',
-            'role_id' => 'required|exists:roles,id',
+        // Validate the request data
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/','unique:users'],
+            'role_id' => ['required', 'integer', 'exists:roles,id'],
         ]);
-
-        $validated['password'] = bcrypt($validated['password']); //hashing the password
-
-        $user = User::create($validated);
-
-        return redirect()->route('users.show', $user);
+    
+        // Create a new user
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone_number' => $request->phone_number,
+            'role_id' => $request->role_id,
+        ]);
+    
+        // Redirect the user back with a success message
+        return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
     public function show(User $user)

@@ -25,10 +25,10 @@ class RoleController extends Controller
             'name' => 'required',
             'permissions' => 'required',
         ]);
-
+    
         $role = Role::create($validated);
-
-        return redirect()->route('roles.show', $role);
+    
+        return redirect()->route('roles.show', $role)->with('success', 'Role created successfully');
     }
 
     public function show(Role $role)
