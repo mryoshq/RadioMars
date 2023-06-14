@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Pack;
 use Illuminate\Http\Request;
 
+
 class PackController extends Controller
 {
     public function index()
@@ -25,8 +26,8 @@ class PackController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'spots_number' => 'required|integer',
-            'days_of_week' => 'nullable|array',
-            'times_of_day' => 'nullable|array',
+            'days_of_week' => 'required|array',
+            'times_of_day' => 'required|array',
             'availability' => 'required|boolean',
         ]);
     
@@ -49,8 +50,11 @@ class PackController extends Controller
     public function update(Request $request, Pack $pack)
     {
         $validated = $request->validate([
+            'name' => 'required',
             'price' => 'required|numeric',
             'spots_number' => 'required|integer',
+            'days_of_week' => 'required|array',
+            'times_of_day' => 'required|array',
             'availability' => 'required',
         ]);
 

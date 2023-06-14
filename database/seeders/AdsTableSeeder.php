@@ -5,6 +5,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Ad;
 
+
 class AdsTableSeeder extends Seeder
 {
     /**
@@ -14,6 +15,10 @@ class AdsTableSeeder extends Seeder
      */
     public function run()
     {
-        Ad::factory()->count(200)->create();
+        // create 200 ads with payment
+        Ad::factory()
+        ->count(200)
+        ->withPayment()
+        ->create();
     }
 }

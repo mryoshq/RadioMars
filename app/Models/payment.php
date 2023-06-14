@@ -13,10 +13,11 @@ class Payment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id','reservation_id', 'amount','payment_method', 'status',];
+    protected $fillable = ['payment_method', 'status','advertiser_id','ad_id'];
 
-    public function reservation(): BelongsTo
+    public function ad(): BelongsTo
     {
-        return $this->belongsTo(Reservation::class);
+        return $this->belongsTo(Ad::class);
     }
 }
+ 

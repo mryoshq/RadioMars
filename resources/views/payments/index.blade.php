@@ -12,11 +12,11 @@
     @php
         $heads = [
             'ID',
-            'user_id',
-            'reservation_id', 
-            'amount',
+         
             'payment_method', 
             'status',
+            'advertiser_id',
+            'ad_id',
             ['label' => 'Actions', 'no-export' => true],
         ];
 
@@ -36,13 +36,13 @@
                             </button>
                           </form>";
           
-            $paymentsArray[] = [$payment->id, $payment->user_id, $payment->reservation_id, $payment->amount, $payment->payment_method, $payment->status, $btnEdit.$btnDetails.$btnDelete];
+            $paymentsArray[] = [$payment->id, $payment->payment_method, $payment->status,$payment-> advertiser_id,$payment->ad_id, $btnEdit.$btnDetails.$btnDelete];
         }
 
         $config = [
             'data' => $paymentsArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null, null,null, ['orderable' => false]],
+            'columns' => [ null, null, null, null,null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,

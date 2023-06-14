@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+
 class PaymentFactory extends Factory
 {
     /**
@@ -21,13 +22,16 @@ class PaymentFactory extends Factory
      */
     public function definition()
     {
+        // advertiser check
+       // $ad = \App\Models\Ad::all()->random();
+       // $advertiser_id = $ad->advertiser->id;
+
         return [
-            'user_id' => \App\Models\User::all()->random()->id,
-            'reservation_id' => \App\Models\Reservation::all()->random()->id,
-            'amount' => $this->faker->randomFloat(2, 3000, 17000), 
             'payment_method' => $this->faker->randomElement(['cc', 'transfer', 'wire']),
             'status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
+            
+            'ad_id' => null, 
+            'advertiser_id' => null,
         ];
     }
 }
- 

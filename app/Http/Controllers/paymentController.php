@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use App\Models\User;
-use App\Models\Reservation;
+use App\Models\Advertiser;
+use App\Models\Ad;
 
 use Illuminate\Http\Request;
 
@@ -19,18 +19,17 @@ class PaymentController extends Controller
 
     public function create()
     {
-        $users = User::all();
-        $reservations = Reservation::all();
-        return view('payments.create', compact('users', 'reservations'));
+        $advertisers = Advertiser::all();
+        $ads = Ad::all();
+        return view('payments.create', compact('advertisers', 'ads'));
     }
     
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'reservation_id' => 'nullable|exists:reservations,id',
-            'amount' => 'required|numeric',
+            'advertiser_id' => 'required|exists:advertisers,id',
+            'ad_id' => 'required|exists:ads,id',
             'payment_method' => 'required|in:cc,transfer,wire',
             'status' => 'required|in:pending,paid,failed',
         ]);
@@ -54,11 +53,12 @@ class PaymentController extends Controller
     public function update(Request $request, Payment $payment)
     {
         $validated = $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'amount' => 'required|numeric',
-            'payment_date' => 'required|date',
-            'status' => 'required',
+            
+            'advertiser_id' => 'required|exists:advertisers,id',
+            'ad_id' => 'required|exists:ads,id',
             'payment_method' => 'required',
+            'status' => 'required',
+         
         ]);
 
         $payment->update($validated);

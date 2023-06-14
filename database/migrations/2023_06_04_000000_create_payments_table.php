@@ -10,16 +10,18 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('user_id');  
-            $table->unsignedBigInteger('reservation_id')->nullable(); 
-            $table->decimal('amount', 8, 2);
-            $table->enum('payment_method', ['cc', 'transfer', 'wire']);
-            $table->enum('status', ['pending', 'paid', 'failed']);
+
+            $table->enum('payment_method', ['cc', 'transfer', 'wire'])->nullable();
+            $table->enum('status', ['pending', 'paid', 'failed'])->nullable();
+
+            $table->unsignedBigInteger('advertiser_id');  
+            $table->unsignedBigInteger('ad_id')->nullable(); 
+
             $table->timestamps();
             $table->softDeletes(); 
 
-           
-            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('set null');
+            //foreign keys
+            $table->foreign('ad_id')->references('id')->on('ads')->onDelete('set null');
 
 
         });
@@ -29,3 +31,4 @@ class CreatePaymentsTable extends Migration
         Schema::dropIfExists('payments');
     }
 }
+ 

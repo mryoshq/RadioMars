@@ -70,9 +70,5 @@
 @stop
 
 @section('js')
-    <script>
-        $(document).ready(function() {
-            // Add any additional JavaScript logic here
-        });
-    </script>
+
 @stop

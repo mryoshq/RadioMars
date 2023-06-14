@@ -8,26 +8,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ad extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;  
 
-    protected $fillable = ['campaign_id', 'pack_id', 'text_content', 'audio_content','status'];
+    protected $fillable = [ 'text_content', 'audio_content','status', 'advertiser_id', 'pack_id'];
 
-    public function campaign(): BelongsTo
+    public function advertiser(): BelongsTo
     {
-        return $this->belongsTo(Campaign::class);
+        return $this->belongsTo(Advertiser::class);
+    }
+    public function pack(): BelongsTo
+    {
+        return $this->belongsTo(Pack::class);
     }
  
-    public function reservation(): HasOne
+    public function payment(): HasOne
     {
-        return $this->hasOne(Reservation::class);
-    }
-    public function spots(): HasManyThrough
-    {
-        return $this->hasManyThrough(Spot::class, Reservation::class);
+        return $this->hasOne(Payment::class);
     }
     
 }

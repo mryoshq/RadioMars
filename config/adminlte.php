@@ -293,12 +293,7 @@ return [
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
-        [
-            'text'        => 'Calendrier',
-            'url'         => '#',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
+  
         ['header' => 'Management'],
         [
             'text'    => 'Users management',
@@ -316,10 +311,16 @@ return [
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
+                [
+                    'text'        => 'Advertisers',
+                    'url'         => 'advertisers',
+                    'icon'        => 'far fa-fw fa-file',
+                    'label_color' => 'success',
+                ]
             ],
         ],
         [
-            'text'    => 'Spot management',
+            'text'    => 'Ads management',
             'icon'    => '',
             'submenu' => [
                 [
@@ -329,8 +330,8 @@ return [
                     'label_color' => 'success',
                 ],
                 [
-                    'text'        => 'Spots',
-                    'url'         => 'spots',
+                    'text'        => 'Ads',
+                    'url'         => 'ads',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
@@ -342,12 +343,6 @@ return [
             'icon'    => '',
             'submenu' => [
                 [
-                    'text'        => 'Reservations',
-                    'url'         => 'reservations',
-                    'icon'        => 'far fa-fw fa-file',
-                    'label_color' => 'success',
-                ],
-                [
                     'text'        => 'Payments',
                     'url'         => 'payments',
                     'icon'        => 'far fa-fw fa-file',
@@ -357,24 +352,7 @@ return [
         ],
         
 
-        [
-            'text'    => 'Ads management',
-            'icon'    => '',
-            'submenu' => [
-                [
-                    'text'        => 'Campaigns',
-                    'url'         => 'campaigns',
-                    'icon'        => 'far fa-fw fa-file',
-                    'label_color' => 'success',
-                ],  
-                [
-                    'text'        => 'Ads',
-                    'url'         => 'ads',
-                    'icon'        => 'far fa-fw fa-file',
-                    'label_color' => 'success',
-                ],
-            ],
-        ],
+     
     
        
        

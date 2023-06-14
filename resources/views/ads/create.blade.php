@@ -3,7 +3,7 @@
 @section('title', 'Create Pack')
 
 @section('content_header')
-    <h1>Create Pack</h1>
+    <h1>Create ad </h1>
 @stop
 
 @section('content')
@@ -57,9 +57,8 @@
 @stop
 
 @section('js')
-    <script>
-        $(document).ready(function() {
-            // Add any additional JavaScript logic here
-        });
-    </script>
+@section('js')
+    
+@stop
+
 @stop

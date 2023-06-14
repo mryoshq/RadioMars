@@ -10,11 +10,11 @@ class Pack extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['name', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability'];
+    protected $fillable = ['name', 'price','spots_number', 'days_of_week', 'times_of_day', 'availability'];
 
-    public function Spots(): HasMany
+    public function ads(): HasMany
     {
-        return $this->hasMany(Spot::class);
+        return $this->hasMany(Ad::class);
     }
 }  
  

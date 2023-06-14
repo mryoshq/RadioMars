@@ -1,19 +1,19 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Campaign;
+use App\Models\Advertiser;
 
-class CampaignsTableSeeder extends Seeder
+class AdvertisersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Campaign::factory()->count(150)->create();
+        //
+        Advertiser::factory()->count(50)->create();
     }
 }

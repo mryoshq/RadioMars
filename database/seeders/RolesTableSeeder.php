@@ -12,7 +12,7 @@ class RolesTableSeeder extends Seeder
     {
         Role::factory()->create([
             'name' => 'Admin',
-            'permissions' => json_encode(['manage_users', 'manage_roles', 'manage_ads', 'manage_content', 'manage_spots']),
+            'permissions' => json_encode(['manage_users', 'manage_roles', 'manage_ads', 'manage_content']),
         ]);
 
         Role::factory()->create([
@@ -23,6 +23,10 @@ class RolesTableSeeder extends Seeder
         Role::factory()->create([
             'name' => 'Manager',
             'permissions' => json_encode(['manage_content', 'manage_spots']),
+        ]);
+        Role::factory()->create([
+            'name' => 'User',
+            'permissions' => json_encode(['view_packs', 'launch_ads']),
         ]);
     }
 }

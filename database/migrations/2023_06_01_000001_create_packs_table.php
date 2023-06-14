@@ -13,8 +13,8 @@ class CreatePacksTable extends Migration
             $table->string('name');
             $table->decimal('price', 8, 2);
             $table->integer('spots_number')->default(6);
-            $table->json('days_of_week')->nullable();
-            $table->json('times_of_day')->nullable(); 
+            $table->json('days_of_week');
+            $table->json('times_of_day'); 
             $table->boolean('availability')->default(1);
             $table->timestamps();
         });

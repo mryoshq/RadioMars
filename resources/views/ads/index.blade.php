@@ -13,11 +13,12 @@
     @php 
         $heads = [
             'ID',
-            'campaign_id',
-             'pack_id', 
+             
              'text_content', 
              'audio_content',
              'status',
+             'pack_id', 
+             'advertiser_id',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -37,7 +38,7 @@
                             </button>
                           </form>";
           
-            $adsArray[] = [$ad->id, $ad->campaign_id, $ad->pack_id, $ad->text_content, $ad->audio_content, $ad->status,  $btnEdit.$btnDetails.$btnDelete];
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $ad->status, $ad->pack_id, $ad->advertiser_id , $btnEdit.$btnDetails.$btnDelete];
         }
 
         $config = [
@@ -49,7 +50,7 @@
             'autoWidth' => false,
           
         ];
-    @endphp
+    @endphp 
 
     <div class="mb-4" style="text-align: right;">
     <a href="{{ route('ads.create') }}" class="btn btn-primary">

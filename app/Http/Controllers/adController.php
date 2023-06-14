@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use Illuminate\Http\Request;
-use App\Models\Campaign;
+use App\Models\Advertiser;
 use App\Models\Pack;
 
 class AdController extends Controller
@@ -18,24 +18,45 @@ class AdController extends Controller
 
     public function create()
     {
-        $campaigns = Campaign::all();
+        // we need pack for the drop down selection
         $packs = Pack::all();
-        return view('ads.create', compact('campaigns', 'packs'));
-    }
-    
+        $advertisers = Advertiser::all();
+        return view('ads.create', compact( 'packs'));
+    } 
+
+ 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'campaign_id' => 'required|exists:campaigns,id',
+            'advertiser_id' => 'required|exists:advertisers,id',
             'pack_id' => 'required|exists:packs,id',
             'text_content' => 'nullable|string',
             'audio_content' => 'nullable|string',
             'status' => 'required|in:active,not_active,paused',
         ]);
-    
-        $ad = Ad::create($validated);
+        
+        $ad = Ad::create($validated); 
     
         return redirect()->route('ads.show', $ad)->with('success', 'Ad created successfully');
+
+        /*
+        $request->validate([
+        'advertiser_id' => 'required|exists:advertisers,id',
+        'pack_id' => 'required|exists:packs,id',
+        'text_content' => 'nullable|string',
+        'audio_content' => 'nullable|string',
+        // 'status' is not included here, because we will initially set it to 'paused'
+    ]);
+
+    $ad = Ad::create([
+        'pack_id' => $request->pack_id,
+        'text_content' => $request->text_content,
+        'audio_content' => $request->audio_content,
+        'advertiser_id' => $request->advertiser_id,
+        'status' => 'paused',
+    ]);
+        */
+     
     }
     
 
@@ -52,9 +73,9 @@ class AdController extends Controller
     public function update(Request $request, Ad $ad)
     {
         $validated = $request->validate([
-            'campaign_id' => 'required|exists:campaigns,id',
             'pack_id' => 'required|exists:packs,id',
-            'text_content' => 'required',
+            'text_content' => 'nullable|string',
+            'audio_content' => 'nullable|string',
             'status' => 'required',
         ]);
 

@@ -14,8 +14,7 @@ class RoleFactory extends Factory
         return [
             'name' => $this->faker->word,
             'permissions' => json_encode($this->faker->words),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }
+ 

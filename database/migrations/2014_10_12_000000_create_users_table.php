@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
-{
+{ 
     /**
      * Run the migrations.
      *
@@ -15,17 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) { 
             $table->id();
+
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('password');
             $table->string('phone_number')->unique(); 
-            $table->unsignedBigInteger('role_id')->nullable();
+            $table->unsignedBigInteger('role_id');
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes(); 
 
-            // Creating foreign key constraints
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
+            //  foreign key constraints
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

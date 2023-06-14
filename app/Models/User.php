@@ -16,11 +16,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -29,21 +24,11 @@ class User extends Authenticatable
         'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -54,14 +39,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function campaigns(): HasMany
+    public function advertiser(): HasOne
     {
-        return $this->hasMany(Campaign::class);
+        return $this->hasOne(Advertiser::class);
     }
-    public function ads(): HasManyThrough
-    {
-        return $this->hasManyThrough(Ad::class, Campaign::class);
-    }
-
-
 }
