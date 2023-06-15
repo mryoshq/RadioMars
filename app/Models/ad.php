@@ -25,9 +25,10 @@ class Ad extends Model
         return $this->belongsTo(Pack::class);
     }
  
-    public function payment(): HasOne
+    public function payments()
     {
-        return $this->hasOne(Payment::class);
+        return $this->hasMany(Payment::class);
     }
+    
     
 }

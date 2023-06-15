@@ -323,7 +323,7 @@ return [
             'text'    => 'Ads management',
             'icon'    => '',
             'submenu' => [
-                [
+                [ 
                     'text'        => 'Packs',
                     'url'         => 'packs',
                     'icon'        => 'far fa-fw fa-file',

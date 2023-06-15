@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -34,13 +35,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // protected $with = ['role'];
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function advertiser(): HasOne
+    public function advertiser()
     {
         return $this->hasOne(Advertiser::class);
     }
+    
 }
