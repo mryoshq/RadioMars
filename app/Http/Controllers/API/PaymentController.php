@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Payment;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 
 use App\Http\Resources\PaymentResource;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
+
 
 class PaymentController extends Controller
 {
@@ -17,19 +18,17 @@ class PaymentController extends Controller
         $advertiser = $request->user()->advertiser;
     
         // Get the Ads related to this advertiser
-        $ads = $advertiser->ads;
+        $ads = $advertiser->ads()->with('payment')->get();
     
         // Prepare an empty array to store the payments
         $payments = [];
     
         // Check if $ads is not null
         if($ads) {
-            // Get the payments related to these ads
+            // Get the payment related to these ads
             foreach ($ads as $ad) {
-                if ($ad->payments) {
-                    foreach ($ad->payments as $payment) {
-                        $payments[] = $payment;
-                    }
+                if ($ad->payment) {
+                    $payments[] = $ad->payment;
                 }
             }
         }
@@ -37,9 +36,34 @@ class PaymentController extends Controller
         return PaymentResource::collection(collect($payments));
     }
     
-    
-    
+   
 
+    public function show($id, Request $request)
+    {
+        // Get the currently authenticated user's advertiser
+        $advertiser = $request->user()->advertiser;
+        
+        // Find the payment
+        $payment = Payment::find($id);
+        
+        if(!$payment){
+            // Return a 404 Not Found HTTP response
+            return response()->json(['error' => 'Payment not found'], 404);
+        }
+    
+        // Load the ad relationship for the payment
+        $payment->load('ad'); 
+    
+        // Check if the payment's related ad belongs to the authenticated user
+        if($payment->ad && $payment->ad->advertiser->id == $advertiser->id) {
+            // Return the payment
+            return new PaymentResource($payment);
+        } else {
+            // Return a 404 Not Found HTTP response
+            return response()->json(['error' => 'Payment not found for this user'], 404);
+        }
+    }
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -47,27 +71,51 @@ class PaymentController extends Controller
             'payment_method' => 'required|in:cc,transfer,wire',
             'status' => 'required|in:pending,paid,failed',
         ]);
-
-        $payment = Payment::create($validated);
-
+    
+        // Fetch the authenticated user's advertiser
+        $advertiser = $request->user()->advertiser;
+    
+        // Fetch the ad with the given id that belongs to the advertiser
+        $ad = $advertiser->ads()->find($validated['ad_id']);
+    
+        if (!$ad) {
+            // If the ad does not exist, return error response
+            return response()->json(['error' => 'No ad with such id for this user'], 403);
+        }
+    
+        // Create the payment
+        $payment = $ad->payment()->create(array_merge($validated, ['advertiser_id' => $advertiser->id]));
+    
         return new PaymentResource($payment);
     }
+    
+     
 
-    public function show(Payment $payment)
-    {
-        return new PaymentResource($payment);
-    }
 
     public function update(Request $request, Payment $payment)
     {
         $validated = $request->validate([
-            'ad_id' => 'required|exists:ads,id',
             'payment_method' => 'required|in:cc,transfer,wire',
             'status' => 'required|in:pending,paid,failed',
         ]);
-
-        $payment->update($validated);
-
-        return new PaymentResource($payment);
+    
+        // Fetch the authenticated user's advertiser
+        $advertiser = $request->user()->advertiser;
+        $ad = $advertiser->ads()->find($payment->ad_id);
+    
+        // Check if payment is related to the authenticated user
+        if ($ad) {
+            // Update the payment
+            $payment->update($validated);
+    
+            // Load the ad relationship
+            $payment->load('ad');
+    
+            return new PaymentResource($payment);
+        } else {
+            // If the ad related to the payment does not exist for the authenticated user, return an error response
+            return response()->json(['error' => 'No payment with such id for this user'], 404);
+        }
     }
+    
 }

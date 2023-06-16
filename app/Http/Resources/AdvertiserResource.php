@@ -12,14 +12,14 @@ class AdvertiserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
+     * 
      * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            //'id' => $this->id, 
+            'id' => $this->id, 
             'domain' => $this->domain,
             'firm' => $this->firm, 
             'user' => new UserResource($this->whenLoaded('user')),

@@ -17,14 +17,26 @@ use App\Http\Controllers\Api\PaymentController;
 | is assigned the "api" middleware group. Enjoy building your API! ´
 |
 */ 
+ 
 
-
-
-Route::apiResource('packs', PackController::class)->only(['index', 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/advertiser', [AdvertiserController::class, 'show']);
-    Route::put('/advertiser', [AdvertiserController::class, 'update']);
-    Route::apiResource('ads', AdController::class)->except(['destroy']);
-    Route::apiResource('payments', PaymentController::class)->except(['destroy']);
-});
+    Route::get('/advertiser', [AdvertiserController::class, 'show'])->name('advertiser.show');
+    Route::put('/advertiser', [AdvertiserController::class, 'update'])->name('advertiser.update');
+    
+    Route::apiResource('ads', AdController::class);
+    Route::apiResource('payments', PaymentController::class);
+
+}); 
+
+Route::apiResource('packs', PackController::class)->only(['index', 'show'])->names([
+    'index' => 'packs.index',
+    'show' => 'packs.show',
+]);
+
+
+
+Route::apiResource('packs', PackController::class)->only(['index', 'show'])->names([
+    'index' => 'packs.index',
+    'show' => 'packs.show',
+]);

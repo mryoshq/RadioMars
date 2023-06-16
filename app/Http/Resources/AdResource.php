@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources; 
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\AdvertiserResource;
@@ -12,14 +12,15 @@ class AdResource extends JsonResource
  
     public function toArray($request)
     {
-        return [
+        return [ 
             'id' => $this->id,
-            'text_content' => $this->text_content,
+            'text_content' => $this->text_content, 
             'audio_content' => $this->audio_content,
             'status' => $this->status,
             //'advertiser' => $this->advertiser_id,
-            'advertiser' => new AdvertiserResource($this->whenLoaded('advertiser')),
+            //'advertiser' => new AdvertiserResource($this->whenLoaded('advertiser')),
             'pack' => new PackResource($this->whenLoaded('pack')),
+            //'pack' => $this->pack_id,
             'payment' => new PaymentResource($this->whenLoaded('payment')),
         ];
     }

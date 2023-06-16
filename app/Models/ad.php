@@ -10,12 +10,25 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Advertiser;
+use App\Models\Pack;
+use App\Models\Payment;
+
+
 class Ad extends Model
 {
     use HasFactory, SoftDeletes;  
 
     protected $fillable = [ 'text_content', 'audio_content','status', 'advertiser_id', 'pack_id'];
 
+
+    protected static function booted()
+    {
+        static::creating(function ($ad) {
+            $ad->status = 'not_active';
+        });
+    }
+    
     public function advertiser(): BelongsTo
     {
         return $this->belongsTo(Advertiser::class);
@@ -25,9 +38,9 @@ class Ad extends Model
         return $this->belongsTo(Pack::class);
     }
  
-    public function payments()
+    public function payment(): HasOne
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasOne(Payment::class);
     }
     
     

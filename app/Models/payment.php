@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Ad;
 
 
 class Payment extends Model
@@ -15,9 +16,9 @@ class Payment extends Model
 
     protected $fillable = ['payment_method', 'status','advertiser_id','ad_id'];
 
-    public function ad(): BelongsTo
-    {
+    public function ad() {
         return $this->belongsTo(Ad::class);
     }
+    
 }
   
