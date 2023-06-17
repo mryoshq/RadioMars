@@ -12,9 +12,16 @@
             'ID',
             'Nom & prénom',
             'Email',
-            'numéro',
-            'rôle',
+            'Numéro',
+            'Rôle',
             ['label' => 'Actions', 'no-export' => true],
+        ];
+
+        $roles = [
+            1 => 'Admin',
+            2 => 'Validator',
+            3 => 'Manager',
+            4 => 'User',
         ];
 
         $usersArray = [];
@@ -33,19 +40,35 @@
                             </button>
                           </form>";
           
-            $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $user->role_id, $btnEdit.$btnDetails.$btnDelete];
+            $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $roles[$user->role_id], $btnEdit.$btnDetails.$btnDelete];
         }
 
         $config = [
             'data' => $usersArray,
-            'order' => [[0, 'asc']],
+            'order' => [[0, 'asc']], 
             'columns' => [null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
-          
         ];
     @endphp
+
+    
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
+
+
+
 
     <div class="mb-4" style="text-align: right;">
         <a href="{{ route('users.create') }}" class="btn btn-primary">
@@ -55,4 +78,18 @@
 
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
+@stop
+
+
+@section('js')
+  <script>
+        $(document).ready(function() {
+            // Automatically hide the success and deleted messages after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
 @stop

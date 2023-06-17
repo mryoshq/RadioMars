@@ -23,7 +23,12 @@ class Advertiser extends Model
         'firm',
         'user_id', 
     ];
-     
+
+    public static function getDomainEnumValues()
+    {
+        return ['artisanal1', 'artisanal2', 'artisanal3', 'artisanal4', 'artisanal5', 'artisanal6', 'artisanal7', 'artisanal8', 'artisanal9', 'artisanal10'];
+    }
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class); 

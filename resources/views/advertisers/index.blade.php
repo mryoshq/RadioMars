@@ -4,18 +4,17 @@
 
 @section('content_header')
     <h1>Advertisers</h1>
-@stop
+@stop 
 
 @section('content')
     @php
         $heads = [
-            'ID', 
+            'ID',
             'Nom & prénom',
             'Email',
-            'numéro', 
-            'firm',
-            'domain',
-            'user_id',
+            'Numéro',
+            'Entreprise',
+            'Domaine',
             ['label' => 'Actions', 'no-export' => true],
         ];
 
@@ -34,28 +33,56 @@
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
-          
+
             $user = $advertiser->user;
-            $advertisersArray[] = [$advertiser->id, $user->name, $user->email, $user->phone_number,  $advertiser->firm, $advertiser->domain,$user->id, $btnEdit.$btnDetails.$btnDelete];
+            if ($user) {
+                $advertisersArray[] = [$advertiser->id, $user->name, $user->email, $user->phone_number, $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+            } else {
+                $advertisersArray[] = [$advertiser->id, '', '', '', $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+            }
         }
 
         $config = [
             'data' => $advertisersArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null, null,null, null, ['orderable' => false]],
+            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
-          
         ];
     @endphp
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
+
     <div class="mb-4" style="text-align: right;">
         <a href="{{ route('advertisers.create') }}" class="btn btn-primary">
-            Create User
+            Create Advertiser
         </a>
     </div>
 
-
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
+@stop
+
+@section('js')
+<script>
+        $(document).ready(function() {
+            // Automatically hide the success and deleted messages after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
 @stop

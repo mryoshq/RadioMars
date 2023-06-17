@@ -21,15 +21,19 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'permissions' => 'required',
         ]);
     
-        $role = Role::create($validated);
+        $role = new Role();
+        $role->name = $validatedData['name'];
+        $role->permissions = json_encode([$validatedData['permissions']]);
+        $role->save();
     
-        return redirect()->route('roles.show', $role)->with('success', 'Role created successfully');
+        return redirect()->route('roles.index')->with('success', 'Role created successfully!');
     }
+    
 
     public function show(Role $role)
     {
@@ -56,6 +60,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('deleted', 'Role deleted successfully!');
     }
 }

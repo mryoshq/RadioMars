@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pack;
 use Illuminate\Http\Request;
-
+ 
 
 class PackController extends Controller
 {
@@ -17,24 +17,36 @@ class PackController extends Controller
 
     public function create()
     {
-        return view('packs.create');
+        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $timesOfDay = ['07:25:00', '10:25:00', '14:55:00', '17:25:00', '19:10:00'];
+    
+        return view('packs.create', compact('daysOfWeek', 'timesOfDay'));
     }
-
+    
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'spots_number' => 'required|integer',
-            'days_of_week' => 'required|array',
-            'times_of_day' => 'required|array',
-            'availability' => 'required|boolean',
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric'],
+            'spots_number' => ['required', 'integer'],
+            'days_of_week' => ['array'],
+            'times_of_day' => ['array'],
+            'availability' => ['boolean'],
         ]);
     
-        $pack = Pack::create($validated);
+        $pack = new Pack();
+        $pack->name = $validated['name'];
+        $pack->price = $validated['price'];
+        $pack->spots_number = $validated['spots_number'];
+        $pack->days_of_week = json_encode($validated['days_of_week']);
+        $pack->times_of_day = json_encode($validated['times_of_day']);
+        $pack->availability = isset($validated['availability']) ? $validated['availability'] : true;
+        $pack->save();
     
-        return redirect()->route('packs.show', $pack)->with('success', 'Pack created successfully');
+        return redirect()->route('packs.index', $pack)->with('success', 'Pack created successfully');
     }
+    
     
 
     public function show(Pack $pack)
@@ -56,7 +68,7 @@ class PackController extends Controller
             'days_of_week' => 'required|array',
             'times_of_day' => 'required|array',
             'availability' => 'required',
-        ]);
+        ]); 
 
         $pack->update($validated);
 
@@ -66,6 +78,6 @@ class PackController extends Controller
     public function destroy(Pack $pack)
     {
         $pack->delete();
-        return redirect()->route('packs.index');
+        return redirect()->route('packs.index')->with('deleted', 'Pack deleted successfully!');
     }
 }

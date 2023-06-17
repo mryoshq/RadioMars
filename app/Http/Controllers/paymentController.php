@@ -6,8 +6,16 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\Advertiser;
 use App\Models\Ad;
+use App\Models\User;
+use App\Models\Pack;
+
+use Illuminate\Support\Facades\DB;
+ 
 
 use Illuminate\Http\Request;
+
+
+ 
 
 class PaymentController extends Controller
 {
@@ -16,15 +24,27 @@ class PaymentController extends Controller
         $payments = Payment::all();
         return view('payments.index', compact('payments'));
     }
-
-    public function create()
+    public function create() 
     {
-        $advertisers = Advertiser::all();
-        $ads = Ad::all();
-        return view('payments.create', compact('advertisers', 'ads'));
+        $packs = Pack::all();
+        $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
+                                 ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
+                                 ->pluck('name', 'id');
+        return view('payments.create', compact('advertisers', 'packs'));
+    }
+    public function getAds(Request $request)
+    {
+        dd('getAds method called');
+        $advertiserId = $request->input('advertiser_id');
+        dd($advertiserId); 
+        $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id');
+        dd($ads);
+        return response()->json($ads);
     }
     
-
+     
+     
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -36,8 +56,10 @@ class PaymentController extends Controller
     
         $payment = Payment::create($validated);
     
-        return redirect()->route('payments.show', $payment)->with('success', 'Payment created successfully');
+        return redirect()->route('payments.index', $payment)->with('success', 'Payment created successfully');
     }
+    
+    
     
 
     public function show(Payment $payment)
@@ -69,6 +91,7 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         $payment->delete();
-        return redirect()->route('payments.index');
+        return redirect()->route('payments.index', $payment)->with('deleted', 'Payment deleted successfully!');
+ 
     }
 }

@@ -14,11 +14,11 @@
         $heads = [
             'ID',
              
-             'text_content', 
-             'audio_content',
-             'status',
-             'pack_id', 
-             'advertiser_id',
+             'Texte', 
+             'Audio',
+             'Status',
+             'Pack', 
+             'Propriétaire',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -52,6 +52,20 @@
         ];
     @endphp 
 
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
+
     <div class="mb-4" style="text-align: right;">
     <a href="{{ route('ads.create') }}" class="btn btn-primary">
         Create ad
@@ -60,4 +74,18 @@
 
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
+@stop
+
+
+@section('js')
+  <script>
+        $(document).ready(function() {
+            // Automatically hide the success and deleted messages after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
 @stop

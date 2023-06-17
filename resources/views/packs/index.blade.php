@@ -11,7 +11,13 @@
 @section('content')
     @php
         $heads = [
-            'ID','name', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability',  ['label' => 'Actions', 'no-export' => true , 'width' => 5],
+            'ID',
+            'Titre', 
+            'Prix', 
+            'Nb Spots', 
+            'Jours', 
+            'Horaires', 
+            'Disponibilités',  ['label' => 'Actions', 'no-export' => true , 'width' => 5],
         ];
 
         $packsArray = [];
@@ -45,6 +51,20 @@
         ];
     @endphp
 
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
+
     <div class="mb-4" style="text-align: right;">
     <a href="{{ route('packs.create') }}" class="btn btn-primary">
         Create pack
@@ -53,4 +73,19 @@
 
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
+@stop
+
+
+
+@section('js')
+  <script>
+        $(document).ready(function() {
+            // Automatically hide the success and deleted messages after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
 @stop

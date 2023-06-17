@@ -1,52 +1,64 @@
 @extends('adminlte::page')
 
-@section('title', 'Create Pack')
+@section('title', 'Create Ad')
 
 @section('content_header')
-    <h1>Create ad </h1>
+    <h1>Créer une publicité</h1>
 @stop
 
+@section('plugins.BootstrapSelect', true)
+ 
 @section('content')
-    <div class="col-md-6">
-        <x-adminlte-card title="Pack Information" theme="dark" icon="fas fa-plus">
-            <form action="{{ route('packs.store') }}" method="POST">
+    <div class="d-flex justify-content-center">
+    <div class="col-md-6 col-sm-8 col-12">
+        <x-adminlte-card title="Remplir les informations de la publicité" theme="dark" icon="fas fa-plus">
+            <form action="{{ route('ads.store') }}" method="POST">
                 @csrf
 
-                <x-adminlte-input name="name" label="Name" placeholder="Enter name" required>
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-user text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+                @php
+                    $config = [
+                        "title" => "Sélectionner un Pack",
+                        "liveSearch" => true,
+                        "liveSearchPlaceholder" => "Chercher",
+                        "showTick" => true,
+                        "actionsBox" => true,
+                    ];
+                    $config2 = [
+                        "title" => "Sélectionner un client",
+                        "liveSearch" => true,
+                        "liveSearchPlaceholder" => "Chercher",
+                        "showTick" => true,
+                        "actionsBox" => true,
+                    ];
+                @endphp
 
-                <x-adminlte-input name="price" type="number" label="Price" placeholder="Enter price" required>
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-
-                <x-adminlte-input name="spots_number" type="number" label="Spots Number" placeholder="Enter spots number" required>
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-users text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-
-                <x-adminlte-select2 name="days_of_week[]" label="Days of Week" label-class="text-lightblue" data-placeholder="Select days of week" multiple>
-                    @foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
-                        <option value="{{ $day }}">{{ $day }}</option>
+                <x-adminlte-select-bs name="advertiser_id" label="Client" label-class="text-lightblue" data-placeholder="Select advertiser" required :config="$config2">
+                    @foreach($advertisers as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
                     @endforeach
-                </x-adminlte-select2>
+                </x-adminlte-select-bs>
 
-                <x-adminlte-select2 name="times_of_day[]" label="Times of Day" label-class="text-lightblue" data-placeholder="Select times of day" multiple>
-                    @foreach (['07:25:00', '10:25:00', '14:55:00', '17:25:00', '19:10:00'] as $time)
-                        <option value="{{ $time }}">{{ $time }}</option>
+                <x-adminlte-select-bs name="pack_id" label="Pack" label-class="text-lightblue" data-placeholder="Select pack" required :config="$config">
+                    @foreach ($packs as $pack)
+                        <option value="{{ $pack->id }}">{{ $pack->name }}</option>
                     @endforeach
-                </x-adminlte-select2>
+                </x-adminlte-select-bs>
+
+                <div class="form-group">
+                    <label for="text_content" class="text-lightblue">Contenu Textuel</label>
+                    <input type="text" name="text_content" id="text_content" class="form-control" placeholder="Entrer le texte de la pub">
+                </div>
+
+                <div class="form-group">
+                    <label for="audio_content" class="text-lightblue">Contenu Audio</label>
+                    <input type="url" name="audio_content" id="audio_content" class="form-control" placeholder="Entrer l'url de l'audio">
+                </div>
+
+                <x-adminlte-select-bs name="status" label="Status" label-class="text-lightblue" data-placeholder="Selectionner le status de la pub" required>
+                    <option value="active">Activée</option>
+                    <option value="not_active">Non Activée</option>
+                    <option value="paused">En pause</option>
+                </x-adminlte-select-bs>
 
                 <div class="d-flex justify-content-end">
                     <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
@@ -54,11 +66,29 @@
             </form>
         </x-adminlte-card>
     </div>
+    </div>
 @stop
 
-@section('js')
-@section('js')
-    
-@stop
+@push('js')
+<script>
+    $(document).ready(function() {
+        // Disable audio_content if text_content is filled
+        $('#text_content').on('input', function() {
+            if ($(this).val().trim() !== '') {
+                $('#audio_content').prop('disabled', true);
+            } else {
+                $('#audio_content').prop('disabled', false);
+            }
+        });
 
-@stop
+        // Disable text_content if audio_content is filled
+        $('#audio_content').on('input', function() {
+            if ($(this).val().trim() !== '') {
+                $('#text_content').prop('disabled', true);
+            } else {
+                $('#text_content').prop('disabled', false);
+            }
+        });
+    });
+</script>
+@endpush

@@ -13,10 +13,10 @@
         $heads = [
             'ID',
          
-            'payment_method', 
-            'status',
-            'advertiser_id',
-            'ad_id',
+            'Méthode', 
+            'Status',
+            'Propriétaire',
+            'Publicité',
             ['label' => 'Actions', 'no-export' => true],
         ];
 
@@ -50,6 +50,20 @@
         ];
     @endphp
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            {{ session('deleted') }}
+        </div>
+    @endif
+
+
     <div class="mb-4" style="text-align: right;">
     <a href="{{ route('payments.create') }}" class="btn btn-primary">
         Create payment
@@ -58,4 +72,18 @@
 
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
+@stop
+
+
+@section('js')
+  <script>
+        $(document).ready(function() {
+            // Automatically hide the success and deleted messages after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
 @stop

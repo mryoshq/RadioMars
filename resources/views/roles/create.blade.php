@@ -7,7 +7,8 @@
 @stop
 
 @section('content')
-    <div class="col-md-6">
+    <div class="d-flex justify-content-center">
+    <div class="col-md-6 col-sm-8 col-12">
         <x-adminlte-card title="Role Information" theme="dark" icon="fas fa-plus">
             <form action="{{ route('roles.store') }}" method="POST">
                 @csrf
@@ -20,7 +21,7 @@
                     </x-slot>
                 </x-adminlte-input>
 
-                <x-adminlte-input name="permissions" label="Permissions" placeholder="Enter permissions" required>
+                <x-adminlte-input name="permissions" label="Permissions" placeholder="Enter permissions (e.g., &quot;permission1&quot;, &quot;permission2&quot;)" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-lock text-lightblue"></i>
@@ -34,12 +35,10 @@
             </form>
         </x-adminlte-card>
     </div>
+    </div>
 @stop
 
+
 @section('js')
-    <script>
-        $(document).ready(function() {
-            // Add any additional JavaScript logic here
-        });
-    </script>
+
 @stop

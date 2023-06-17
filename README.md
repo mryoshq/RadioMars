@@ -85,3 +85,10 @@ Authentication: Register, login and logout endpoints.
 Advertiser: Get and update advertiser's information.
 Ads: CRUD operations on ads.
 Payments: CRUD operations on payments.
+
+
+
+
+# observations and notes
+
+'allowed_methods' url to be replaced with the react url in cors.php file

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AdvertiserController;
 use App\Http\Controllers\Api\PackController;
 use App\Http\Controllers\Api\AdController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('ads', AdController::class);
     Route::apiResource('payments', PaymentController::class);
 
+
+
 }); 
 
 Route::apiResource('packs', PackController::class)->only(['index', 'show'])->names([
@@ -35,8 +38,9 @@ Route::apiResource('packs', PackController::class)->only(['index', 'show'])->nam
 ]);
 
 
+// Registration route
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::apiResource('packs', PackController::class)->only(['index', 'show'])->names([
-    'index' => 'packs.index',
-    'show' => 'packs.show',
-]);
+// Login route
+Route::post('/login', [AuthController::class, 'login']);
+

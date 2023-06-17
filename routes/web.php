@@ -25,7 +25,6 @@ use App\Http\Controllers\PaymentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('home');
@@ -39,17 +38,16 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
+//oute::get('/advertisers/ads', [PaymentController::class, 'getAds'])->name('advertisers.getAds');
 
 
 
 Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class); 
-
-
+Route::resource('users', UserController::class);
 
 Route::resource('packs', PackController::class);
 Route::resource('ads', AdController::class);
+
 Route::resource('advertisers', AdvertiserController::class);
 
 Route::resource('payments', PaymentController::class);
