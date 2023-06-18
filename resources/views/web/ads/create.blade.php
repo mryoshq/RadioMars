@@ -3,7 +3,14 @@
 @section('title', 'Create Ad')
 
 @section('content_header')
-    <h1>Créer une publicité</h1>
+<div class="d-flex justify-content-center">
+    <div class="col-md-8">
+        <x-adminlte-card theme="lime" theme-mode="outline">
+            <h2>Créer une publicité</h2>
+        </x-adminlte-card>
+    </div>
+</div>
+
 @stop
 
 @section('plugins.BootstrapSelect', true)
@@ -32,7 +39,7 @@
                     ];
                 @endphp
 
-                <x-adminlte-select-bs name="advertiser_id" label="Client" label-class="text-lightblue" data-placeholder="Select advertiser" required :config="$config2">
+                <x-adminlte-select-bs name="advertiser_id" label="Client - ID" label-class="text-lightblue" data-placeholder="Select advertiser" required :config="$config2">
                     @foreach($advertisers as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
                     @endforeach
@@ -61,7 +68,7 @@
                 </x-adminlte-select-bs>
 
                 <div class="d-flex justify-content-end">
-                    <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
+                    <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Enregistrer"/>
                 </div>
             </form>
         </x-adminlte-card>

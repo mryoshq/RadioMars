@@ -8,11 +8,11 @@
 
 @section('content')
 <div class="d-flex justify-content-center">
-<div class="col-md-6 col-sm-8 col-12">
+<div class="col-md-8 col-sm-8 col-12">
 <x-adminlte-card title="Remplir les informations" theme="dark" icon="">
-    <form action="{{ route('users.store') }}" method="POST">
+    <form action="{{ route('web.users.store') }}" method="POST">
         @csrf
-        <x-adminlte-input name="name" label="Nom & prénom" placeholder="Enter name" value="{{ old('name') }}" required>
+        <x-adminlte-input name="name" label="Nom & prénom" placeholder="Entrer le nom complet" label-class="text-lightblue" value="{{ old('name') }}" required>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-user text-lightblue"></i>
@@ -20,7 +20,7 @@
             </x-slot>
         </x-adminlte-input>
 
-        <x-adminlte-input name="email" type="email" label="E-mail" placeholder="Enter email" value="{{ old('email') }}" required>
+        <x-adminlte-input name="email" type="email" label="E-mail" placeholder="Entrer un email valide" label-class="text-lightblue" value="{{ old('email') }}" required>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-envelope text-lightblue"></i>
@@ -28,7 +28,7 @@
             </x-slot>
         </x-adminlte-input>
 
-        <x-adminlte-input name="password" type="password" label="Mot de passe" placeholder="Enter password" required>
+        <x-adminlte-input name="password" type="password" label="Mot de passe" placeholder="Entrer un mot de passe"  label-class="text-lightblue" required>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-lock text-lightblue"></i>
@@ -36,7 +36,7 @@
             </x-slot>
         </x-adminlte-input>
 
-        <x-adminlte-input name="phone_number" id="phone_number" label="Numéro de télephone" placeholder="Enter phone number" value="{{ old('phone_number') }}" required>
+        <x-adminlte-input name="phone_number" id="phone_number" label="Numéro de télephone" placeholder="Introduire un numéro de telephone valide" label-class="text-lightblue" value="{{ old('phone_number') }}" required>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-phone text-lightblue"></i>
@@ -46,19 +46,19 @@
         <span id="phone_number_error" class="text-danger"></span>
 
 
-        <x-adminlte-select2 name="role_id" label="Rôle utilisateur" label-class="text-lightblue" data-placeholder="Select a role..." required>
+        <x-adminlte-select2 name="role_id" label="Rôle utilisateur" label-class="text-lightblue" data-placeholder="Selectionner un rôle" required>
             <x-slot name="prependSlot">
                 <div class="input-group-text bg-gradient-info">
                     <i class="fas fa-user-tag"></i>
                 </div>
             </x-slot>
             @foreach($roles as $role)
-                <option value="{{ $role->id }}" {{ $role->name == 'Validator' ? 'selected' : '' }}>{{ $role->name }}</option>
+                <option value="{{ $role->id }}" {{ $role->name == 'User' ? 'selected' : '' }}>{{ $role->name }}</option>
             @endforeach
         </x-adminlte-select2>
 
         <div class="mb-4" style="text-align: right;">
-            <x-adminlte-button class="btn-flat" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
+            <x-adminlte-button class="btn-flat" type="submit" theme="success" icon="fas fa-lg fa-save" label="Enregistrer"/>
         </div>
     </form>
     </x-adminlte-card>

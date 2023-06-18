@@ -14,14 +14,14 @@ class UserController extends Controller
     {
         $users = User::latest()->get();
         
-        return view('users.index', compact('users'));
+        return view('web.users.index', compact('users'));
     }
 
     public function create()
     {
         $user = new User();
         $roles = Role::all();
-        return view('users.create', compact('user', 'roles'));
+        return view('web.users.create', compact('user', 'roles'));
     }
     
     
@@ -48,41 +48,49 @@ class UserController extends Controller
         ]);
     
         // Redirect the user back with a success message
-        return redirect()->route('users.index')->with('success', 'User created successfully');
+        return redirect()->route('web.users.index')->with('success', 'User created successfully');
     }
     
 
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        return view('web.users.show', compact('user'));
     }
  
     public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
+{
+    $roles = Role::all();  // Assuming you have a Role model to fetch all roles.
+    return view('web.users.edit', compact('user', 'roles'));
+}
+
+public function update(Request $request, User $user)
+{
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
+        'password' => ['nullable', 'string', 'min:8'],
+        'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/', 'unique:users,phone_number,'.$user->id],
+        'role_id' => ['required', 'integer', 'exists:roles,id'],
+    ]);
+
+    if($request->filled('password')) {
+        $validated['password'] = Hash::make($request->password);
+    } else {
+        // if password input is not filled, exclude it from the update data
+        unset($validated['password']);
     }
 
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'phone_number' => 'required|unique:users,phone_number,'.$user->id,
-            'role_id' => 'required|exists:roles,id',
-        ]);
+    $user->update($validated);
 
-        if($request->has('password')){
-            $validated['password'] = bcrypt($request->password);
-        }
+    return redirect()->route('web.users.index')->with('success', 'User updated successfully.');
+}
 
-        $user->update($validated);
 
-        return redirect()->route('users.show', $user);
-    }
+
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('deleted', 'User deleted successfully!');
+        return redirect()->route('web.users.index')->with('deleted', 'User deleted successfully!');
     }
 }

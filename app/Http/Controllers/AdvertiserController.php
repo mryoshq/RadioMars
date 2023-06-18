@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
 
+
 class AdvertiserController extends Controller
 {
     
@@ -16,7 +17,7 @@ class AdvertiserController extends Controller
     {
         $advertisers = Advertiser::with('user')->get();
     
-        return view('advertisers.index', compact('advertisers'));
+        return view('web.advertisers.index', compact('advertisers'));
     }
     
 
@@ -25,7 +26,7 @@ class AdvertiserController extends Controller
         $advertiser = new Advertiser();
         $roles = Role::all();
         $domains = Advertiser::getDomainEnumValues(); 
-        return view('advertisers.create', compact('advertiser', 'roles', 'domains'));
+        return view('web.advertisers.create', compact('advertiser', 'roles', 'domains'));
     }
     
     
@@ -58,22 +59,25 @@ class AdvertiserController extends Controller
     ]);
 
     // Redirect the user back with a success message
-    return redirect()->route('advertisers.index')->with('success', 'Advertiser created successfully');
+    return redirect()->route('web.advertisers.index')->with('success', 'Advertiser created successfully');
 }
 
     
   
     public function show(Advertiser $advertiser)
     {
-        return view('advertisers.show', compact('advertiser'));
+        return view('web.advertisers.show', compact('advertiser'));
     }
 
    
     public function edit(Advertiser $advertiser)
     {
-        return view('advertisers.edit', compact('advertiser'));
-    }
+        $user = $advertiser->user;
+        $domains = ['artisanal1', 'artisanal2', 'artisanal3', 'artisanal4', 'artisanal5', 'artisanal6', 'artisanal7', 'artisanal8', 'artisanal9', 'artisanal10'];
 
+        return view('web.advertisers.edit', compact('advertiser', 'user', 'domains'));
+    }
+    
    
     public function update(Request $request, Advertiser $advertiser)
     {
@@ -81,17 +85,35 @@ class AdvertiserController extends Controller
             'domain' => 'required',
             'firm' => 'required',
             'user_id' => 'required',
-        ]); 
-
-        $advertiser->update($data);
-
-        return redirect()->route('advertisers.index');
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$advertiser->user->id],
+            'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/', 'unique:users,phone_number,'.$advertiser->user->id],
+        ]);
+    
+        if($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+    
+        $advertiser->update([
+            'domain' => $data['domain'],
+            'firm' => $data['firm'],
+        ]);
+     
+        $advertiser->user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone_number' => $data['phone_number'],
+            'password' => $data['password'] ?? $advertiser->user->password,
+        ]);
+    
+        return redirect()->route('web.advertisers.index')->with('success', 'Advertiser updated successfully.');
     }
+    
 
     public function destroy(Advertiser $advertiser)
     {
         $advertiser->delete();
 
-        return redirect()->route('advertisers.index')->with('deleted', 'Advertiser deleted successfully!');
+        return redirect()->route('web.advertisers.index')->with('deleted', 'Advertiser deleted successfully!');
     }
 }

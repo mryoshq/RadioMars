@@ -16,7 +16,7 @@ class AdController extends Controller
     public function index()
     {
         $ads = Ad::all();
-        return view('ads.index', compact('ads'));
+        return view('web.ads.index', compact('ads'));
     }
     public function create()
     {
@@ -24,7 +24,7 @@ class AdController extends Controller
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
                                  ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
                                  ->pluck('name', 'id');
-        return view('ads.create', compact('packs', 'advertisers'));
+        return view('web.ads.create', compact('packs', 'advertisers'));
     }
     
      
@@ -43,38 +43,19 @@ class AdController extends Controller
     
         $ad = Ad::create($validated);
     
-        return redirect()->route('ads.index', $ad)->with('success', 'Ad created successfully');
+        return redirect()->route('web.ads.index', $ad)->with('success', 'Ad created successfully');
     }
-    
-        /* 
-        $request->validate([
-        'advertiser_id' => 'required|exists:advertisers,id',
-        'pack_id' => 'required|exists:packs,id',
-        'text_content' => 'nullable|string',
-        'audio_content' => 'nullable|string',
-        // 'status' is not included here, because we will initially set it to 'paused'
-    ]);
-
-    $ad = Ad::create([
-        'pack_id' => $request->pack_id,
-        'text_content' => $request->text_content,
-        'audio_content' => $request->audio_content,
-        'advertiser_id' => $request->advertiser_id,
-        'status' => 'paused',
-    ]);
-        */
      
-    
     
 
     public function show(Ad $ad)
     {
-        return view('ads.show', compact('ad'));
+        return view('web.ads.show', compact('ad'));
     }
 
     public function edit(Ad $ad)
     {
-        return view('ads.edit', compact('ad'));
+        return view('web.ads.edit', compact('ad'));
     }
 
     public function update(Request $request, Ad $ad)
@@ -88,19 +69,15 @@ class AdController extends Controller
 
         $ad->update($validated);
 
-        return redirect()->route('ads.show', $ad);
+        return redirect()->route('web.ads.show', $ad);
     }
 
     public function destroy(Ad $ad)
     {
         $ad->delete();
-        return redirect()->route('ads.index')->with('deleted', 'Ad deleted successfully!');
+        return redirect()->route('web.ads.index')->with('deleted', 'Ad deleted successfully!');
     }
 
-    public function getAdsByAdvertiser($advertiserId)
-{
-    $ads = Ad::where('advertiser_id', $advertiserId)->get();
-    return response()->json(['ads' => $ads]);
-}
-
+    
+ 
 }

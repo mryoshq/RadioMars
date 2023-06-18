@@ -1,57 +1,56 @@
 @extends('adminlte::page')
 
-@section('title', 'Ads')
+@section('title', 'Roles')
 
 @section('content_header')
-    <h1>Publicités</h1>
+    <x-adminlte-card theme="lime" theme-mode="outline">
+    <h1>Rôles</h1>
+    </x-adminlte-card>
 @stop
 
-
-
-
-@section('content') 
-    @php 
+@section('content')
+    @php
         $heads = [
             'ID',
-             
-             'Texte', 
-             'Audio',
-             'Status',
-             'Pack', 
-             'Propriétaire',
+            'Name',
+            'Permissions',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
-        $adsArray = [];
+        $rolesArray = [];
 
-        foreach ($ads as $ad) {
-            $btnEdit = "<a href='".route('ads.edit', $ad)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
+        foreach ($roles as $role) {
+            $permissions = json_decode($role->permissions, true);
+            $formattedPermissions = '';
+            foreach ($permissions as $permission) {
+                $formattedPermissions .= "<span class='badge bg-primary'>" . $permission . "</span>&nbsp;";
+            }
+          
+            $btnEdit = "<a href='".route('web.roles.edit', $role)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('ads.show', $ad)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
+            $btnDetails = "<a href='".route('web.roles.show', $role)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
                             <i class='fa fa-lg fa-fw fa-eye'></i>
                         </a>";
-            $btnDelete = "<form action='".route('ads.destroy', $ad)."' method='POST' style='display:inline'>
+            $btnDelete = "<form action='".route('web.roles.destroy', $role)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
           
-            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $ad->status, $ad->pack_id, $ad->advertiser_id , $btnEdit.$btnDetails.$btnDelete];
+            $rolesArray[] = [$role->id, $role->name, $formattedPermissions, $btnEdit.$btnDetails.$btnDelete];
         }
 
         $config = [
-            'data' => $adsArray,
+            'data' => $rolesArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
-          
         ];
-    @endphp 
-
+    @endphp
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -67,11 +66,10 @@
     @endif
 
     <div class="mb-4" style="text-align: right;">
-    <a href="{{ route('ads.create') }}" class="btn btn-primary">
-        Create ad
-    </a>
-</div>
-
+        <a href="{{ route('web.roles.create') }}" class="btn btn-primary">
+            Create role
+        </a>
+    </div>
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
 @stop

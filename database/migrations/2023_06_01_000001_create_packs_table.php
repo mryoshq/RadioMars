@@ -15,7 +15,7 @@ class CreatePacksTable extends Migration
             $table->integer('spots_number')->default(6);
             $table->json('days_of_week');
             $table->json('times_of_day'); 
-            $table->boolean('availability')->default(1);
+            $table->boolean('availability')->default(0);
             $table->timestamps();
         });
     }

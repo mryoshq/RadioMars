@@ -22,27 +22,26 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::all();
-        return view('payments.index', compact('payments'));
+        return view('web.payments.index', compact('payments'));
     }
     public function create() 
     {
-        $packs = Pack::all();
+  
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
                                  ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
                                  ->pluck('name', 'id');
-        return view('payments.create', compact('advertisers', 'packs'));
+        return view('web.payments.create', compact('advertisers'));
     }
+
     public function getAds(Request $request)
     {
-        dd('getAds method called');
         $advertiserId = $request->input('advertiser_id');
-        dd($advertiserId); 
-        $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id');
-        dd($ads);
+        $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id')->toArray();
         return response()->json($ads);
-    }
-    
+}
+
      
+      
      
     
     public function store(Request $request)
@@ -56,7 +55,7 @@ class PaymentController extends Controller
     
         $payment = Payment::create($validated);
     
-        return redirect()->route('payments.index', $payment)->with('success', 'Payment created successfully');
+        return redirect()->route('web.payments.index', $payment)->with('success', 'Payment created successfully');
     }
     
     
@@ -64,12 +63,12 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
-        return view('payments.show', compact('payment'));
+        return view('web.payments.show', compact('payment'));
     }
 
     public function edit(Payment $payment)
     {
-        return view('payments.edit', compact('payment'));
+        return view('web.payments.edit', compact('payment'));
     }
 
     public function update(Request $request, Payment $payment)
@@ -85,13 +84,13 @@ class PaymentController extends Controller
 
         $payment->update($validated);
 
-        return redirect()->route('payments.show', $payment);
+        return redirect()->route('web.payments.show', $payment);
     }
 
     public function destroy(Payment $payment)
     {
         $payment->delete();
-        return redirect()->route('payments.index', $payment)->with('deleted', 'Payment deleted successfully!');
+        return redirect()->route('web.payments.index', $payment)->with('deleted', 'Payment deleted successfully!');
  
     }
 }

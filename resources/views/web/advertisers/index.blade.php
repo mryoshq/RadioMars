@@ -1,10 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Users')
+@section('title', 'Advertisers')
 
 @section('content_header')
-    <h1>Utilisateurs</h1>
-@stop
+    <x-adminlte-card theme="lime" theme-mode="outline">
+    <h1>Clients</h1>
+    </x-adminlte-card>
+@stop 
 
 @section('content')
     @php
@@ -13,47 +15,45 @@
             'Nom & prénom',
             'Email',
             'Numéro',
-            'Rôle',
+            'Entreprise',
+            'Domaine',
             ['label' => 'Actions', 'no-export' => true],
         ];
 
-        $roles = [
-            1 => 'Admin',
-            2 => 'Validator',
-            3 => 'Manager',
-            4 => 'User',
-        ];
+        $advertisersArray = [];
 
-        $usersArray = [];
-
-        foreach ($users as $user) {
-            $btnEdit = "<a href='".route('users.edit', $user)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
+        foreach ($advertisers as $advertiser) {
+            $btnEdit = "<a href='".route('web.advertisers.edit', $advertiser)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('users.show', $user)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
+            $btnDetails = "<a href='".route('web.advertisers.show', $advertiser)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
                             <i class='fa fa-lg fa-fw fa-eye'></i>
                         </a>";
-            $btnDelete = "<form action='".route('users.destroy', $user)."' method='POST' style='display:inline'>
+            $btnDelete = "<form action='".route('web.advertisers.destroy', $advertiser)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
-          
-            $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $roles[$user->role_id], $btnEdit.$btnDetails.$btnDelete];
+
+            $user = $advertiser->user;
+            if ($user) {
+                $advertisersArray[] = [$advertiser->id, $user->name, $user->email, $user->phone_number, $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+            } else {
+                $advertisersArray[] = [$advertiser->id, '', '', '', $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+            }
         }
 
         $config = [
-            'data' => $usersArray,
-            'order' => [[0, 'asc']], 
-            'columns' => [null, null, null, null, null, ['orderable' => false]],
+            'data' => $advertisersArray,
+            'order' => [[0, 'asc']],
+            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
         ];
     @endphp
 
-    
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -67,22 +67,17 @@
         </div>
     @endif
 
-
-
-
     <div class="mb-4" style="text-align: right;">
-        <a href="{{ route('users.create') }}" class="btn btn-primary">
-            Create User
+        <a href="{{ route('web.advertisers.create') }}" class="btn btn-primary">
+            Create Advertiser
         </a>
     </div>
-
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
 @stop
 
-
 @section('js')
-  <script>
+<script>
         $(document).ready(function() {
             // Automatically hide the success and deleted messages after 5 seconds
             setTimeout(function() {

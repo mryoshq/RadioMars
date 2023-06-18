@@ -3,7 +3,9 @@
 @section('title', 'Packs')
 
 @section('content_header')
+    <x-adminlte-card theme="lime" theme-mode="outline">
     <h1>Packs</h1>
+    </x-adminlte-card>
 @stop
 
 
@@ -23,20 +25,38 @@
         $packsArray = [];
 
         foreach ($packs as $pack) {
-            $btnEdit = "<a href='".route('packs.edit', $pack)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
+            $btnEdit = "<a href='".route('web.packs.edit', $pack)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('packs.show', $pack)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
+            $btnDetails = "<a href='".route('web.packs.show', $pack)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
                             <i class='fa fa-lg fa-fw fa-eye'></i>
                         </a>";
-            $btnDelete = "<form action='".route('packs.destroy', $pack)."' method='POST' style='display:inline'>
+            $btnDelete = "<form action='".route('web.packs.destroy', $pack)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
           
-            $packsArray[] = [$pack->id, $pack->name,$pack->price,$pack->spots_number,$pack->days_of_week,$pack->times_of_day,$pack->availability , $btnEdit.$btnDetails.$btnDelete];
+            $daysOfWeekTags = '';
+            foreach (explode(',', $pack->days_of_week) as $dayOfWeek) {
+                $dayOfWeek = str_replace(['[', ']', '"'], '', $dayOfWeek);
+                $daysOfWeekTags .= "<span class='badge bg-primary'>$dayOfWeek</span>&nbsp;";
+            }
+
+            $timesOfDayTags = '';
+            foreach (explode(',', $pack->times_of_day) as $timeOfDay) {
+                $timeOfDay = str_replace(['[', ']', '"'], '', $timeOfDay);
+                $timesOfDayTags .= "<span class='badge bg-primary'>$timeOfDay</span>&nbsp;";
+            }
+
+            $availabilityIcon = $pack->availability ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-danger"></i>';
+
+
+
+
+
+            $packsArray[] = [$pack->id, $pack->name,$pack->price,$pack->spots_number, $daysOfWeekTags,$timesOfDayTags,$availabilityIcon , $btnEdit.$btnDetails.$btnDelete];
         }
 
 
@@ -66,7 +86,7 @@
     @endif
 
     <div class="mb-4" style="text-align: right;">
-    <a href="{{ route('packs.create') }}" class="btn btn-primary">
+    <a href="{{ route('web.packs.create') }}" class="btn btn-primary">
         Create pack
     </a>
 </div>

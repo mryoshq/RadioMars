@@ -42,12 +42,69 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 
 
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+Route::resource('roles', RoleController::class)->names([
+    'index' => 'web.roles.index',
+    'create' => 'web.roles.create',
+    'store' => 'web.roles.store',
+    'show' => 'web.roles.show',
+    'edit' => 'web.roles.edit',
+    'update' => 'web.roles.update',
+    'destroy' => 'web.roles.destroy',
+]);
 
-Route::resource('packs', PackController::class);
-Route::resource('ads', AdController::class);
+Route::resource('users', UserController::class)->names([
+    'index' => 'web.users.index',
+    'create' => 'web.users.create',
+    'store' => 'web.users.store',
+    'show' => 'web.users.show',
+    'edit' => 'web.users.edit',
+    'update' => 'web.users.update',
+    'destroy' => 'web.users.destroy',
+]);
 
-Route::resource('advertisers', AdvertiserController::class);
+Route::resource('packs', PackController::class)->names([
+    'index' => 'web.packs.index',
+    'create' => 'web.packs.create',
+    'store' => 'web.packs.store',
+    'show' => 'web.packs.show',
+    'edit' => 'web.packs.edit',
+    'update' => 'web.packs.update',
+    'destroy' => 'web.packs.destroy',
+]);
 
-Route::resource('payments', PaymentController::class);
+
+Route::get('/web/advertisers/ads', [PaymentController::class, 'getAds'])->name('web.payments.getAds');
+
+Route::resource('ads', AdController::class)->names([
+    'index' => 'web.ads.index',
+    'create' => 'web.ads.create',
+    'store' => 'web.ads.store',
+    'show' => 'web.ads.show',
+    'edit' => 'web.ads.edit',
+    'update' => 'web.ads.update',
+    'destroy' => 'web.ads.destroy',
+]);
+
+Route::resource('advertisers', AdvertiserController::class)->names([
+    'index' => 'web.advertisers.index',
+    'create' => 'web.advertisers.create',
+    'store' => 'web.advertisers.store',
+    'show' => 'web.advertisers.show',
+    'edit' => 'web.advertisers.edit',
+    'update' => 'web.advertisers.update',
+    'destroy' => 'web.advertisers.destroy',
+]);
+
+Route::resource('payments', PaymentController::class)->names([
+    'index' => 'web.payments.index',
+    'create' => 'web.payments.create',
+    'store' => 'web.payments.store',
+    'show' => 'web.payments.show',
+    'edit' => 'web.payments.edit',
+    'update' => 'web.payments.update',
+    'destroy' => 'web.payments.destroy',
+]);
+
+
+
+

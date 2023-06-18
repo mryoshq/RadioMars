@@ -13,7 +13,7 @@ return [
     */
 
     'title' => 'Radio MARS',
-    'title_prefix' => 'Panel admimistrateur',
+    'title_prefix' => 'Panel Admimistrateur',
     'title_postfix' => '',
 
     /*
@@ -116,7 +116,7 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -273,7 +273,7 @@ return [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'search',
+            'text'         => 'Rechercher',
             'topnav_right' => true,
         ],
         [
@@ -284,35 +284,35 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Rechercher',
         ],
-        ['header' => 'Overview'],
+        ['header' => 'Aperçu'],
         [
-            'text'        => 'Dashboard',
+            'text'        => 'Tableau de bord',
             'url'         => 'dashboard',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
   
-        ['header' => 'Management'],
+        ['header' => 'Gestion'],
         [
-            'text'    => 'Users management',
+            'text'    => 'Gestion des utilisateurs',
             'icon'    => '',
             'submenu' => [
                 [ 
-                    'text'        => 'Roles',
+                    'text'        => 'Rôles',
                     'url'         => 'roles',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
                 [
-                    'text'        => 'Users',
+                    'text'        => 'Utilisateurs',
                     'url'         => 'users',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
                 [
-                    'text'        => 'Advertisers',
+                    'text'        => 'Clients',
                     'url'         => 'advertisers',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
@@ -320,7 +320,7 @@ return [
             ],
         ],
         [
-            'text'    => 'Ads management',
+            'text'    => 'Gestion des pubs',
             'icon'    => '',
             'submenu' => [
                 [ 
@@ -330,7 +330,7 @@ return [
                     'label_color' => 'success',
                 ],
                 [
-                    'text'        => 'Ads',
+                    'text'        => 'Publicités',
                     'url'         => 'ads',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
@@ -339,11 +339,11 @@ return [
         ],
 
         [
-            'text'    => 'Payments management',
+            'text'    => 'Gestion des paiements',
             'icon'    => '',
             'submenu' => [
                 [
-                    'text'        => 'Payments',
+                    'text'        => 'Paiements',
                     'url'         => 'payments',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
@@ -503,7 +503,7 @@ return [
     'iframe' => [
         'default_tab' => [
             'url' => 'dashboard', 
-            'title' => 'Dashboard',
+            'title' => 'Tableau de bord',
         ],
         'buttons' => [
             'close' => true,

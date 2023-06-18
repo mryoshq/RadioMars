@@ -3,7 +3,7 @@
 @section('title', 'Create Pack')
 
 @section('content_header')
-    <h1>Create Pack</h1>
+    <h1>Créer un nouveau Pack</h1>
 @stop 
 
 @section('plugins.BootstrapSelect', true)
@@ -11,12 +11,12 @@
 @section('content')
     <div class="d-flex justify-content-center">
     <div class="col-md-6 col-sm-8 col-12">
-        <x-adminlte-card title="Pack Information" theme="dark" icon="fas fa-plus">
-            <form action="{{ route('packs.store') }}" method="POST">
+        <x-adminlte-card title="Informations du Pack" theme="dark" icon="fas fa-plus">
+            <form action="{{ route('web.packs.store') }}" method="POST">
                
                 @csrf 
 
-                <x-adminlte-input name="name" label="Name" placeholder="Enter name" required>
+                <x-adminlte-input name="name" label="Titre" label-class="text-lightblue" placeholder="Entrer le titre du Pack" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-user text-lightblue"></i>
@@ -24,7 +24,7 @@
                     </x-slot>
                 </x-adminlte-input>
 
-                <x-adminlte-input name="price" type="number" label="Price" placeholder="Enter price" required>
+                <x-adminlte-input name="price" type="number" label-class="text-lightblue" label="Prix" placeholder="Entrer le prix du Pack" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-dollar-sign text-lightblue"></i>
@@ -32,7 +32,7 @@
                     </x-slot>
                 </x-adminlte-input>
 
-                <x-adminlte-input name="spots_number" type="number" label="Spots Number" placeholder="Enter number of spots" required min="0">
+                <x-adminlte-input name="spots_number" type="number" label-class="text-lightblue" label="Nb de Spots" placeholder="Entrer le nombre de spots" required min="0">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-users text-lightblue"></i>
@@ -41,8 +41,15 @@
                 </x-adminlte-input>
 
                 @php
-                    $config = [
-                        "title" => "Select multiple options...",
+                    $config = [ 
+                        "title" => "Selectionner les jours du Pack",
+                        "liveSearch" => false,
+                        "liveSearchPlaceholder" => "Search...",
+                        "showTick" => true,
+                        "actionsBox" => true,
+                    ];
+                    $config2 = [
+                        "title" => "Selectionner les horaires du Pack",
                         "liveSearch" => false,
                         "liveSearchPlaceholder" => "Search...",
                         "showTick" => true,
@@ -50,9 +57,7 @@
                     ];
                 @endphp
  
-                <x-adminlte-select-bs id="days_of_week" name="days_of_week[]" label="Days of Week" label-class="text-lightblue" :config="$config" multiple required>
-                
-               
+                <x-adminlte-select-bs id="days_of_week" name="days_of_week[]" label="Jours de la semaine " label-class="text-lightblue" :config="$config" multiple required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-calendar text-lightblue"></i>
@@ -63,7 +68,7 @@
                     @endforeach
                 </x-adminlte-select-bs>
 
-                <x-adminlte-select-bs id="times_of_day" name="times_of_day[]" label="Times of Day" label-class="text-lightblue" :config="$config" multiple required>
+                <x-adminlte-select-bs id="times_of_day" name="times_of_day[]" label="Horaires" label-class="text-lightblue" :config="$config2" multiple required>
                      <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-clock text-lightblue"></i>
@@ -76,13 +81,13 @@
 
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="availability" name="availability" checked>
-                        <label for="availability" class="custom-control-label">Availability</label>
+                        <input class="custom-control-input" type="checkbox" id="availability" name="availability" >
+                        <label for="availability" class="custom-control-label">Disponibilité</label>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
+                    <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Enregistrer"/>
                   </div>
             </form>
         </x-adminlte-card>

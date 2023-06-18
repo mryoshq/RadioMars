@@ -1,54 +1,73 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Ads')
 
 @section('content_header')
-    <h1>Rôles</h1>
+    <x-adminlte-card theme="lime" theme-mode="outline">
+    <h1>Publicités </h1>
+    </x-adminlte-card>
 @stop
 
-@section('content')
-    @php
+
+
+
+@section('content') 
+    @php 
         $heads = [
             'ID',
-            'Name',
-            'Permissions',
+             
+             'Texte', 
+             'Audio',
+             'Status',
+             'Pack', 
+             'Propriétaire',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
-        $rolesArray = [];
+        $adsArray = [];
 
-        foreach ($roles as $role) {
-            $permissions = json_decode($role->permissions, true);
-            $formattedPermissions = '';
-            foreach ($permissions as $permission) {
-                $formattedPermissions .= "<span class='badge bg-primary'>" . $permission . "</span>&nbsp;";
-            }
-          
-            $btnEdit = "<a href='".route('roles.edit', $role)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
+        foreach ($ads as $ad) {
+            $btnEdit = "<a href='".route('web.ads.edit', $ad)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('roles.show', $role)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
+            $btnDetails = "<a href='".route('web.ads.show', $ad)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
                             <i class='fa fa-lg fa-fw fa-eye'></i>
                         </a>";
-            $btnDelete = "<form action='".route('roles.destroy', $role)."' method='POST' style='display:inline'>
+            $btnDelete = "<form action='".route('web.ads.destroy', $ad)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
+
+            $status = $ad->status;
+
+            $statusTag = '';
+
+            if ($status == 'active') {
+                $statusTag = "<span class='badge bg-success' style='color: white;'>Activée</span>";
+            } elseif ($status == 'paused') {
+                $statusTag = "<span class='badge bg-warning' style='color: white;'>En pause</span>";
+            } elseif ($status == 'not_active') {
+                $statusTag = "<span class='badge bg-secondary' style='color: white;'>Désactivée</span>";
+            }
+
+
           
-            $rolesArray[] = [$role->id, $role->name, $formattedPermissions, $btnEdit.$btnDetails.$btnDelete];
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $ad->pack_id, $ad->advertiser_id , $btnEdit.$btnDetails.$btnDelete];
         }
 
         $config = [
-            'data' => $rolesArray,
+            'data' => $adsArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, ['orderable' => false]],
+            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+          
         ];
-    @endphp
+    @endphp 
+
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -64,10 +83,11 @@
     @endif
 
     <div class="mb-4" style="text-align: right;">
-        <a href="{{ route('roles.create') }}" class="btn btn-primary">
-            Create role
-        </a>
-    </div>
+    <a href="{{ route('web.ads.create') }}" class="btn btn-primary">
+        Create ad
+    </a>
+</div>
+
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
 @stop
