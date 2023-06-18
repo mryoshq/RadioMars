@@ -15,9 +15,10 @@ class AdController extends Controller
 {
     public function index()
     {
-        $ads = Ad::all();
+        $ads = Ad::with('pack', 'advertiser.user')->get();
         return view('web.ads.index', compact('ads'));
     }
+    
     public function create()
     {
         $packs = Pack::all();
@@ -55,22 +56,32 @@ class AdController extends Controller
 
     public function edit(Ad $ad)
     {
-        return view('web.ads.edit', compact('ad'));
+        $packs = Pack::select(DB::raw("CONCAT(name, ' - ', id) AS name"), 'id')
+                     ->pluck('name', 'id');
+        $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
+                                 ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
+                                 ->pluck('name', 'id');
+    
+        return view('web.ads.edit', compact('ad', 'packs', 'advertisers'));
     }
+    
+    
 
     public function update(Request $request, Ad $ad)
     {
-        $validated = $request->validate([
+        $validated = $request->validate([ 
+            'advertiser_id' => 'required|exists:advertisers,id',
             'pack_id' => 'required|exists:packs,id',
             'text_content' => 'nullable|string',
             'audio_content' => 'nullable|string',
-            'status' => 'required',
+            'status' => 'required|in:active,not_active,paused',
         ]);
-
+    
         $ad->update($validated);
-
-        return redirect()->route('web.ads.show', $ad);
+    
+        return redirect()->route('web.ads.index')->with('success', 'Ad updated successfully');
     }
+    
 
     public function destroy(Ad $ad)
     {

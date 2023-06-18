@@ -41,7 +41,7 @@ class PackController extends Controller
         $pack->spots_number = $validated['spots_number'];
         $pack->days_of_week = json_encode($validated['days_of_week']);
         $pack->times_of_day = json_encode($validated['times_of_day']);
-        $pack->availability = $validated['availability'] ?? false;
+        $pack->availability = $validated['availability'] ?? false; 
         $pack->save();
     
         return redirect()->route('web.packs.index', $pack)->with('success', 'Pack created successfully');

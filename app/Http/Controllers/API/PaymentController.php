@@ -71,7 +71,7 @@ class PaymentController extends Controller
             'payment_method' => 'required|in:cc,transfer,wire',
             'status' => 'required|in:pending,paid,failed',
         ]);
-    
+     
         // Fetch the authenticated user's advertiser
         $advertiser = $request->user()->advertiser;
     
@@ -90,32 +90,23 @@ class PaymentController extends Controller
     }
     
      
-
-
-    public function update(Request $request, Payment $payment)
+    public function edit(Payment $payment)
     {
-        $validated = $request->validate([
-            'payment_method' => 'required|in:cc,transfer,wire',
-            'status' => 'required|in:pending,paid,failed',
-        ]);
-    
-        // Fetch the authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
-        $ad = $advertiser->ads()->find($payment->ad_id);
-    
-        // Check if payment is related to the authenticated user
-        if ($ad) {
-            // Update the payment
-            $payment->update($validated);
-    
-            // Load the ad relationship
-            $payment->load('ad');
-    
-            return new PaymentResource($payment);
-        } else {
-            // If the ad related to the payment does not exist for the authenticated user, return an error response
-            return response()->json(['error' => 'No payment with such id for this user'], 404);
-        }
+        return view('web.payments.edit', compact('payment'));
     }
     
+    
+    public function update(Request $request, Payment $payment)
+    {
+        $request->validate([
+            'payment_method' => 'required',
+            'status' => 'required',
+            'ad_id' => 'required',
+            'advertiser_id' => 'required',
+        ]);
+    
+        $payment->update($request->all());
+    
+        return redirect()->route('web.payments.index')->with('success', 'Payment updated successfully');
+    }
 }

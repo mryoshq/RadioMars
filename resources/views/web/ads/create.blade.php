@@ -17,7 +17,7 @@
  
 @section('content')
     <div class="d-flex justify-content-center">
-    <div class="col-md-6 col-sm-8 col-12">
+    <div class="col-md-8 col-sm-8 col-12">
         <x-adminlte-card title="Remplir les informations de la publicité" theme="dark" icon="fas fa-plus">
             <form action="{{ route('ads.store') }}" method="POST">
                 @csrf

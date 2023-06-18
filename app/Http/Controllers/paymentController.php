@@ -19,11 +19,20 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+  
     public function index()
     {
-        $payments = Payment::all();
+        $payments = Payment::with(['ad' => function ($query) {
+            $query->withTrashed();
+            // withTrashed will allow fetching advertisers even when ad is deleted bc relationship is user to adv to ad to payment
+        }])->get();
+        
         return view('web.payments.index', compact('payments'));
     }
+    
+     
+
+ 
     public function create() 
     {
   
@@ -38,12 +47,9 @@ class PaymentController extends Controller
         $advertiserId = $request->input('advertiser_id');
         $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id')->toArray();
         return response()->json($ads);
-}
+    }
 
      
-      
-     
-    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -68,24 +74,35 @@ class PaymentController extends Controller
 
     public function edit(Payment $payment)
     {
-        return view('web.payments.edit', compact('payment'));
+        $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
+                                 ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
+                                 ->pluck('name', 'id');
+        return view('web.payments.edit', compact('payment', 'advertisers'));
     }
+    
 
     public function update(Request $request, Payment $payment)
     {
-        $validated = $request->validate([
-            
-            'advertiser_id' => 'required|exists:advertisers,id',
-            'ad_id' => 'required|exists:ads,id',
+        $rules = [
             'payment_method' => 'required',
             'status' => 'required',
-         
-        ]);
+        ];
+
+        if (!$request->input('advertiser_id_disabled')) {
+            $rules['advertiser_id'] = 'required|exists:advertisers,id';
+        }
+
+        if (!$request->input('ad_id_disabled')) {
+            $rules['ad_id'] = 'required|exists:ads,id';
+        }
+
+        $validated = $request->validate($rules);
 
         $payment->update($validated);
 
-        return redirect()->route('web.payments.show', $payment);
+        return redirect()->route('web.payments.index', $payment);
     }
+
 
     public function destroy(Payment $payment)
     {

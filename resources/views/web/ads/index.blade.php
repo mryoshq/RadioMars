@@ -19,8 +19,8 @@
              'Texte', 
              'Audio',
              'Status',
-             'Pack', 
-             'Propriétaire',
+             'Pack - ID', 
+             'Propriétaire - ID',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -40,7 +40,7 @@
                             </button>
                           </form>";
 
-            $status = $ad->status;
+            $status = $ad->status; 
 
             $statusTag = '';
 
@@ -52,10 +52,12 @@
                 $statusTag = "<span class='badge bg-secondary' style='color: white;'>Désactivée</span>";
             }
 
-
+            $pack = $ad->pack ? $ad->pack->name . ' - ' . $ad->pack->id : 'N/A';
+            $owner = $ad->advertiser && $ad->advertiser->user ? $ad->advertiser->user->name . ' - ' . $ad->advertiser->id : 'N/A';
+ 
           
-            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $ad->pack_id, $ad->advertiser_id , $btnEdit.$btnDetails.$btnDelete];
-        }
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $btnEdit.$btnDetails.$btnDelete];
+     }
 
         $config = [
             'data' => $adsArray,

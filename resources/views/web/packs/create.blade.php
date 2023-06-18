@@ -3,14 +3,20 @@
 @section('title', 'Create Pack')
 
 @section('content_header')
-    <h1>Créer un nouveau Pack</h1>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8">
+            <x-adminlte-card theme="lime" theme-mode="outline">
+                <h1>Créer un nouveau Pack</h1>
+            </x-adminlte-card>
+        </div>
+    </div>
 @stop 
 
 @section('plugins.BootstrapSelect', true)
 
 @section('content')
     <div class="d-flex justify-content-center">
-    <div class="col-md-6 col-sm-8 col-12">
+    <div class="col-md-8 col-sm-8 col-12">
         <x-adminlte-card title="Informations du Pack" theme="dark" icon="fas fa-plus">
             <form action="{{ route('web.packs.store') }}" method="POST">
                

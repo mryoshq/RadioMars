@@ -3,7 +3,14 @@
 @section('title', 'Create User')
 
 @section('content_header')
- <h1>Créer un nouveau utilisteur</h1>
+
+ <div class="d-flex justify-content-center">
+        <div class="col-md-8">
+            <x-adminlte-card theme="lime" theme-mode="outline">
+                <h1>Créer un nouveau utilisteur</h1>
+            </x-adminlte-card>
+        </div>
+    </div>
 @stop
 
 @section('content')
