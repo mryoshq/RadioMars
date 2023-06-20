@@ -15,6 +15,7 @@
         $heads = [
             'ID',
             'Titre', 
+            'Semaines',
             'Prix', 
             'Nb Spots', 
             'Jours', 
@@ -54,14 +55,14 @@
 
 
 
-            $packsArray[] = [$pack->id, $pack->name,$pack->price,$pack->spots_number, $daysOfWeekTags,$timesOfDayTags,$availabilityIcon , $btnEdit.$btnDelete];
+            $packsArray[] = [$pack->id, $pack->name,$pack->period,$pack->price,$pack->spots_number, $daysOfWeekTags,$timesOfDayTags,$availabilityIcon , $btnEdit.$btnDelete];
         }
 
 
         $config = [
             'data' => $packsArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null,null,null,null, ['orderable' => false]],
+            'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,

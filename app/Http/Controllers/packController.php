@@ -28,7 +28,9 @@ class PackController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric'],
+            'description' => ['required', 'string', 'max:500'],  // new field
+            'period' => ['required', 'integer'],  // new field
+            'price' => ['required', 'numeric'],       
             'spots_number' => ['required', 'integer'],
             'days_of_week' => ['array'],
             'times_of_day' => ['array'],
@@ -37,6 +39,8 @@ class PackController extends Controller
      
         $pack = new Pack();
         $pack->name = $validated['name'];
+        $pack->description = $validated['description'];  
+        $pack->period = $validated['period'];  
         $pack->price = $validated['price'];
         $pack->spots_number = $validated['spots_number'];
         $pack->days_of_week = json_encode($validated['days_of_week']);
@@ -73,6 +77,8 @@ class PackController extends Controller
         //dd($request); 
         $validated = $request->validate([
             'name' => 'required',
+            'description' => 'required|string|max:500', 
+            'period' => 'required|integer',
             'price' => 'required|numeric',
             'spots_number' => 'required|integer',
             'days_of_week' => 'required|array',
@@ -83,6 +89,8 @@ class PackController extends Controller
        // dd($validated['days_of_week'], $validated['times_of_day']);
     
         $pack->name = $validated['name'];
+        $pack->description = $validated['description'];
+        $pack->period = $validated['period'];
         $pack->price = $validated['price'];
         $pack->spots_number = $validated['spots_number'];
         $pack->days_of_week = json_encode($validated['days_of_week']);

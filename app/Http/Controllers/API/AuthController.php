@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Advertiser;
-
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {

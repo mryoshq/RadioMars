@@ -30,6 +30,21 @@
                     </x-slot>
                 </x-adminlte-input>
 
+                <x-adminlte-input name="description" label="Description" label-class="text-lightblue" placeholder="Enter the description of the Pack">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-info text-lightblue"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+
+                <x-adminlte-input name="period" type="number" label-class="text-lightblue" label="Period" placeholder="Enter the period of the Pack" required min="1" max="8">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-calendar-alt text-lightblue"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
                 <x-adminlte-input name="price" type="number" label-class="text-lightblue" label="Prix" placeholder="Entrer le prix du Pack" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
