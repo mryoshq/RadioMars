@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Paiements</h1>
     </x-adminlte-card>
 @stop
@@ -16,7 +16,7 @@
     $heads = [
         'ID',
         'Méthode', 
-        'Status',
+        'Status', 
         'Propriétaire',
         'ID - Pub',
         'Ad Status', // Changed "Active" to "Ad Status"
@@ -63,12 +63,10 @@
             break;
     }
 
-    $btnEdit = "<a href='".route('web.payments.edit', $payment)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
+ $btnEdit = "<a href='".route('web.payments.edit', ['payment' => $payment->id, 'page' => request()->get('page')])."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                     <i class='fa fa-lg fa-fw fa-pen'></i>
                 </a>";
-    $btnDetails = "<a href='".route('web.payments.show', $payment)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                    <i class='fa fa-lg fa-fw fa-eye'></i>
-                </a>";
+
     $btnDelete = "<form action='".route('web.payments.destroy', $payment)."' method='POST' style='display:inline'>
                     ".method_field('DELETE').csrf_field()."
                     <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -76,7 +74,7 @@
                     </button>
                   </form>";
 
-    $paymentsArray[] = [$payment->id, $payment->payment_method, $paymentStatusTag, $userName, $payment->ad_id, $adStatusTag, $btnEdit.$btnDetails.$btnDelete];
+    $paymentsArray[] = [$payment->id, $payment->payment_method, $paymentStatusTag, $userName, $payment->ad_id, $adStatusTag, $btnEdit.$btnDelete];
 }
 
     $config = [
@@ -86,6 +84,7 @@
         'pageLength' => 15,
         'responsive' => true,
         'autoWidth' => false,
+        'stateSave' => true,
     ];
 @endphp
 

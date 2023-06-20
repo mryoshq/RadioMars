@@ -40,25 +40,23 @@ class RoleController extends Controller
         return view('web.roles.show', compact('role'));
     }
 
-    public function edit(Role $role)
-{
-    return view('web.roles.edit', compact('role'));
-}
+        public function edit(Role $role)
+    {
+        return view('web.roles.edit', compact('role'));
+    }
 
-public function update(Request $request, Role $role)
-{
-    $validated = $request->validate([
-        'name' => 'required',
-        'permissions' => 'required',
-    ]);
+    public function update(Request $request, Role $role)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'permissions' => 'required',
+        ]);
 
-    $role->update($validated);
+        $role->update($validated);
 
-    return redirect()->route('web.roles.index', $role)->with('success', 'Role updated successfully');
-}
+        return redirect()->route('web.roles.index', $role)->with('success', 'Role updated successfully');
+    }
 
-    
-    
 
     public function destroy(Role $role)
     {

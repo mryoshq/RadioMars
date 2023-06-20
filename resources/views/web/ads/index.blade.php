@@ -3,7 +3,7 @@
 @section('title', 'Ads')
 
 @section('content_header')
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Publicités </h1>
     </x-adminlte-card>
 @stop
@@ -30,9 +30,7 @@
             $btnEdit = "<a href='".route('web.ads.edit', $ad)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('web.ads.show', $ad)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                            <i class='fa fa-lg fa-fw fa-eye'></i>
-                        </a>";
+   
             $btnDelete = "<form action='".route('web.ads.destroy', $ad)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -56,7 +54,7 @@
             $owner = $ad->advertiser && $ad->advertiser->user ? $ad->advertiser->user->name . ' - ' . $ad->advertiser->id : 'N/A';
  
           
-            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $btnEdit.$btnDetails.$btnDelete];
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $btnEdit.$btnDelete];
      }
 
         $config = [
@@ -66,6 +64,7 @@
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+            'stateSave' => true,
           
         ];
     @endphp 

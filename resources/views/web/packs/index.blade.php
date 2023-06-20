@@ -3,7 +3,7 @@
 @section('title', 'Packs')
 
 @section('content_header')
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Packs</h1>
     </x-adminlte-card>
 @stop
@@ -28,9 +28,7 @@
             $btnEdit = "<a href='".route('web.packs.edit', $pack)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('web.packs.show', $pack)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                            <i class='fa fa-lg fa-fw fa-eye'></i>
-                        </a>";
+    
             $btnDelete = "<form action='".route('web.packs.destroy', $pack)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -56,7 +54,7 @@
 
 
 
-            $packsArray[] = [$pack->id, $pack->name,$pack->price,$pack->spots_number, $daysOfWeekTags,$timesOfDayTags,$availabilityIcon , $btnEdit.$btnDetails.$btnDelete];
+            $packsArray[] = [$pack->id, $pack->name,$pack->price,$pack->spots_number, $daysOfWeekTags,$timesOfDayTags,$availabilityIcon , $btnEdit.$btnDelete];
         }
 
 
@@ -67,6 +65,7 @@
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+            'stateSave' => true,
           
         ];
     @endphp

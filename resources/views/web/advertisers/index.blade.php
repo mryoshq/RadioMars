@@ -3,7 +3,7 @@
 @section('title', 'Advertisers')
 
 @section('content_header')
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Clients</h1>
     </x-adminlte-card>
 @stop 
@@ -26,9 +26,7 @@
             $btnEdit = "<a href='".route('web.advertisers.edit', $advertiser)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('web.advertisers.show', $advertiser)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                            <i class='fa fa-lg fa-fw fa-eye'></i>
-                        </a>";
+         
             $btnDelete = "<form action='".route('web.advertisers.destroy', $advertiser)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -38,9 +36,9 @@
 
             $user = $advertiser->user;
             if ($user) {
-                $advertisersArray[] = [$advertiser->id, $user->name, $user->email, $user->phone_number, $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+                $advertisersArray[] = [$advertiser->id, $user->name, $user->email, $user->phone_number, $advertiser->firm, $advertiser->domain, $btnEdit.$btnDelete];
             } else {
-                $advertisersArray[] = [$advertiser->id, '', '', '', $advertiser->firm, $advertiser->domain, $btnEdit.$btnDetails.$btnDelete];
+                $advertisersArray[] = [$advertiser->id, '', '', '', $advertiser->firm, $advertiser->domain, $btnEdit.$btnDelete];
             }
         }
 
@@ -51,6 +49,8 @@
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+            'stateSave' => true,
+            
         ];
     @endphp
 

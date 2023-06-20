@@ -19,7 +19,6 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-  
     public function index()
     {
         $payments = Payment::with(['ad' => function ($query) {
@@ -31,11 +30,8 @@ class PaymentController extends Controller
     }
     
      
-
- 
     public function create() 
     {
-  
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
                                  ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
                                  ->pluck('name', 'id');
@@ -49,7 +45,6 @@ class PaymentController extends Controller
         return response()->json($ads);
     }
 
-     
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -64,22 +59,18 @@ class PaymentController extends Controller
         return redirect()->route('web.payments.index', $payment)->with('success', 'Payment created successfully');
     }
     
-    
-    
-
     public function show(Payment $payment)
     {
         return view('web.payments.show', compact('payment'));
     }
 
-    public function edit(Payment $payment)
+  public function edit(Payment $payment)
     {
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
-                                 ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
-                                 ->pluck('name', 'id');
+                                ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
+                                ->pluck('name', 'id');
         return view('web.payments.edit', compact('payment', 'advertisers'));
     }
-    
 
     public function update(Request $request, Payment $payment)
     {
@@ -88,7 +79,7 @@ class PaymentController extends Controller
             'status' => 'required',
         ];
 
-        if (!$request->input('advertiser_id_disabled')) {
+        if (!$request->input('advertiser_id_disabled')) { 
             $rules['advertiser_id'] = 'required|exists:advertisers,id';
         }
 
@@ -100,7 +91,8 @@ class PaymentController extends Controller
 
         $payment->update($validated);
 
-        return redirect()->route('web.payments.index', $payment);
+        return redirect()->route('web.payments.index', ['page' => $request->page]);
+
     }
 
 

@@ -3,20 +3,27 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Tableau de bord</h1>
-@stop
-
+    <x-adminlte-card theme="dark" theme-mode="outline">
+        <h1>Tableau de bord</h1>
+    </x-adminlte-card>
+ 
+@stop 
+ 
 @section('content')
-    <div class="row">
-    
-        <div class="col-md-4 col-sm-6 col-12"><x-adminlte-small-box title="Utilisteurs" theme="teal" url="#" url-text="View details"  id="sbUpdatable" text="Nouveaux utilisteurs" icon="fas fa-star"/></div>
-        <div class="col-md-4 col-sm-6 col-12"><x-adminlte-small-box title="Publicités" theme="primary" url="#" url-text="ads list " text="en attente de confirmation" icon="fas fa-star"/></div>
-        <div class="col-md-4 col-sm-6 col-12"><x-adminlte-small-box title="Paiments" theme="danger" url="#" url-text="Payments history" id="sbUpdatable" text="fonds collectés" icon="fas fa-star"/></div>
-    
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-12">
+        <x-adminlte-small-box :title="$newUsersCount" theme="teal" url="users" url-text="Voir la liste des clients"  id="sbUpdatable" text="Nouveau clients" icon="fas fa-lg fa-user-plus"/>
     </div>
+    <div class="col-md-4 col-sm-6 col-12">
+        <x-adminlte-small-box :title="$pausedAdsCount" theme="primary" url="ads" url-text="Voir la liste des pubs" text="Publicités en pause" icon="fas fa-pause-circle"/>
+    </div>
+    <div class="col-md-4 col-sm-6 col-12">
+        <x-adminlte-small-box :title="$totalPaidPayments" theme="danger" url="payments" url-text="Voir la liste des paiements" id="sbUpdatable" text="Fonds collectés" icon="fas fa-money-bill-wave"/>
+    </div>
+</div>
 
     <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6"> 
         <x-adminlte-card title="Paiements" theme="dark" icon="fas fa-lg fa-moon">
         <canvas id="Chart1"></canvas>
         </x-adminlte-card>
@@ -32,7 +39,13 @@
  
 @stop
   
- 
+@section('css')
+    <style>
+        .large-font {
+            font-size: 2em; /* Adjust this to your desired size */
+        }
+    </style>
+@stop
 @section('js')
     <script> 
         var ctx = document.getElementById('Chart1').getContext('2d');

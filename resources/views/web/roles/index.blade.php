@@ -3,7 +3,7 @@
 @section('title', 'Roles')
 
 @section('content_header')
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Rôles</h1>
     </x-adminlte-card>
 @stop
@@ -29,9 +29,7 @@
             $btnEdit = "<a href='".route('web.roles.edit', $role)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('web.roles.show', $role)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                            <i class='fa fa-lg fa-fw fa-eye'></i>
-                        </a>";
+            
             $btnDelete = "<form action='".route('web.roles.destroy', $role)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -39,7 +37,7 @@
                             </button>
                           </form>";
           
-            $rolesArray[] = [$role->id, $role->name, $formattedPermissions, $btnEdit.$btnDetails.$btnDelete];
+            $rolesArray[] = [$role->id, $role->name, $formattedPermissions, $btnEdit.$btnDelete];
         }
 
         $config = [
@@ -49,6 +47,7 @@
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+            'stateSave' => true,
         ];
     @endphp
 

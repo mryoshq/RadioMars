@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-
-
+use App\Models\User;
+use App\Models\Ad;
+use App\Models\Payment; 
+ 
+ 
 class DashboardController extends Controller
 {
     public function index()
@@ -36,9 +38,7 @@ class DashboardController extends Controller
         ];
  
       //  Log::info('Packs: ', ['packs' => $packs]);
-       // Log::info('Labels: ', ['labels' => $labels]);
-        //Log::info('Data: ', ['data' => $data]);
-        //Log::info('ChartData: ', ['chartData' => $chartData]);
+  
         $payments = DB::table('payments')
         ->select('status', DB::raw('count(*) as count'))
         ->groupBy('status')
@@ -47,19 +47,52 @@ class DashboardController extends Controller
     // data
     $paymentData = $payments->pluck('count');
 
-    $chartData2 = [
-        'labels' => ['annulé','en attente', 'payé'],
-        
+   // labels
+    $paymentLabels = $payments->pluck('status');
 
+    $colorMap = [
+        'failed' => '#FF6384',
+        'pending' => '#36A2EB',
+        'paid' => '#D0F5BE'
+    ];
+    
+    $backgroundColor = [];
+    foreach ($paymentLabels as $label) {
+        if (isset($colorMap[$label])) {
+            $backgroundColor[] = $colorMap[$label];
+        } else {
+            $backgroundColor[] = '#000000'; // default color if the status is not found in the colorMap
+        }
+    }
+    
+    $chartData2 = [
+        'labels' => $paymentLabels,
         'datasets' => [
             [
                 'data' => $paymentData,
-                'backgroundColor' => ['#FF6384', '#36A2EB', '#D0F5BE'], 
+                'backgroundColor' => $backgroundColor,
             ],
         ],
     ];
-    //Log::info('paymentLabels: ', ['paymentLabels' => $paymentLabels]);
-    return view('dashboard', compact('chartData', 'chartData2'));
+
+    // Get the new users count for the last week
+    $newUsersCount = User::where('created_at', '>=', now()->subWeek())->count();
+
+    // Get the total of paused ads
+    $pausedAdsCount = Ad::where('status', 'paused')->count();
+
+    // Get the total of paid payments (total of packs price for valid payments)
+    $totalPaidPayments = DB::table('payments')
+    ->join('ads', 'payments.ad_id', '=', 'ads.id')
+    ->join('packs', 'ads.pack_id', '=', 'packs.id')
+    ->where('payments.status', 'paid')
+    ->sum('packs.price');
+    $totalPaidPayments = (int) $totalPaidPayments;
+
+
+    //Log::info('paymentLabels: ', ['paymentLabels' => $paymentLabels]); 
+    return view('dashboard', compact('chartData', 'chartData2', 'newUsersCount', 'pausedAdsCount', 'totalPaidPayments'));
+
     }
     
 }

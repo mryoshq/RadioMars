@@ -3,7 +3,7 @@
 @section('title', 'Users')
 
 @section('content_header')
-    <x-adminlte-card theme="lime" theme-mode="outline">
+    <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Utilisateurs</h1>
     </x-adminlte-card>
 @stop
@@ -32,9 +32,7 @@
             $btnEdit = "<a href='".route('web.users.edit', $user)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
                             <i class='fa fa-lg fa-fw fa-pen'></i>
                         </a>";
-            $btnDetails = "<a href='".route('web.users.show', $user)."' class='btn btn-xs btn-default text-teal mx-1 shadow' title='Details'>
-                            <i class='fa fa-lg fa-fw fa-eye'></i>
-                        </a>";
+        
             $btnDelete = "<form action='".route('web.users.destroy', $user)."' method='POST' style='display:inline'>
                             ".method_field('DELETE').csrf_field()."
                             <button type='submit' class='btn btn-xs btn-default text-danger mx-1 shadow' title='Delete'>
@@ -42,7 +40,7 @@
                             </button>
                           </form>";
           
-            $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $roles[$user->role_id], $btnEdit.$btnDetails.$btnDelete];
+            $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $roles[$user->role_id], $btnEdit.$btnDelete];
         }
 
         $config = [
@@ -52,6 +50,7 @@
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
+            'stateSave' => true,
         ];
     @endphp
 

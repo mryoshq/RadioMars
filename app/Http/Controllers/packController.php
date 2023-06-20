@@ -69,6 +69,7 @@ class PackController extends Controller
      
     public function update(Request $request, Pack $pack)
     {
+        //dump nd die baby
         //dd($request); 
         $validated = $request->validate([
             'name' => 'required',
@@ -93,7 +94,6 @@ class PackController extends Controller
     
         return redirect()->route('web.packs.index', $pack)->with('success', 'Pack updated successfully.');
     }
-    
     
     
     
