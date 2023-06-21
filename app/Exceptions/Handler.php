@@ -42,12 +42,15 @@ class Handler extends ExceptionHandler
         
         // Handle validation exceptions
         if ($exception instanceof ValidationException) {
-            return response()->json([
-                'message' => 'Validation Failed',
-                'errors' => $exception->errors(),
-            ], 422);
+            if ($request->expectsJson()) { // Check if request expects JSON
+                return response()->json([
+                    'message' => 'Validation Failed',
+                    'errors' => $exception->errors(),
+                ], 422);
+            }
         }
         
         return parent::render($request, $exception);
     }
+    
 }
