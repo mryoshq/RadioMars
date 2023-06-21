@@ -6,7 +6,7 @@
     <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Utilisateurs</h1>
     </x-adminlte-card>
-@stop
+@stop 
 
 @section('content')
     @php
@@ -23,7 +23,7 @@
             1 => 'Admin',
             2 => 'Validator',
             3 => 'Manager',
-            4 => 'User',
+            
         ];
 
         $usersArray = [];

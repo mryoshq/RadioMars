@@ -20,9 +20,8 @@
         $rolesArray = [];
 
         foreach ($roles as $role) {
-            $permissions = json_decode($role->permissions, true);
             $formattedPermissions = '';
-            foreach ($permissions as $permission) {
+            foreach ($role->permissions as $permission) {
                 $formattedPermissions .= "<span class='badge bg-primary'>" . $permission . "</span>&nbsp;";
             }
           

@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 
-
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdvertiserController;
@@ -23,13 +22,12 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]); 
- 
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    Route::middleware(['role:Admin,Validator,Manager'])->group(function () {
-   
+
+    Route::middleware(['checkPermissions:manage_roles,manage_users'])->group(function () {
         Route::resource('roles', RoleController::class)->names([
             'index' => 'web.roles.index',
             'create' => 'web.roles.create',
@@ -47,7 +45,20 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.users.update',
             'destroy' => 'web.users.destroy',
         ]);
-        
+    });
+
+    Route::middleware(['checkPermissions:manage_advertisers'])->group(function () {
+        Route::resource('advertisers', AdvertiserController::class)->names([
+            'index' => 'web.advertisers.index',
+            'create' => 'web.advertisers.create',
+            'store' => 'web.advertisers.store',
+            'edit' => 'web.advertisers.edit',
+            'update' => 'web.advertisers.update',
+            'destroy' => 'web.advertisers.destroy',
+        ]);
+    });
+
+    Route::middleware(['checkPermissions:manage_packs'])->group(function () {
         Route::resource('packs', PackController::class)->names([
             'index' => 'web.packs.index',
             'create' => 'web.packs.create',
@@ -56,7 +67,9 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.packs.update',
             'destroy' => 'web.packs.destroy',
         ]);
+    });
 
+    Route::middleware(['checkPermissions:manage_ads'])->group(function () {
         Route::get('/web/advertisers/ads', [PaymentController::class, 'getAds'])->name('web.payments.getAds');
 
         Route::resource('ads', AdController::class)->names([
@@ -67,16 +80,9 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.ads.update',
             'destroy' => 'web.ads.destroy',
         ]);
-        
-        Route::resource('advertisers', AdvertiserController::class)->names([
-            'index' => 'web.advertisers.index',
-            'create' => 'web.advertisers.create',
-            'store' => 'web.advertisers.store',
-            'edit' => 'web.advertisers.edit',
-            'update' => 'web.advertisers.update',
-            'destroy' => 'web.advertisers.destroy',
-        ]);
+    });
 
+    Route::middleware(['checkPermissions:manage_payments'])->group(function () {
         Route::resource('payments', PaymentController::class)->names([
             'index' => 'web.payments.index',
             'create' => 'web.payments.create',
@@ -85,7 +91,10 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.payments.update',
             'destroy' => 'web.payments.destroy',
         ]);
-
     });
-});
 
+    Route::get('/access-denied', function () {
+        return view('access-denied');
+    })->name('access-denied');
+    
+});

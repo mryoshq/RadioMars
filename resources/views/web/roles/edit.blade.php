@@ -26,10 +26,17 @@
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $role->name) }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="permissions" class="text-lightblue">Permissions:</label>
-                            <textarea name="permissions" id="permissions" class="form-control">{{ old('permissions', $role->permissions) }}</textarea>
-                        </div>
+                     
+                        @foreach($allPermissions as $permission)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="permissions[]" id="{{ $permission }}" value="{{ $permission }}" {{ in_array($permission, old('permissions', $role->permissions)) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $permission }}">
+                                    {{ $permission }}
+                                </label>
+                            </div>
+                        @endforeach
+
+
                     </div>
 
                     <div class="d-flex justify-content-end">

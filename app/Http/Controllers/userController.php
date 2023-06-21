@@ -12,10 +12,10 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::latest()->get();
-        
+        $users = User::whereIn('role_id', [1, 2, 3])->latest()->get();
         return view('web.users.index', compact('users'));
     }
+    
 
     public function create()
     {

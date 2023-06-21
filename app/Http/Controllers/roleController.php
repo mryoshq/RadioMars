@@ -10,13 +10,17 @@ class RoleController extends Controller
 {
     public function index()
     {
+
         $roles = Role::all();
         return view('web.roles.index', compact('roles'));
     }
 
     public function create()
     {
-        return view('web.roles.create'); 
+        $allPermissions = ['manage_users', 'manage_roles', 'manage_advertisers', 'manage_packs', 'manage_ads', 'manage_payments', 'view_users', 'view_roles', 'view_packs', 'launch_ads']; 
+
+        return view('web.roles.create', compact( 'allPermissions'));
+
     }
 
     public function store(Request $request)
@@ -28,34 +32,41 @@ class RoleController extends Controller
     
         $role = new Role();
         $role->name = $validatedData['name'];
-        $role->permissions = json_encode([$validatedData['permissions']]);
+        $role->permissions = $validatedData['permissions'];
         $role->save();
     
         return redirect()->route('web.roles.index')->with('success', 'Role created successfully!');
     }
     
+    
 
     public function show(Role $role)
-    {
+    { 
         return view('web.roles.show', compact('role'));
     }
 
-        public function edit(Role $role)
+      
+    public function edit(Role $role)
     {
-        return view('web.roles.edit', compact('role'));
+        $allPermissions = ['manage_users', 'manage_roles', 'manage_advertisers', 'manage_packs', 'manage_ads', 'manage_payments', 'view_users', 'view_roles', 'view_packs', 'launch_ads']; 
+        return view('web.roles.edit', compact('role', 'allPermissions'));
     }
+
 
     public function update(Request $request, Role $role)
     {
         $validated = $request->validate([
             'name' => 'required',
-            'permissions' => 'required',
+            'permissions' => 'required|array',
         ]);
-
-        $role->update($validated);
-
-        return redirect()->route('web.roles.index', $role)->with('success', 'Role updated successfully');
+    
+        $role->name = $validated['name'];
+        $role->permissions = $validated['permissions'];
+        $role->save();
+    
+        return redirect()->route('web.roles.index')->with('success', 'Role updated successfully');
     }
+    
 
 
     public function destroy(Role $role)

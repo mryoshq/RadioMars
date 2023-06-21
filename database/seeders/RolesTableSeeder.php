@@ -22,7 +22,7 @@ class RolesTableSeeder extends Seeder
 
         Role::factory()->create([
             'name' => 'Manager',
-            'permissions' => json_encode(['manage_packs', 'manage_ads', 'manage_payments', 'view_users', 'view_roles']),
+            'permissions' => json_encode(['manage_advertisers', 'manage_packs', 'manage_ads', 'manage_payments']),
         ]);
         Role::factory()->create([
             'name' => 'User',

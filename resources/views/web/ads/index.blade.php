@@ -21,6 +21,7 @@
              'Status',
              'Pack - ID', 
              'Propriétaire - ID',
+             'Payment Status',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -52,20 +53,30 @@
 
             $pack = $ad->pack ? $ad->pack->name . ' - ' . $ad->pack->id : 'N/A';
             $owner = $ad->advertiser && $ad->advertiser->user ? $ad->advertiser->user->name . ' - ' . $ad->advertiser->id : 'N/A';
- 
+            
+            
+            $paymentStatus = $ad->payment ? $ad->payment->status : 'N/A';
+
+            $paymentStatusTag = '';
+            if ($paymentStatus == 'paid') {
+                $paymentStatusTag = "<span class='badge bg-success' style='color: white;'>PAYÉ</span>";
+            } elseif ($paymentStatus == 'pending') {
+                $paymentStatusTag = "<span class='badge bg-warning' style='color: white;'>En attente</span>";
+            } elseif ($paymentStatus == 'failed') {
+                $paymentStatusTag = "<span class='badge bg-secondary' style='color: white;'>Échoué</span>";
+            }
           
-            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $btnEdit.$btnDelete];
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $paymentStatusTag, $btnEdit.$btnDelete];
      }
 
         $config = [
             'data' => $adsArray,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null,null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,
             'stateSave' => true,
-          
         ];
     @endphp 
 

@@ -15,7 +15,7 @@ class AdController extends Controller
 {
     public function index()
     {
-        $ads = Ad::with('pack', 'advertiser.user')->get();
+        $ads = Ad::with('pack', 'advertiser.user', 'payment')->get(); 
         return view('web.ads.index', compact('ads'));
     }
     
@@ -64,7 +64,7 @@ class AdController extends Controller
     
         return view('web.ads.edit', compact('ad', 'packs', 'advertisers'));
     }
-    
+     
     
 
     public function update(Request $request, Ad $ad)
