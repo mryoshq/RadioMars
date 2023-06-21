@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CheckPermissions
-{
+{ 
     public function handle($request, Closure $next, ...$permissions)
     {
         $user = Auth::user();

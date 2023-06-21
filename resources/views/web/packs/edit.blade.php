@@ -35,30 +35,55 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+                @php
+    $nVariations = count($pack->period);
+@endphp
 
-                <x-adminlte-input name="period" type="number" label-class="text-lightblue" label="Period" placeholder="Enter the period of the Pack" value="{{ $pack->period }}" required min="1" max="8">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-calendar-alt text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+@for ($i = 0; $i < $nVariations; $i++)
+    <details class="mb-4">
+        <summary class="btn btn-dark">
+            <span>Variation {{ $i + 1 }}</span>
+        </summary> 
+        
+        <div class="card-body">
+            <x-adminlte-input name="period[]" type="number" label-class="text-lightblue" label="Period" placeholder="Enter the period of the Pack" value="{{ $pack->period[$i] }}" required min="1" max="8">
+                <x-slot name="prependSlot">
+                    <div class="input-group-text">
+                        <i class="fas fa-calendar-alt text-lightblue"></i>
+                    </div>
+                </x-slot>
+            </x-adminlte-input>
 
-                <x-adminlte-input name="price" type="number" label-class="text-lightblue" label="Prix" placeholder="Entrer le prix du Pack" value="{{ $pack->price }}" required>
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+            <x-adminlte-input name="price[]" type="number" label-class="text-lightblue" label="Prix" placeholder="Entrer le prix du Pack" value="{{ $pack->price[$i] }}" required>
+                <x-slot name="prependSlot">
+                    <div class="input-group-text">
+                        <i class="fas fa-dollar-sign text-lightblue"></i>
+                    </div>
+                </x-slot>
+            </x-adminlte-input>
 
-                <x-adminlte-input name="spots_number" type="number" label-class="text-lightblue" label="Nb de Spots" placeholder="Entrer le nombre de spots" value="{{ $pack->spots_number }}" required min="0">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-users text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+            <x-adminlte-input name="spots_number[]" type="number" label-class="text-lightblue" label="Nb de Spots" placeholder="Entrer le nombre de spots" value="{{ $pack->spots_number[$i] }}" required min="0">
+                <x-slot name="prependSlot">
+                    <div class="input-group-text">
+                        <i class="fas fa-users text-lightblue"></i>
+                    </div>
+                </x-slot>
+            </x-adminlte-input>
+
+            <div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="hidden" name="availability[{{ $i }}]" value="0">
+        <input class="custom-control-input" type="checkbox" id="availability{{ $i }}" name="availability[{{ $i }}]" value="1" {{ $pack->availability[$i] ? 'checked' : '' }}>
+        <label for="availability{{ $i }}" class="custom-control-label">Disponibilité</label>
+    </div>
+</div>
+
+        </div>
+    </details>
+@endfor
+
+
+
 
                 @php
                     $config = [
@@ -102,14 +127,7 @@
  
              
 
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      
-                        <input class="custom-control-input" type="checkbox" id="availability" name="availability" value="1" {{ $pack->availability ? 'checked' : '' }} >
-
-                        <label for="availability" class="custom-control-label">Disponibilité</label>
-                    </div>
-                </div>
+                
 
                 <div class="d-flex justify-content-end">
                     <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Enregistrer"/>
@@ -119,3 +137,5 @@
     </div>
     </div>
 @stop
+
+

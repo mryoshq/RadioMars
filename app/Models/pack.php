@@ -12,8 +12,20 @@ class Pack extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['name', 'description' , 'period' , 'price','spots_number', 'days_of_week', 'times_of_day', 'availability'];
+    protected $fillable = ['name', 'description', 'period', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability'];
 
+ 
+    protected $casts = [
+        'period' => 'array',
+        'price' => 'array',
+        'spots_number' => 'array',
+     
+        'days_of_week' => 'array',
+        'times_of_day' => 'array',
+        
+        'availability' => 'array',
+    ];
+    
     public function ads(): HasMany
     {
         return $this->hasMany(Ad::class);

@@ -24,13 +24,12 @@ class PackFactory extends Factory
         return [
             'name' => $this->faker->words(3, true),
             'description' => $this->faker->paragraph,
-            'period' => $this->faker->numberBetween(1, 4),    
-            'price' => $this->faker->numberBetween(3000, 17000),
-            'spots_number' => $this->faker->numberBetween(6, 75),
-            'days_of_week' => json_encode($this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(2,7 ))),
-            'times_of_day' => json_encode($this->faker->randomElements(['07:25:00', '10:25:00', '14:55:00', '17:25:00', '19:10:00'], $this->faker->numberBetween(2, 5))),
-
-            'availability' => $this->faker->boolean,
+            'period' => [$this->faker->numberBetween(1, 4), $this->faker->numberBetween(1, 4)],    
+            'price' => [$this->faker->numberBetween(3000, 20000), $this->faker->numberBetween(3000, 20000)],
+            'spots_number' => [$this->faker->numberBetween(6, 75), $this->faker->numberBetween(6, 75)],
+            'days_of_week' => $this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(2,7 )),
+            'times_of_day' => $this->faker->randomElements(['07:25:00', '10:25:00', '14:55:00', '17:25:00', '19:10:00'], $this->faker->numberBetween(2, 5)),
+            'availability' => [$this->faker->boolean, $this->faker->boolean],
         ];
     }
 }

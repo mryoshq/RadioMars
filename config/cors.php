@@ -14,21 +14,20 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
+ 
+    'paths' => ['api/*', 'login', 'register', 'sanctum/csrf-cookie'],
 
-    'paths' => ['api/*', '/login', '/register','sanctum/csrf-cookie'],
-
-    'allowed_methods' => ['http://localhost:3000'], // to be replaced with the react frontend url
-
-    'allowed_origins' => ['*'],
-
+    'allowed_methods' => ['*'], 
+    
+    'allowed_origins' => ['http://localhost:3000'],
+    
     'allowed_origins_patterns' => [],
-
+    
     'allowed_headers' => ['*'],
-
+    
     'exposed_headers' => [],
-
+    
     'max_age' => 0,
-
-    'supports_credentials' => false,
-
+    
+    'supports_credentials' => true, //plz enable in case cookies r used
 ];

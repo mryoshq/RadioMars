@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.users.update',
             'destroy' => 'web.users.destroy',
         ]);
+       
+
     });
 
     Route::middleware(['checkPermissions:manage_advertisers'])->group(function () {
@@ -67,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'web.packs.update',
             'destroy' => 'web.packs.destroy',
         ]);
+        Route::delete('/packs/{pack}/{variation}', [PackController::class, 'destroy'])->name('web.packs.destroy');
+
     });
 
     Route::middleware(['checkPermissions:manage_ads'])->group(function () {
