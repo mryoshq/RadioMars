@@ -36,9 +36,6 @@
                     @endforeach
                 </x-adminlte-select2>
  
-                <x-adminlte-select2 name="ad_id" id="ad_id" label="ID de la pub" label-class="text-lightblue" data-placeholder="Select an ad" required :config="$config">
-                </x-adminlte-select2>
-
                 <x-adminlte-select2 name="payment_method" label="Méthode de paiement" label-class="text-lightblue" data-placeholder="Select a payment method" required>
                     <option value="cc">Carte de crédit</option>
                     <option value="transfer">Transfert bancaire </option>
@@ -85,8 +82,7 @@
                         } 
                     });
                 } else {
-                    $('#ad_id').empty();
-                   
+                    $('#ad_id').empty();              
                 } 
             });
         });

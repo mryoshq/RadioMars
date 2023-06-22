@@ -93,8 +93,10 @@ class AdController extends Controller
             'pack_id' => 'sometimes|exists:packs,id',
             'text_content' => 'nullable|string',
             'audio_content' => 'nullable|string',
-            'status' => 'required|in:active,not_active,paused',
+            'status' => 'sometimes|in:active,not_active,paused',
             'pack_variation' => 'sometimes|integer',
+            'final_text_content' => 'nullable|string',
+            'final_audio_content' => 'nullable|string',
         ]);
     
         $updateData = $validated;
@@ -110,6 +112,15 @@ class AdController extends Controller
         if ($request->input('pack_variation_disabled') === 'true') {
             $updateData['pack_variation'] = $ad->pack_variation;
         }
+
+        if ($request->input('status_disabled') === 'true') {
+            $updateData['status'] = $ad->status;
+        }
+        $updateData['text_content'] = $validated['final_text_content'];
+        $updateData['audio_content'] = $validated['final_audio_content'];
+    
+      
+        
         $ad->update($updateData);
     
         return redirect()->route('web.ads.index')->with('success', 'Ad updated successfully');

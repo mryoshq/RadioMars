@@ -72,23 +72,29 @@
                 <input type="hidden" name="pack_variation_disabled" id="pack_variation_disabled" value="{{ empty($ad->pack_variation) ? 'true' : '' }}">
 
 
-
                 <div class="form-group">
-                    <label for="text_content" class="text-lightblue">Contenu Textuel</label>
-                    <input type="text" name="text_content" id="text_content" class="form-control" placeholder="Entrer le texte de la pub" value="{{ $ad->text_content }}">
-                </div>
+    <label for="text_content" class="text-lightblue">Contenu Textuel</label>
+    <input type="text" name="text_content" id="text_content" class="form-control" placeholder="Entrer le texte de la pub" value="{{ $ad->text_content }}">
+    <input type="hidden" id="text_content_hidden" name="text_content_hidden" value="{{ $ad->text_content }}">
+</div>
 
-                <div class="form-group">
-                        <label for="audio_content" class="text-lightblue">Audio content</label>
-                        <input type="url" name="audio_content" id="audio_content" class="form-control" placeholder="Enter the URL of the audio">
-                    </div>
+<div class="form-group">
+    <label for="audio_content" class="text-lightblue">Audio content</label>
+    <input type="url" name="audio_content" id="audio_content" class="form-control" placeholder="Enter the URL of the audio" value="{{ $ad->audio_content }}">
+    <input type="hidden" id="audio_content_hidden" name="audio_content_hidden" value="{{ $ad->audio_content }}">
+</div>
 
 
-                    <x-adminlte-select-bs name="status" label="Status" label-class="text-lightblue" data-placeholder="Select the status of the ad" required>
-                        <option value="active">Active</option>
-                        <option value="not_active">Not Active</option>
-                        <option value="paused">Paused</option>
-                    </x-adminlte-select-bs>
+<!-- Add these hidden fields -->
+<input type="hidden" name="final_text_content" id="final_text_content" value="{{ $ad->text_content }}">
+<input type="hidden" name="final_audio_content" id="final_audio_content" value="{{ $ad->audio_content }}">
+
+        <select name="status" id="status">
+            <option value="active" {{ old('status', $ad->status) === 'active' ? 'selected' : '' }}>Active</option>
+            <option value="not_active" {{ old('status', $ad->status) === 'not_active' ? 'selected' : '' }}>Not Active</option>
+            <option value="paused" {{ old('status', $ad->status) === 'paused' ? 'selected' : '' }}>Paused</option>
+        </select>
+
 
                     <div class="d-flex justify-content-end">
                       <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
@@ -102,24 +108,39 @@
 @section('js')
 <script>
 $(document).ready(function() {
-
-
     $('#text_content').on('input', function() {
-        if ($(this).val().trim() !== '') {
-            $('#audio_content').prop('disabled', true);
+        let text = $(this).val().trim();
+        if(text !== ''){
+            $('#audio_content, #audio_content_hidden').prop('disabled', true).val('');
+            // When text_content is filled, we clear the audio_content's value
+            $('#final_audio_content').val('');
         } else {
-            $('#audio_content').prop('disabled', false); 
+            $('#audio_content, #audio_content_hidden').prop('disabled', false).val('{{ $ad->audio_content }}');
         }
+        // Always sync the final_text_content value with the text_content's value
+        $('#final_text_content').val(text);
     });
 
-    // Disable text_content if audio_content is filled
     $('#audio_content').on('input', function() {
-        if ($(this).val().trim() !== '') {
-            $('#text_content').prop('disabled', true);
+        let audio = $(this).val().trim();
+        if(audio !== ''){
+            $('#text_content, #text_content_hidden').prop('disabled', true).val('');
+            // When audio_content is filled, we clear the text_content's value
+            $('#final_text_content').val('');
         } else {
-            $('#text_content').prop('disabled', false);
+            $('#text_content, #text_content_hidden').prop('disabled', false).val('{{ $ad->text_content }}');
         }
+        // Always sync the final_audio_content value with the audio_content's value
+        $('#final_audio_content').val(audio);
     });
+
+
+
+
+
+
+
+
     // Load pack variations when page is loaded
     loadPackVariations($('#pack_id').val(), $('#pack_variation_initial').val());
 
