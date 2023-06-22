@@ -19,16 +19,17 @@ class Ad extends Model
 {
     use HasFactory, SoftDeletes;  
 
-    protected $fillable = [ 'text_content', 'audio_content','status', 'advertiser_id', 'pack_id', 'pack_variation'];
+    protected $fillable = ['text_content', 'audio_content', 'status', 'advertiser_id', 'pack_id', 'pack_variation', 'decision', 'message', 'programmed_for'];
 
+    protected $dates = ['programmed_for']; 
 
     protected static function booted()
     {
         static::creating(function ($ad) {
             $ad->status = 'not_active';
+         
         });
-    }
-    
+    } 
     public function advertiser(): BelongsTo
     {
         return $this->belongsTo(Advertiser::class);

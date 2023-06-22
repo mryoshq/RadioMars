@@ -19,6 +19,8 @@
              'Texte', 
              'Audio',
              'Status',
+             'Decision',
+             'Programmed For',
              'Pack - ID', 
              'Propriétaire - ID',
              'Payment Status',
@@ -47,7 +49,7 @@
                 $statusTag = "<span class='badge bg-success' style='color: white;'>Activée</span>";
             } elseif ($status == 'paused') {
                 $statusTag = "<span class='badge bg-warning' style='color: white;'>En pause</span>";
-            } elseif ($status == 'not_active') {
+            } elseif ($status == 'not_active') { 
                 $statusTag = "<span class='badge bg-secondary' style='color: white;'>Désactivée</span>";
             }
 
@@ -66,13 +68,28 @@
                 $paymentStatusTag = "<span class='badge bg-secondary' style='color: white;'>Échoué</span>";
             }
           
-            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $pack, $owner, $paymentStatusTag, $btnEdit.$btnDelete];
-     }
+
+            $decision = $ad->decision;
+
+            $decisionTag = '';
+
+            if ($decision === 'in_queue') {
+                $decisionTag = "<span class='badge bg-light' style='color: black;'>In Queue</span>";
+            } elseif ($decision === 'accepted') {
+                $decisionTag = "<span class='badge bg-primary' style='color: white;'>Accepted</span>";
+            } elseif ($decision === 'rejected') {
+                $decisionTag = "<span class='badge bg-danger' style='color: white;'>Rejected</span>";
+            }
+
+            $programmedFor = $ad->programmed_for ? \Carbon\Carbon::parse($ad->programmed_for)->format('d-m') : 'N/A';
+
+            $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $decisionTag, $programmedFor , $pack, $owner, $paymentStatusTag, $btnEdit.$btnDelete];
+         }
 
         $config = [
             'data' => $adsArray,
             'order' => [[0, 'asc']],
-            'columns' => [null,null, null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null,null, null, null, null, null, null, null, null, ['orderable' => false]],
             'pageLength' => 15,
             'responsive' => true,
             'autoWidth' => false,

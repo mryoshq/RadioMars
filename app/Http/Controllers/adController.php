@@ -7,6 +7,7 @@ use App\Models\Ad;
 use Illuminate\Http\Request;
 use App\Models\Advertiser;
 use App\Models\Pack;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class AdController extends Controller
         return view('web.ads.index', compact('ads'));
     }
     public function getVariations(Request $request)
-    {
+    { 
         $packId = $request->input('pack_id');
         $pack = Pack::find($packId);
     
@@ -46,30 +47,49 @@ class AdController extends Controller
         return view('web.ads.create', compact('packs', 'advertisers', 'variations'));
     }
     
+  
+        public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'advertiser_id' => 'required|exists:advertisers,id',
+                'pack_id' => 'required|exists:packs,id',
+                'text_content' => 'nullable|string',
+                'audio_content' => 'nullable|string',
+                'status' => 'required|in:active,not_active,paused',
+                'decision' => 'required|in:accepted,in_queue,rejected',
+                'message' => 'nullable|string',
+                'programmed_for' => 'required|date|after_or_equal:today',
+            ]);
     
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'advertiser_id' => 'required|exists:advertisers,id',
-            'pack_id' => 'required|exists:packs,id',
-            'text_content' => 'nullable|string',
-            'audio_content' => 'nullable|string',
-            'status' => 'required|in:active,not_active,paused',
-        ]);
+            $request->validate([
+                'audio_content' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (empty($request->text_content) && empty($value)) {
+                            $fail('The text content or audio content must be provided.');
+                        }
+                        if (!empty($request->text_content) && !empty($value)) {
+                            $fail('Only one of text content or audio content can be provided.');
+                        }
+                    }, 
+                ],
+                'text_content' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (!empty($request->audio_content) && !empty($value)) {
+                            $fail('Only one of text content or audio content can be provided.');
+                        }
+                    },
+                ],
+            ]);
     
-        $pack = Pack::find($request->pack_id);
+            $ad = Ad::create($validated + ['pack_variation' => $request->pack_variation]);
     
-        $request->validate([
-            'pack_variation' => ['required', 'integer', 'between:1,' . $pack->variations]
-        ]);
-    
-        $ad = Ad::create($validated + ['pack_variation' => $request->pack_variation]);
-    
-        return redirect()->route('web.ads.index', $ad)->with('success', 'Ad created successfully');
-    }
+            return redirect()->route('web.ads.index', $ad)->with('success', 'Ad created successfully');
+        }
     
     
-     
+    
+    
+      
     public function show(Ad $ad)
     {
         return view('web.ads.show', compact('ad'));
@@ -97,6 +117,9 @@ class AdController extends Controller
             'pack_variation' => 'sometimes|integer',
             'final_text_content' => 'nullable|string',
             'final_audio_content' => 'nullable|string',
+            'decision' => 'required|in:accepted,in_queue,rejected',
+            'message' => 'nullable|string',
+            'programmed_for' => 'nullable|date',
         ]);
     
         $updateData = $validated;
@@ -118,6 +141,9 @@ class AdController extends Controller
         }
         $updateData['text_content'] = $validated['final_text_content'];
         $updateData['audio_content'] = $validated['final_audio_content'];
+        $updateData['decision'] = $validated['decision']; // Add this
+        $updateData['message'] = $validated['message']; // Add this
+        $updateData['programmed_for'] = $validated['programmed_for']; 
     
       
         

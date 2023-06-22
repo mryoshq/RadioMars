@@ -23,7 +23,12 @@ class CreateAdsTable extends Migration
 
             $table->unsignedBigInteger('advertiser_id');
             $table->unsignedBigInteger('pack_id')->nullable();
-            
+
+            $table->enum('decision', ['accepted', 'in_queue','rejected'])->nullable();
+            $table->text('message')->nullable();
+            $table->date('programmed_for')->nullable();
+
+
             $table->timestamps();
             $table->softDeletes(); 
         

@@ -39,6 +39,15 @@
                         ];
                     @endphp
 
+                    @if ($errors->any())
+                    <div class="alert alert-danger" id="error-alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <x-adminlte-select-bs name="advertiser_id" label="Advertiser" label-class="text-lightblue" data-placeholder="Select advertiser" required :config="$config">
                         @foreach($advertisers as $id => $name)
                             <option value="{{ $id }}">{{ $name }}</option>
@@ -54,7 +63,7 @@
 
                     <x-adminlte-select2 name="pack_variation" id="pack_variation" label="Pack Variation" label-class="text-lightblue" data-placeholder="Select Variation" required :config="$config">
                 </x-adminlte-select2>
-
+ 
 
                     <div class="form-group">
                         <label for="text_content" class="text-lightblue">Text content</label>
@@ -71,15 +80,52 @@
                         <option value="not_active">Not Active</option>
                         <option value="paused">Paused</option>
                     </x-adminlte-select-bs>
+                    {{-- Decision --}}
+                    <x-adminlte-select-bs name="decision" label="Decision" label-class="text-lightblue" data-placeholder="Select Decision" required>
+    <option value="in_queue" selected>In Queue</option>
+    <option value="accepted">Accepted</option>
+    <option value="rejected">Rejected</option>
+</x-adminlte-select-bs>
 
+{{-- Message --}} 
+<div class="form-group">
+    <label for="message" class="text-lightblue">Message</label>
+    <textarea name="message" id="message" class="form-control" placeholder="Enter a message"></textarea>
+</div> 
+
+{{-- Programmed For --}}
+{{-- Programmed For --}}
+@php
+$config3= ['format' => 'YYYY-MM-DD'];
+@endphp
+<x-adminlte-input-date name="programmed_for" :config="$config3" value="{{ date('Y-m-d', strtotime('+1 day')) }}" required label="Programmed For" label-class="text-lightblue">
+    <x-slot name="appendSlot">
+        <div class="input-group-text bg-gradient-danger">
+            <i class="fas fa-calendar-alt"></i>
+        </div> 
+    </x-slot>
+</x-adminlte-input-date>
+
+             
                     <div class="d-flex justify-content-end">
                         <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
                     </div>
+
+
+             
+             
+             
                 </form>
             </x-adminlte-card> 
         </div>
     </div>
+
+
+    
 @stop
+
+
+
 @section('js')
 <script>
 $(document).ready(function() {
@@ -123,6 +169,15 @@ $(document).ready(function() {
             $('#pack_variation').empty();
         } 
     });
+
+
+    $(document).ready(function() {
+        // Fade out the alert after 5 seconds
+        setTimeout(function() {
+            $('#error-alert').fadeOut('slow');
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
 });
 </script>
+
 @stop

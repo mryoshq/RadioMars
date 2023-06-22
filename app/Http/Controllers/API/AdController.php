@@ -19,7 +19,7 @@ class AdController extends Controller
             $ads = $advertiser->ads;
             // Transform them to resources
             return AdResource::collection($ads); 
-        }
+        } 
         else{
             // If the authenticated user has no advertiser model, ret urn empty collection
             return AdResource::collection(collect());
@@ -91,7 +91,5 @@ class AdController extends Controller
             return response()->json(['error' => 'No ad with such id for this user'], 404);
         }
     }
-    
-
 
 }

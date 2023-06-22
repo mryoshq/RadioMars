@@ -86,14 +86,49 @@
 
 
 <!-- Add these hidden fields -->
-<input type="hidden" name="final_text_content" id="final_text_content" value="{{ $ad->text_content }}">
-<input type="hidden" name="final_audio_content" id="final_audio_content" value="{{ $ad->audio_content }}">
+    <input type="hidden" name="final_text_content" id="final_text_content" value="{{ $ad->text_content }}">
+    <input type="hidden" name="final_audio_content" id="final_audio_content" value="{{ $ad->audio_content }}">
 
-        <select name="status" id="status">
+  
+    <x-adminlte-select-bs name="status" id="status" label="Status" label-class="text-lightblue" data-placeholder="Select status">
+   
             <option value="active" {{ old('status', $ad->status) === 'active' ? 'selected' : '' }}>Active</option>
             <option value="not_active" {{ old('status', $ad->status) === 'not_active' ? 'selected' : '' }}>Not Active</option>
             <option value="paused" {{ old('status', $ad->status) === 'paused' ? 'selected' : '' }}>Paused</option>
-        </select>
+            </x-adminlte-select-bs>
+        <!-- Decision field -->
+        <x-adminlte-select-bs name="decision" id="decision" label="Decision" label-class="text-lightblue" data-placeholder="Select decision">
+            <option value="accepted" {{ old('decision', $ad->decision) === 'accepted' ? 'selected' : '' }}>Accepted</option>
+            <option value="in_queue" {{ old('decision', $ad->decision) === 'in_queue' ? 'selected' : '' }}>In Queue</option>
+            <option value="rejected" {{ old('decision', $ad->decision) === 'rejected' ? 'selected' : '' }}>Rejected</option>
+        </x-adminlte-select-bs>
+
+<!-- Message field -->
+        <div class="form-group">
+            <label for="message" class="text-lightblue">Message</label>
+            <input type="text" name="message" id="message" class="form-control" placeholder="Enter a message" value="{{ old('message', $ad->message) }}">
+        </div>
+
+        <!-- Programmed For field -->
+       
+
+        <!-- Programmed For field -->
+<!-- Programmed For field --> 
+                <div class="form-group">
+                    <label for="programmed_for" class="text-lightblue">Programmed For</label>
+                    @php
+                    $config3 = ['format' => 'YYYY-MM-DD'];
+                    $value = old('programmed_for', $ad->programmed_for) ? (is_string($ad->programmed_for) ? Carbon\Carbon::parse($ad->programmed_for)->format('Y-m-d') : $ad->programmed_for->format('Y-m-d')) : '';
+                    @endphp
+                 
+                    <x-adminlte-input-date name="programmed_for" id="programmed_for" :config="$config3" placeholder="Select Date" :value="$value">
+                    <x-slot name="appendSlot">
+        <div class="input-group-text bg-gradient-danger">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+    </x-slot>
+</x-adminlte-input-date>
+                </div>
 
 
                     <div class="d-flex justify-content-end">
@@ -104,7 +139,7 @@
     </div>
 </div>
 @stop 
-
+ 
 @section('js')
 <script>
 $(document).ready(function() {

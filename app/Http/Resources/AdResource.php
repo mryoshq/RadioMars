@@ -22,6 +22,9 @@ class AdResource extends JsonResource
             'pack' => new PackResource($this->whenLoaded('pack')),
             //'pack' => $this->pack_id,
             'payment' => new PaymentResource($this->whenLoaded('payment')),
+            'decision' => $this->decision,
+            'message' => $this->message,
+            'programmed_for' => $this->programmed_for,
         ];
     }
 }
