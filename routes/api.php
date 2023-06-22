@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
  
 }); 
-
+ 
 Route::apiResource('packs', PackController::class)->only(['index', 'show'])->names([
     'index' => 'packs.index',
     'show' => 'packs.show',
