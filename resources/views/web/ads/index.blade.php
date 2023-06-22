@@ -51,7 +51,7 @@
                 $statusTag = "<span class='badge bg-secondary' style='color: white;'>Désactivée</span>";
             }
 
-            $pack = $ad->pack ? $ad->pack->name . ' - ' . $ad->pack->id : 'N/A';
+            $pack = $ad->pack ? $ad->pack->name . ' - ' . $ad->pack->id . ' - Variation: ' . $ad->pack_variation : 'N/A';
             $owner = $ad->advertiser && $ad->advertiser->user ? $ad->advertiser->user->name . ' - ' . $ad->advertiser->id : 'N/A';
             
             

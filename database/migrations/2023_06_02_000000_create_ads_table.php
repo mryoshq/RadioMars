@@ -11,7 +11,7 @@ class CreateAdsTable extends Migration
      *
      * @return void
      */
-    public function up() 
+    public function up()  
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->id(); 
@@ -19,6 +19,7 @@ class CreateAdsTable extends Migration
             $table->string('text_content')->nullable();
             $table->string('audio_content')->nullable();
             $table->enum('status', ['active', 'not_active', 'paused'])->nullable();
+            $table->integer('pack_variation')->nullable();
 
             $table->unsignedBigInteger('advertiser_id');
             $table->unsignedBigInteger('pack_id')->nullable();

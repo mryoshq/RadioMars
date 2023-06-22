@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['checkPermissions:manage_ads'])->group(function () {
         Route::get('/web/advertisers/ads', [PaymentController::class, 'getAds'])->name('web.payments.getAds');
+        Route::get('/web/ads/packs', [AdController::class, 'getVariations'])->name('web.ads.getVariations');
 
         Route::resource('ads', AdController::class)->names([
             'index' => 'web.ads.index',

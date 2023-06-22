@@ -12,7 +12,7 @@ class Pack extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['name', 'description', 'period', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability'];
+    protected $fillable = ['name', 'description', 'period', 'price', 'spots_number', 'days_of_week', 'times_of_day', 'availability','variations'];
 
  
     protected $casts = [

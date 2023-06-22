@@ -20,6 +20,8 @@ class CreatePacksTable extends Migration
             $table->json('days_of_week');
             $table->json('times_of_day'); 
             $table->json('availability'); 
+            
+            $table->integer('variations')->default(0);
             $table->timestamps();
         });
     }

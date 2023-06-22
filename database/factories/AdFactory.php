@@ -23,14 +23,19 @@ class AdFactory extends Factory
             $content_type = 'audio_content';
             $content_value = $this->faker->url;
         }
-
+    
+        // define the $pack object here
+        $pack = \App\Models\Pack::all()->random();
+    
         return [
             $content_type => $content_value,
             'status' => $this->faker->randomElement(['active', 'not_active', 'paused']),
-            'pack_id' => \App\Models\Pack::all()->random()->id,
+            'pack_id' => $pack->id,
+            'pack_variation' => $this->faker->numberBetween(1, $pack->variations), 
             'advertiser_id' => \App\Models\Advertiser::all()->random()->id,
         ];
     }
+    
 
 
     public function withPayment()

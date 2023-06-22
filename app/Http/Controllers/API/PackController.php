@@ -19,3 +19,4 @@ class PackController extends Controller
         return new PackResource($pack);
     }
 }
+ 

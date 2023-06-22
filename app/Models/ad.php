@@ -19,7 +19,7 @@ class Ad extends Model
 {
     use HasFactory, SoftDeletes;  
 
-    protected $fillable = [ 'text_content', 'audio_content','status', 'advertiser_id', 'pack_id'];
+    protected $fillable = [ 'text_content', 'audio_content','status', 'advertiser_id', 'pack_id', 'pack_variation'];
 
 
     protected static function booted()

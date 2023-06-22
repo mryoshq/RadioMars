@@ -25,40 +25,40 @@ class PackController extends Controller
     
     
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:500'],
-            'period' => ['required', 'array'], 
-            'price' => ['required', 'array'],   
-            'spots_number' => ['required', 'array'],
-            'days_of_week' => ['required','array'],
-            'times_of_day' => ['required','array'],
-            'availability' => ['required','array'],  
-        ]);
-    
-        $pack = new Pack();
-        $pack->name = $validated['name'];
-        $pack->description = $validated['description'];  
-        $pack->period = $validated['period'];  
-        $pack->price = $validated['price'];
-        $pack->spots_number = $validated['spots_number'];
-        $pack->days_of_week = $validated['days_of_week'];
-        $pack->times_of_day = $validated['times_of_day'];
+{
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'description' => ['required', 'string', 'max:500'],
+        'period' => ['required', 'array'], 
+        'price' => ['required', 'array'],   
+        'spots_number' => ['required', 'array'],
+        'days_of_week' => ['required','array'],
+        'times_of_day' => ['required','array'],
+        'availability' => ['required','array'],  
+    ]);
 
-        
-        $availability = array_map(function ($value) {
-            return boolval($value);
-        }, $request->input('availability'));
-        
-        $pack->availability = $availability;
-      
-        
-    
-        $pack->save();
-     
-        return redirect()->route('web.packs.index', $pack)->with('success', 'Pack created successfully');
-    }
+    $pack = new Pack();
+    $pack->name = $validated['name'];
+    $pack->description = $validated['description'];  
+    $pack->period = $validated['period'];  
+    $pack->price = $validated['price'];
+    $pack->spots_number = $validated['spots_number'];
+    $pack->days_of_week = $validated['days_of_week'];
+    $pack->times_of_day = $validated['times_of_day'];
+
+    // Added variations field
+    $pack->variations = count($validated['price']);
+
+    $availability = array_map(function ($value) {
+        return boolval($value);
+    }, $request->input('availability'));
+
+    $pack->availability = $availability;
+    $pack->save();
+
+    return redirect()->route('web.packs.index', $pack)->with('success', 'Pack created successfully');
+}
+
  
 
     public function edit(Pack $pack)
@@ -90,22 +90,26 @@ class PackController extends Controller
         $pack->name = $validated['name'];
         $pack->description = $validated['description'];
     
-        $pack->period = $validated['period'];
+        $pack->period = $validated['period']; 
         $pack->price = $validated['price'];
         $pack->spots_number = $validated['spots_number'];
     
+        // Added variations field
+        $pack->variations = count($validated['price']);
+    
         $pack->days_of_week = $validated['days_of_week'];
         $pack->times_of_day = $validated['times_of_day'];
-        
+    
         $pack->availability = $validated['availability'];
     
         $pack->save();
     
         return redirect()->route('web.packs.index', $pack)->with('success', 'Pack updated successfully.');
     }
-
     
 
+    
+ 
      
     
     
