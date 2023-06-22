@@ -19,8 +19,9 @@ class PaymentResource extends JsonResource
             'id' => $this->id,
             'payment_method' => $this->payment_method,
             'status' => $this->status,
+            'ad_id' => $this->ad_id,
             //'advertiser_id'=> $this->advertiser_id,
-            'ad' => new AdResource($this->whenLoaded('ad')),
+            'ad' => new AdResource($this->whenLoaded('ad')), 
         ];
     } 
 }

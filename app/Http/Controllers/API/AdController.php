@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdController extends Controller
 {
-    
+     
     public function index(Request $request) 
     {
         // Fetch the authenticated user's advertiser

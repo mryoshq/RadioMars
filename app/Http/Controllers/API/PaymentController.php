@@ -99,14 +99,13 @@ class PaymentController extends Controller
     public function update(Request $request, Payment $payment)
     {
         $request->validate([
-            'payment_method' => 'required',
-            'status' => 'required',
-            'ad_id' => 'required',
-            'advertiser_id' => 'required',
+            'payment_method' => 'required|in:cc,transfer,wire',
+            'status' => 'required|in:pending,paid,failed',
         ]);
     
         $payment->update($request->all());
     
-        return redirect()->route('web.payments.index')->with('success', 'Payment updated successfully');
+        return new PaymentResource($payment);
     }
+    
 }
