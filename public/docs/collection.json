@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "bf5cfee4-44d6-4d9c-95ce-7474cb489166",
+        "_postman_id": "dc4d3467-a298-4605-8260-29e6b7b0e727",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -58,7 +58,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -134,7 +138,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -165,7 +173,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"text_content\":\"impedit\",\"audio_content\":\"sed\",\"pack_id\":\"qui\"}"
+                            "raw": "{\"text_content\":\"debitis\",\"audio_content\":\"eos\",\"pack_id\":\"quia\",\"pack_variation\":\"sint\"}"
                         },
                         "description": "",
                         "auth": {
@@ -186,7 +194,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "animi",
+                                    "value": "omnis",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -221,7 +229,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -242,7 +254,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "impedit",
+                                    "value": "reprehenderit",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -260,7 +272,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"text_content\":\"id\",\"audio_content\":\"quisquam\",\"pack_id\":\"id\"}"
+                            "raw": "{\"text_content\":\"earum\",\"audio_content\":\"voluptatem\",\"pack_id\":\"et\",\"pack_variation\":\"dolor\"}"
                         },
                         "description": "",
                         "auth": {
@@ -308,7 +320,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -339,7 +355,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"ad_id\":\"fuga\",\"payment_method\":\"wire\",\"status\":\"paid\"}"
+                            "raw": "{\"ad_id\":\"veritatis\",\"payment_method\":\"wire\",\"status\":\"failed\"}"
                         },
                         "description": "",
                         "auth": {
@@ -360,7 +376,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "voluptatem",
                                     "description": "The ID of the payment."
                                 }
                             ]
@@ -395,7 +411,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -434,8 +454,36 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"payment_method\":\"wire\",\"status\":\"failed\"}"
+                            "raw": "{\"payment_method\":\"wire\",\"status\":\"pending\"}"
                         },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -482,7 +530,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -538,7 +590,11 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
                                 }
                             ],
                             "code": 404,
@@ -546,6 +602,65 @@
                             "name": ""
                         }
                     ]
+                },
+                {
+                    "name": "POST api\/register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"phone_number\":\"oihbgwtkvm\",\"password\":\"iE_o+6x`|a-dWkqQt\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
                 }
             ]
         }

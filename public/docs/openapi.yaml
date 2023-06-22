@@ -77,18 +77,23 @@ paths:
               properties:
                 text_content:
                   type: string
-                  description: ''
-                  example: impedit
+                  description: 'This field is required when <code>audio_content</code> is not present.'
+                  example: debitis
                 audio_content:
                   type: string
-                  description: ''
-                  example: sed
+                  description: 'This field is required when <code>text_content</code> is not present.'
+                  example: eos
                 pack_id:
                   type: string
                   description: ''
-                  example: qui
+                  example: quia
+                pack_variation:
+                  type: string
+                  description: ''
+                  example: sint
               required:
                 - pack_id
+                - pack_variation
       security: []
   '/api/ads/{id}':
     get:
@@ -129,25 +134,30 @@ paths:
               properties:
                 text_content:
                   type: string
-                  description: ''
-                  example: id
+                  description: 'This field is required when <code>audio_content</code> is not present.'
+                  example: earum
                 audio_content:
                   type: string
-                  description: ''
-                  example: quisquam
+                  description: 'This field is required when <code>text_content</code> is not present.'
+                  example: voluptatem
                 pack_id:
                   type: string
                   description: ''
-                  example: id
+                  example: et
+                pack_variation:
+                  type: string
+                  description: ''
+                  example: dolor
               required:
                 - pack_id
+                - pack_variation
       security: []
     parameters:
       -
         in: path
         name: id
         description: 'The ID of the ad.'
-        example: animi
+        example: omnis
         required: true
         schema:
           type: string
@@ -191,7 +201,7 @@ paths:
                 ad_id:
                   type: string
                   description: ''
-                  example: fuga
+                  example: veritatis
                 payment_method:
                   type: string
                   description: 'Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>.'
@@ -199,7 +209,7 @@ paths:
                 status:
                   type: string
                   description: 'Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>.'
-                  example: paid
+                  example: failed
               required:
                 - ad_id
                 - payment_method
@@ -249,7 +259,7 @@ paths:
                 status:
                   type: string
                   description: 'Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>.'
-                  example: failed
+                  example: pending
               required:
                 - payment_method
                 - status
@@ -259,10 +269,20 @@ paths:
         in: path
         name: id
         description: 'The ID of the payment.'
-        example: et
+        example: voluptatem
         required: true
         schema:
           type: string
+  /api/logout:
+    post:
+      summary: ''
+      operationId: postApiLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
   /api/packs:
     get:
       summary: ''
@@ -316,6 +336,44 @@ paths:
         required: true
         schema:
           type: integer
+  /api/register:
+    post:
+      summary: ''
+      operationId: postApiRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/login:
+    post:
+      summary: ''
+      operationId: postApiLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                  description: 'Must not be greater than 20 characters.'
+                  example: oihbgwtkvm
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: iE_o+6x`|a-dWkqQt
+              required:
+                - phone_number
+                - password
+      security: []
 tags:
   -
     name: Endpoints

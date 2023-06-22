@@ -16,7 +16,7 @@ class PaymentController extends Controller
     {
         // Get the currently authenticated user
         $advertiser = $request->user()->advertiser;
-    
+     
         // Get the Ads related to this advertiser
         $ads = $advertiser->ads()->with('payment')->get();
     
@@ -90,11 +90,6 @@ class PaymentController extends Controller
     }
     
      
-    public function edit(Payment $payment)
-    {
-        return view('web.payments.edit', compact('payment'));
-    }
-    
     
     public function update(Request $request, Payment $payment)
     {
