@@ -1,12 +1,20 @@
 @extends('adminlte::page')
 
 @section('title', 'recommendations') 
-
+@section('content_header')
+    <x-adminlte-card theme="dark" theme-mode="outline">
+        <h1>Calendrier</h1>
+    </x-adminlte-card>
+ 
+@stop 
 @section('content')
-<x-adminlte-card theme-mode="outline">
+<x-adminlte-card theme="dark"  theme-mode="outline">
     <div id='calendar'></div>
 </x-adminlte-card>
 @stop
+
+
+ 
 
 @section('plugins.fullcalendar', true) 
 @section('js')

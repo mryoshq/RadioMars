@@ -15,7 +15,7 @@ class CreateAdvertisersTable extends Migration
             $table->id();
             
             $table->string('firm', 40);
-            $table->enum('domain', ['artisanal1', 'artisanal2', 'artisanal3', 'artisanal4', 'artisanal5', 'artisanal6', 'artisanal7', 'artisanal8', 'artisanal9', 'artisanal10']);
+            $table->enum('domain', ['Céramique', 'Maroquinerie', 'Tapisserie', 'Bijouterie', 'Boiserie', 'Métallurgie', 'Textile', 'Vannerie', 'Broderie', 'Poterie']);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
