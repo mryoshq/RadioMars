@@ -73,7 +73,7 @@
             font-size: 2em; /* Adjust this to your desired size */
         }
     </style>
-@stop
+@stop 
 @section('js')
     <script> 
         var ctx = document.getElementById('Chart1').getContext('2d');

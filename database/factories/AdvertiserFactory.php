@@ -22,12 +22,12 @@ class AdvertiserFactory extends Factory
      */
     public function definition()
     {
-        $domain_names = ['artisanal1', 'artisanal2', 'artisanal3', 'artisanal4', 'artisanal5', 'artisanal6', 'artisanal7', 'artisanal8', 'artisanal9', 'artisanal10'];
+        $domain_names = ['Céramique', 'Maroquinerie', 'Tapisserie', 'Bijouterie', 'Boiserie', 'Métallurgie', 'Textile', 'Vannerie', 'Broderie', 'Poterie'];
 
         return [
             'domain' => $this->faker->randomElement($domain_names),
             'firm' => $this->faker->unique()->company,
-            'user_id' => User::factory()->advertiser(),
+            'user_id' => User::factory()->advertiser(), 
             
         ];
     }

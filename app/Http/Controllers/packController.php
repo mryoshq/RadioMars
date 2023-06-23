@@ -122,14 +122,14 @@ class PackController extends Controller
         $pack->price = array_values(array_diff_key($pack->price, [$variation => ""]));
         $pack->spots_number = array_values(array_diff_key($pack->spots_number, [$variation => ""]));
         $pack->availability = array_values(array_diff_key($pack->availability, [$variation => ""]));
-
+    
         if (empty($pack->period)) {
             $pack->delete();
         } else {
+            $pack->variations--; // Decrement variations by 1
             $pack->save();
         }
-
         return redirect()->route('web.packs.index')->with('deleted', 'Pack variation deleted successfully!');
     }
-
+    
 }

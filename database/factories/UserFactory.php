@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'password' => Hash::make('password'),
             'phone_number' => $this->faker->unique()->phoneNumber,
-
             'remember_token' => Str::random(10),
             'created_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-30 days', 'now'),

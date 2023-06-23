@@ -20,6 +20,15 @@ Route::get('/', function () {
         return redirect()->route('login');
     }
 });
+Route::get('/recommendations', function () {
+    return view('recommendations');
+})->name('recommendations'); 
+ 
+Route::get('/calendar', function () {
+    return view('calendar');
+})->name('calendar'); 
+ 
+Route::get('/calendar', [DashboardController::class, 'getEvents']);
 
 Auth::routes(['register' => false]); 
 
@@ -101,8 +110,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/access-denied', function () {
         return view('access-denied');
     })->name('access-denied');
-    Route::get('/recommendations', function () {
-        return view('recommendations');
-    })->name('recommendations');
+  
     
 });

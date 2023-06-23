@@ -293,12 +293,15 @@ return [
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
-  
-        ['header' => 'Gestion'],
         [
-            'text'    => 'Gestion des utilisateurs',
-            'icon'    => '',
-            'submenu' => [
+            'text'        => 'Calendrier',
+            'url'         => 'calendar',
+            'icon'        => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+        ['header' => 'Gestion'],
+        ['header' => 'Gestion des utilisateurs'],
+       
                 [ 
                     'text'        => 'Rôles',
                     'url'         => 'roles',
@@ -316,13 +319,9 @@ return [
                     'url'         => 'advertisers',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
-                ]
-            ],
-        ],
-        [
-            'text'    => 'Gestion des pubs',
-            'icon'    => '',
-            'submenu' => [
+                ],
+                ['header' => 'Gestion des pubs'],
+       
                 [ 
                     'text'        => 'Packs',
                     'url'         => 'packs',
@@ -335,29 +334,25 @@ return [
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
-            ],
-        ],
-
-        [
-            'text'    => 'Gestion des paiements',
-            'icon'    => '',
-            'submenu' => [
+       
+                ['header' => 'Gestion des paiements'],
+      
                 [
                     'text'        => 'Paiements',
                     'url'         => 'payments',
                     'icon'        => 'far fa-fw fa-file',
                     'label_color' => 'success',
                 ],
-            ],
-            
-        ],
-        ['header' => 'Recommendations'],
+    
+        ['header' => 'Planification'],
         [
             'text'        => 'Recommendations',
             'url'         => 'recommendations',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
+      
+      
         
 
      
@@ -497,7 +492,7 @@ return [
         'TempusDominusBs4' => [
             'active' => true,
             'files' => [
-                [
+                [ 
                     'type' => 'js',
                     'asset' => true,
                     'location' => 'vendor/moment/moment.min.js',
@@ -512,6 +507,30 @@ return [
                     'asset' => true,
                     'location' => 'vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
                 ],
+            ],
+        ],
+
+ 
+        'FullCalendar' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/fullcalendar/main.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/fullcalendar/locales-all.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/fullcalendar/main.css',
+                ]
+               
+
             ],
         ],
         

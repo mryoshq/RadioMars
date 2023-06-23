@@ -14,7 +14,7 @@ class AdFactory extends Factory
 
     public function definition()
     {
-        // Use a 50% chance to choose text_content or audio_content
+        // Use a 50% chance to choose text_content or audio_content 
         if ($this->faker->boolean(50)) {
             $content_type = 'text_content';
             $content_value = $this->faker->text(200);
