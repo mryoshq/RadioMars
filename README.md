@@ -56,7 +56,7 @@ Seeding: https://laravel.com/docs/8.x/seeding
 
 
 ##  API
-To explore the API, I have generated comprehensive documentation using the Scribe package. You can access this documentation at http://localhost:8000/docs.
+To explore the API, I have generated comprehensive documentation using the Scribe package. You can access this documentation at http://localhost:8000/docs
 
 The documentation includes descriptions of the endpoints, the required parameters, the responses, as well as examples to help you understand how to use each endpoint.
 

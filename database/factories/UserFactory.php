@@ -32,7 +32,8 @@ class UserFactory extends Factory
             'phone_number' => $this->faker->unique()->phoneNumber,
 
             'remember_token' => Str::random(10),
-          
+            'created_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-30 days', 'now'),
             'role_id' => \App\Models\Role::all()->random()->id,
         ];
     }

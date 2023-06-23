@@ -127,7 +127,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 22, 2023</li>
+        <li>Last updated: June 23, 2023</li>
     </ul>
 </div>
 
@@ -143,7 +143,9 @@
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is not authenticated.</p>
+<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
+<p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
+<p>You must pass your token as a Bearer token in the Authorization header of the request.</p>
 
         <h1 id="endpoints">Endpoints</h1>
 
@@ -524,10 +526,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"text_content\": \"debitis\",
-    \"audio_content\": \"eos\",
-    \"pack_id\": \"quia\",
-    \"pack_variation\": \"sint\"
+    \"text_content\": \"et\",
+    \"audio_content\": \"fuga\",
+    \"pack_id\": \"amet\",
+    \"pack_variation\": \"consequuntur\"
 }"
 </code></pre></div>
 
@@ -543,10 +545,10 @@ const headers = {
 };
 
 let body = {
-    "text_content": "debitis",
-    "audio_content": "eos",
-    "pack_id": "quia",
-    "pack_variation": "sint"
+    "text_content": "et",
+    "audio_content": "fuga",
+    "pack_id": "amet",
+    "pack_variation": "consequuntur"
 };
 
 fetch(url, {
@@ -635,10 +637,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="text_content"                data-endpoint="POSTapi-ads"
-               value="debitis"
+               value="et"
                data-component="body">
     <br>
-<p>This field is required when <code>audio_content</code> is not present. Example: <code>debitis</code></p>
+<p>This field is required when <code>audio_content</code> is not present. Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>audio_content</code></b>&nbsp;&nbsp;
@@ -646,10 +648,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="audio_content"                data-endpoint="POSTapi-ads"
-               value="eos"
+               value="fuga"
                data-component="body">
     <br>
-<p>This field is required when <code>text_content</code> is not present. Example: <code>eos</code></p>
+<p>This field is required when <code>text_content</code> is not present. Example: <code>fuga</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>pack_id</code></b>&nbsp;&nbsp;
@@ -657,10 +659,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="pack_id"                data-endpoint="POSTapi-ads"
-               value="quia"
+               value="amet"
                data-component="body">
     <br>
-<p>Example: <code>quia</code></p>
+<p>Example: <code>amet</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>pack_variation</code></b>&nbsp;&nbsp;
@@ -668,10 +670,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="pack_variation"                data-endpoint="POSTapi-ads"
-               value="sint"
+               value="consequuntur"
                data-component="body">
     <br>
-<p>Example: <code>sint</code></p>
+<p>Example: <code>consequuntur</code></p>
         </div>
         </form>
 
@@ -688,14 +690,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/ads/omnis" \
+    --get "http://localhost:8000/api/ads/quasi" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/ads/omnis"
+    "http://localhost:8000/api/ads/quasi"
 );
 
 const headers = {
@@ -805,10 +807,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-ads--id-"
-               value="omnis"
+               value="quasi"
                data-component="url">
     <br>
-<p>The ID of the ad. Example: <code>omnis</code></p>
+<p>The ID of the ad. Example: <code>quasi</code></p>
             </div>
                     </form>
 
@@ -825,21 +827,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/ads/reprehenderit" \
+    "http://localhost:8000/api/ads/similique" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"text_content\": \"earum\",
-    \"audio_content\": \"voluptatem\",
-    \"pack_id\": \"et\",
-    \"pack_variation\": \"dolor\"
+    \"text_content\": \"dignissimos\",
+    \"audio_content\": \"molestiae\",
+    \"pack_id\": \"eaque\",
+    \"pack_variation\": \"harum\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/ads/reprehenderit"
+    "http://localhost:8000/api/ads/similique"
 );
 
 const headers = {
@@ -848,10 +850,10 @@ const headers = {
 };
 
 let body = {
-    "text_content": "earum",
-    "audio_content": "voluptatem",
-    "pack_id": "et",
-    "pack_variation": "dolor"
+    "text_content": "dignissimos",
+    "audio_content": "molestiae",
+    "pack_id": "eaque",
+    "pack_variation": "harum"
 };
 
 fetch(url, {
@@ -944,10 +946,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="PUTapi-ads--id-"
-               value="reprehenderit"
+               value="similique"
                data-component="url">
     <br>
-<p>The ID of the ad. Example: <code>reprehenderit</code></p>
+<p>The ID of the ad. Example: <code>similique</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -956,10 +958,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="text_content"                data-endpoint="PUTapi-ads--id-"
-               value="earum"
+               value="dignissimos"
                data-component="body">
     <br>
-<p>This field is required when <code>audio_content</code> is not present. Example: <code>earum</code></p>
+<p>This field is required when <code>audio_content</code> is not present. Example: <code>dignissimos</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>audio_content</code></b>&nbsp;&nbsp;
@@ -967,10 +969,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="audio_content"                data-endpoint="PUTapi-ads--id-"
-               value="voluptatem"
+               value="molestiae"
                data-component="body">
     <br>
-<p>This field is required when <code>text_content</code> is not present. Example: <code>voluptatem</code></p>
+<p>This field is required when <code>text_content</code> is not present. Example: <code>molestiae</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>pack_id</code></b>&nbsp;&nbsp;
@@ -978,10 +980,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="pack_id"                data-endpoint="PUTapi-ads--id-"
-               value="et"
+               value="eaque"
                data-component="body">
     <br>
-<p>Example: <code>et</code></p>
+<p>Example: <code>eaque</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>pack_variation</code></b>&nbsp;&nbsp;
@@ -989,10 +991,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="pack_variation"                data-endpoint="PUTapi-ads--id-"
-               value="dolor"
+               value="harum"
                data-component="body">
     <br>
-<p>Example: <code>dolor</code></p>
+<p>Example: <code>harum</code></p>
         </div>
         </form>
 
@@ -1138,8 +1140,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"ad_id\": \"veritatis\",
-    \"payment_method\": \"wire\",
+    \"ad_id\": \"debitis\",
+    \"payment_method\": \"cc\",
     \"status\": \"failed\"
 }"
 </code></pre></div>
@@ -1156,8 +1158,8 @@ const headers = {
 };
 
 let body = {
-    "ad_id": "veritatis",
-    "payment_method": "wire",
+    "ad_id": "debitis",
+    "payment_method": "cc",
     "status": "failed"
 };
 
@@ -1247,10 +1249,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="ad_id"                data-endpoint="POSTapi-payments"
-               value="veritatis"
+               value="debitis"
                data-component="body">
     <br>
-<p>Example: <code>veritatis</code></p>
+<p>Example: <code>debitis</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>payment_method</code></b>&nbsp;&nbsp;
@@ -1258,10 +1260,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="payment_method"                data-endpoint="POSTapi-payments"
-               value="wire"
+               value="cc"
                data-component="body">
     <br>
-<p>Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>. Example: <code>wire</code></p>
+<p>Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>. Example: <code>cc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
@@ -1289,14 +1291,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/payments/voluptatem" \
+    --get "http://localhost:8000/api/payments/est" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/payments/voluptatem"
+    "http://localhost:8000/api/payments/est"
 );
 
 const headers = {
@@ -1406,10 +1408,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-payments--id-"
-               value="voluptatem"
+               value="est"
                data-component="url">
     <br>
-<p>The ID of the payment. Example: <code>voluptatem</code></p>
+<p>The ID of the payment. Example: <code>est</code></p>
             </div>
                     </form>
 
@@ -1430,8 +1432,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"payment_method\": \"wire\",
-    \"status\": \"pending\"
+    \"payment_method\": \"transfer\",
+    \"status\": \"paid\"
 }"
 </code></pre></div>
 
@@ -1447,8 +1449,8 @@ const headers = {
 };
 
 let body = {
-    "payment_method": "wire",
-    "status": "pending"
+    "payment_method": "transfer",
+    "status": "paid"
 };
 
 fetch(url, {
@@ -1553,10 +1555,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="payment_method"                data-endpoint="PUTapi-payments--id-"
-               value="wire"
+               value="transfer"
                data-component="body">
     <br>
-<p>Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>. Example: <code>wire</code></p>
+<p>Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>. Example: <code>transfer</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
@@ -1564,10 +1566,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="status"                data-endpoint="PUTapi-payments--id-"
-               value="pending"
+               value="paid"
                data-component="body">
     <br>
-<p>Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>. Example: <code>pending</code></p>
+<p>Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>. Example: <code>paid</code></p>
         </div>
         </form>
 
@@ -2066,8 +2068,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"phone_number\": \"oihbgwtkvm\",
-    \"password\": \"iE_o+6x`|a-dWkqQt\"
+    \"phone_number\": \"xascuelcwkyiihwb\",
+    \"password\": \"+UP+EgsbI&amp;.U+w^\"
 }"
 </code></pre></div>
 
@@ -2083,8 +2085,8 @@ const headers = {
 };
 
 let body = {
-    "phone_number": "oihbgwtkvm",
-    "password": "iE_o+6x`|a-dWkqQt"
+    "phone_number": "xascuelcwkyiihwb",
+    "password": "+UP+EgsbI&amp;.U+w^"
 };
 
 fetch(url, {
@@ -2173,10 +2175,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="phone_number"                data-endpoint="POSTapi-login"
-               value="oihbgwtkvm"
+               value="xascuelcwkyiihwb"
                data-component="body">
     <br>
-<p>Must not be greater than 20 characters. Example: <code>oihbgwtkvm</code></p>
+<p>Must not be greater than 20 characters. Example: <code>xascuelcwkyiihwb</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -2184,10 +2186,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="POSTapi-login"
-               value="iE_o+6x`|a-dWkqQt"
+               value="+UP+EgsbI&.U+w^"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>iE_o+6x</code>|a-dWkqQt`</p>
+<p>Must be at least 8 characters. Example: <code>+UP+EgsbI&amp;.U+w^</code></p>
         </div>
         </form>
 

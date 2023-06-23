@@ -143,11 +143,10 @@ return [
         'name' => 'Authorization', // the name of the token
         'use_value' => env('SCRIBE_AUTH_KEY', 'your token here'), // specify your token here
         'placeholder' => '{YOUR_AUTH_KEY}', // placeholder in the docs
-        'extra_info' => 'You must pass your token as a Bearer token in the Authorization header of the request.', /*
-         * Set this to true if your API should be authenticated by default. If so, you must also set `enabled` (above) to true.
-         * You can then use @unauthenticated or @authenticated on individual endpoints to change their status from the default.
-         */
-        'default' => false
+        'extra_info' => 'You must pass your token as a Bearer token in the Authorization header of the request.', // extra info displayed in docs
+        'security'=> [
+            'sanctum' => \Laravel\Sanctum\Sanctum::class,
+        ]
     ],
     
 

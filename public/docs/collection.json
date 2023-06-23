@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "dc4d3467-a298-4605-8260-29e6b7b0e727",
+        "_postman_id": "3df8cbe6-92a7-4149-97e0-6ee3be6c2ff4",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -173,7 +173,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"text_content\":\"debitis\",\"audio_content\":\"eos\",\"pack_id\":\"quia\",\"pack_variation\":\"sint\"}"
+                            "raw": "{\"text_content\":\"et\",\"audio_content\":\"fuga\",\"pack_id\":\"amet\",\"pack_variation\":\"consequuntur\"}"
                         },
                         "description": "",
                         "auth": {
@@ -194,7 +194,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "omnis",
+                                    "value": "quasi",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -254,7 +254,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "reprehenderit",
+                                    "value": "similique",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -272,7 +272,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"text_content\":\"earum\",\"audio_content\":\"voluptatem\",\"pack_id\":\"et\",\"pack_variation\":\"dolor\"}"
+                            "raw": "{\"text_content\":\"dignissimos\",\"audio_content\":\"molestiae\",\"pack_id\":\"eaque\",\"pack_variation\":\"harum\"}"
                         },
                         "description": "",
                         "auth": {
@@ -355,7 +355,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"ad_id\":\"veritatis\",\"payment_method\":\"wire\",\"status\":\"failed\"}"
+                            "raw": "{\"ad_id\":\"debitis\",\"payment_method\":\"cc\",\"status\":\"failed\"}"
                         },
                         "description": "",
                         "auth": {
@@ -376,7 +376,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "voluptatem",
+                                    "value": "est",
                                     "description": "The ID of the payment."
                                 }
                             ]
@@ -454,7 +454,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"payment_method\":\"wire\",\"status\":\"pending\"}"
+                            "raw": "{\"payment_method\":\"transfer\",\"status\":\"paid\"}"
                         },
                         "description": "",
                         "auth": {
@@ -653,7 +653,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"phone_number\":\"oihbgwtkvm\",\"password\":\"iE_o+6x`|a-dWkqQt\"}"
+                            "raw": "{\"phone_number\":\"xascuelcwkyiihwb\",\"password\":\"+UP+EgsbI&.U+w^\"}"
                         },
                         "description": "",
                         "auth": {
@@ -666,6 +666,13 @@
         }
     ],
     "auth": {
-        "type": "noauth"
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "value": "your token here",
+                "type": "string"
+            }
+        ]
     }
 }

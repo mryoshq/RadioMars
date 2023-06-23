@@ -93,6 +93,15 @@ class PaymentController extends Controller
     
     public function update(Request $request, Payment $payment)
     {
+        // Fetch the authenticated user's advertiser
+        $advertiser = $request->user()->advertiser;
+    
+        // Check if the payment's related ad belongs to the authenticated user
+        if($payment->ad && $payment->ad->advertiser->id !== $advertiser->id) {
+            // Return a 403 Forbidden HTTP response
+            return response()->json(['error' => 'This payment does not belong to the authenticated user'], 403);
+        }
+    
         $request->validate([
             'payment_method' => 'required|in:cc,transfer,wire',
             'status' => 'required|in:pending,paid,failed',
@@ -102,5 +111,6 @@ class PaymentController extends Controller
     
         return new PaymentResource($payment);
     }
+    
     
 }

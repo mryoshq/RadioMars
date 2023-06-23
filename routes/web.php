@@ -101,5 +101,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/access-denied', function () {
         return view('access-denied');
     })->name('access-denied');
+    Route::get('/recommendations', function () {
+        return view('recommendations');
+    })->name('recommendations');
     
 });

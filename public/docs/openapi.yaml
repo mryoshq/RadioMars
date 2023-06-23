@@ -78,19 +78,19 @@ paths:
                 text_content:
                   type: string
                   description: 'This field is required when <code>audio_content</code> is not present.'
-                  example: debitis
+                  example: et
                 audio_content:
                   type: string
                   description: 'This field is required when <code>text_content</code> is not present.'
-                  example: eos
+                  example: fuga
                 pack_id:
                   type: string
                   description: ''
-                  example: quia
+                  example: amet
                 pack_variation:
                   type: string
                   description: ''
-                  example: sint
+                  example: consequuntur
               required:
                 - pack_id
                 - pack_variation
@@ -135,19 +135,19 @@ paths:
                 text_content:
                   type: string
                   description: 'This field is required when <code>audio_content</code> is not present.'
-                  example: earum
+                  example: dignissimos
                 audio_content:
                   type: string
                   description: 'This field is required when <code>text_content</code> is not present.'
-                  example: voluptatem
+                  example: molestiae
                 pack_id:
                   type: string
                   description: ''
-                  example: et
+                  example: eaque
                 pack_variation:
                   type: string
                   description: ''
-                  example: dolor
+                  example: harum
               required:
                 - pack_id
                 - pack_variation
@@ -157,7 +157,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the ad.'
-        example: omnis
+        example: quasi
         required: true
         schema:
           type: string
@@ -201,11 +201,11 @@ paths:
                 ad_id:
                   type: string
                   description: ''
-                  example: veritatis
+                  example: debitis
                 payment_method:
                   type: string
                   description: 'Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>.'
-                  example: wire
+                  example: cc
                 status:
                   type: string
                   description: 'Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>.'
@@ -255,11 +255,11 @@ paths:
                 payment_method:
                   type: string
                   description: 'Must be one of <code>cc</code>, <code>transfer</code>, or <code>wire</code>.'
-                  example: wire
+                  example: transfer
                 status:
                   type: string
                   description: 'Must be one of <code>pending</code>, <code>paid</code>, or <code>failed</code>.'
-                  example: pending
+                  example: paid
               required:
                 - payment_method
                 - status
@@ -269,7 +269,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the payment.'
-        example: voluptatem
+        example: est
         required: true
         schema:
           type: string
@@ -365,11 +365,11 @@ paths:
                 phone_number:
                   type: string
                   description: 'Must not be greater than 20 characters.'
-                  example: oihbgwtkvm
+                  example: xascuelcwkyiihwb
                 password:
                   type: string
                   description: 'Must be at least 8 characters.'
-                  example: iE_o+6x`|a-dWkqQt
+                  example: '+UP+EgsbI&.U+w^'
               required:
                 - phone_number
                 - password
@@ -378,3 +378,12 @@ tags:
   -
     name: Endpoints
     description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []

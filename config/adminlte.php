@@ -353,8 +353,8 @@ return [
         ],
         ['header' => 'Recommendations'],
         [
-            'text'        => 'Tableau de bord',
-            'url'         => 'dashboard',
+            'text'        => 'Recommendations',
+            'url'         => 'recommendations',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
