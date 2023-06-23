@@ -10,7 +10,7 @@
 @stop 
  
 @section('content')
-    <div class="row">
+    <div class="row"> 
         <div class="col-md-4 col-sm-6 col-12">
             <x-adminlte-small-box :title="$newUsersCount" theme="teal" url="users" url-text="Voir la liste des clients"  id="sbUpdatable" text="Nouveau clients" icon="fas fa-lg fa-user-plus"/>
         </div>
@@ -27,12 +27,12 @@
 
     <div class="row">
     <div class="col-md-10">
-        <x-adminlte-card title="publicités" theme="dark" icon="fas fa-lg fa-moon">
+        <x-adminlte-card title="Publicités par Packs / Variations" theme="dark">
             <canvas id="Chart2"></canvas>
         </x-adminlte-card>
     </div>
     <div class="col-md-2 d-flex align-items-stretch">
-        <x-adminlte-card title="Payé" theme="dark" icon="fas fa-lg fa-moon" style="width: 100%;">
+        <x-adminlte-card title="Taux de paiements" theme="dark" style="width: 100%;">
             <div class="d-flex flex-column justify-content-center " style="width: 100%; height: 100%;">
                 @foreach ($packs2 as $pack)
                     <span>{{$pack-> name }}{{ $pack->pack_variation }}</span>
@@ -48,12 +48,12 @@
     <div class="row">    
 
         <div class="col-md-6"> 
-            <x-adminlte-card title="Paiements" theme="dark" icon="fas fa-lg fa-moon">
+            <x-adminlte-card title="Status des paiements" theme="dark" >
             <canvas id="Chart1"></canvas>
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
-    <x-adminlte-card title=" Utilisateurs" theme="dark" icon="fas fa-users">
+    <x-adminlte-card title=" Nouveaux utilisateurs dans le temps" theme="dark" icon="fas fa-users">
         <canvas id="userRegistrationChart"></canvas>
     </x-adminlte-card>
 </div>

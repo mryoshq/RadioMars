@@ -32,7 +32,7 @@ class DashboardController extends Controller
                 'labels' => $registrationLabels,
                 'datasets' => [
                     [
-                        'label' => 'User Registration',
+                        'label' => 'Nouveaux clients',
                         'data' => $registrationData,
                         'fill' => false,
                         'borderColor' => 'rgb(75, 192, 192)',
@@ -67,36 +67,46 @@ class DashboardController extends Controller
                 return $item;
             });
             
+       
 
-            // Prepare labels and data for the chart
-            $labels = $packs->map(function ($pack) {
-                return $pack->name  . $pack->pack_variation ;
-            });
-            $data = $packs->pluck('ads_count');
-
-            // Define colors
+            // Get the maximum number of variations from the 'packs' table
+            $maxVariation = Pack::max('variations');
+            
             $colors = [
                 '#F1C376', '#C8553D', '#F28F3B', '#606C5D', '#465362',
                 // Add more colors if you have more variations
             ];
-
-            $backgroundColor = [];
-            foreach ($packs as $pack) {
-                // Use pack_variation as index in the colors array, and use modulo to cycle back to the start when exceeding color count
-                $backgroundColor[] = $colors[($pack->pack_variation - 1)];
+            
+            $packNames = $packs->pluck('name')->unique();
+            $labels = $packNames->values();
+            
+            $datasets = [];
+            for ($variation = 1; $variation <= $maxVariation; $variation++) {
+                $datasets[] = [
+                    'label' => 'Variation ' . $variation,
+                    'backgroundColor' => $colors[($variation - 1) % count($colors)],
+                    'data' => array_fill(0, $packNames->count(), 0),
+                ];
+            
+                foreach ($packNames as $packName) {
+                    $packData = $packs->filter(function ($pack) use ($packName, $variation) {
+                        return $pack->name == $packName && $pack->pack_variation == $variation;
+                    })->first();
+            
+                    if ($packData) {
+                        $index = $labels->search($packName);
+                        $datasets[count($datasets) - 1]['data'][$index] = $packData->ads_count;
+                    }
+                }
             }
-
+            
             $chartData = [
                 'labels' => $labels,
-                'datasets' => [
-                    [
-                        'label' => 'Pubs par Packs',
-                        'backgroundColor' => $backgroundColor,
-                        'hoverBackgroundColor' => '#F28F3B', // change this if you want different hover color
-                        'data' => $data,
-                    ],
-                ],
+                'datasets' => $datasets,
             ];
+            
+        
+            
         
 
 
@@ -111,37 +121,53 @@ class DashboardController extends Controller
             ->select('status', DB::raw('count(*) as count'))
             ->groupBy('status')
             ->get();
-
-            // data
-            $paymentData = $payments->pluck('count');
-
-            // labels
-            $paymentLabels = $payments->pluck('status');
-
-            $colorMap = [
-                'failed' => '#C8553D', 
-                'pending' => '#36A2EB',
-                'paid' => '#D0F5BE'
-            ];
-            
-            $backgroundColor = [];
-            foreach ($paymentLabels as $label) {
-                if (isset($colorMap[$label])) {
-                    $backgroundColor[] = $colorMap[$label];
-                } else {
-                    $backgroundColor[] = '#000000'; // default color if the status is not found in the colorMap
-                }
-            }
-            
-            $chartData2 = [
-                'labels' => $paymentLabels,
-                'datasets' => [
-                    [
-                        'data' => $paymentData,
-                        'backgroundColor' => $backgroundColor,
-                    ],
-                ],
-            ];
+    
+    // data
+    $paymentData = $payments->pluck('count');
+    
+    // labels
+    $paymentLabels = $payments->pluck('status');
+    
+    $colorMap = [
+        'failed' => '#C8553D', 
+        'pending' => '#36A2EB',
+        'paid' => '#D0F5BE'
+    ];
+    
+    // Mapping for label translation
+    $labelMap = [
+        'failed' => 'échoué',
+        'pending' => 'en attente',
+        'paid' => 'payé',
+    ];
+    
+    $backgroundColor = [];
+    $translatedLabels = [];
+    
+    foreach ($paymentLabels as $label) {
+        if (isset($colorMap[$label])) {
+            $backgroundColor[] = $colorMap[$label];
+        } else {
+            $backgroundColor[] = '#000000'; // default color if the status is not found in the colorMap
+        }
+    
+        if (isset($labelMap[$label])) {
+            $translatedLabels[] = $labelMap[$label];
+        } else {
+            $translatedLabels[] = $label; // Keep original label if not found in labelMap
+        }
+    }
+    
+    $chartData2 = [
+        'labels' => $translatedLabels,
+        'datasets' => [
+            [
+                'data' => $paymentData,
+                'backgroundColor' => $backgroundColor,
+            ],
+        ],
+    ];
+    
 
             // Get the new users count for the last week
             $newUsersCount = User::where('created_at', '>=', now()->subWeek())->count();
