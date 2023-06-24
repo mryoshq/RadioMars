@@ -71,51 +71,51 @@ endpoints:
         name: domain
         description: 'The domain of the advertiser.'
         required: false
-        example: laudantium
+        example: enim
         type: string
         custom: []
       firm:
         name: firm
         description: 'The firm of the advertiser.'
         required: false
-        example: quae
+        example: blanditiis
         type: string
         custom: []
       name:
         name: name
         description: 'The name of the user.'
         required: false
-        example: reiciendis
+        example: fuga
         type: string
         custom: []
       email:
         name: email
         description: 'The email of the user.'
         required: false
-        example: wmacejkovic@example.com
+        example: boris81@example.net
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: 'The phone number of the user.'
         required: false
-        example: alias
+        example: voluptatem
         type: string
         custom: []
       password:
         name: password
         description: 'The password of the user.'
         required: false
-        example: '<utF1|#n]m_(Ww%#A-N!'
+        example: '5a~}1D2soU%kUc06'
         type: string
         custom: []
     cleanBodyParameters:
-      domain: laudantium
-      firm: quae
-      name: reiciendis
-      email: wmacejkovic@example.com
-      phone_number: alias
-      password: '<utF1|#n]m_(Ww%#A-N!'
+      domain: enim
+      firm: blanditiis
+      name: fuga
+      email: boris81@example.net
+      phone_number: voluptatem
+      password: '5a~}1D2soU%kUc06'
     fileParameters: []
     responses: []
     responseFields: []
@@ -227,11 +227,11 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: tenetur
+        example: ut
         type: string
         custom: []
     cleanUrlParameters:
-      id: tenetur
+      id: ut
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -280,11 +280,11 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: 13
+        example: 7
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 13
+      id: 7
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -400,11 +400,11 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: 19
+        example: 2
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 19
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -516,7 +516,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Show all packs'
       description: ''
       authenticated: false
       custom: []
@@ -556,7 +556,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'show a specific pack'
       description: ''
       authenticated: false
       custom: []

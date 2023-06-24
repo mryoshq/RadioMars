@@ -105,10 +105,10 @@
                                 <a href="#endpoints-POSTapi-logout">User logout</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-packs">
-                                <a href="#endpoints-GETapi-packs">GET api/packs</a>
+                                <a href="#endpoints-GETapi-packs">Show all packs</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-packs--id-">
-                                <a href="#endpoints-GETapi-packs--id-">GET api/packs/{id}</a>
+                                <a href="#endpoints-GETapi-packs--id-">show a specific pack</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-register">
                                 <a href="#endpoints-POSTapi-register">User register</a>
@@ -309,12 +309,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"domain\": \"laudantium\",
-    \"firm\": \"quae\",
-    \"name\": \"reiciendis\",
-    \"email\": \"wmacejkovic@example.com\",
-    \"phone_number\": \"alias\",
-    \"password\": \"&lt;utF1|#n]m_(Ww%#A-N!\"
+    \"domain\": \"enim\",
+    \"firm\": \"blanditiis\",
+    \"name\": \"fuga\",
+    \"email\": \"boris81@example.net\",
+    \"phone_number\": \"voluptatem\",
+    \"password\": \"5a~}1D2soU%kUc06\"
 }"
 </code></pre></div>
 
@@ -331,12 +331,12 @@ const headers = {
 };
 
 let body = {
-    "domain": "laudantium",
-    "firm": "quae",
-    "name": "reiciendis",
-    "email": "wmacejkovic@example.com",
-    "phone_number": "alias",
-    "password": "&lt;utF1|#n]m_(Ww%#A-N!"
+    "domain": "enim",
+    "firm": "blanditiis",
+    "name": "fuga",
+    "email": "boris81@example.net",
+    "phone_number": "voluptatem",
+    "password": "5a~}1D2soU%kUc06"
 };
 
 fetch(url, {
@@ -436,10 +436,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="domain"                data-endpoint="PUTapi-advertiser"
-               value="laudantium"
+               value="enim"
                data-component="body">
     <br>
-<p>The domain of the advertiser. Example: <code>laudantium</code></p>
+<p>The domain of the advertiser. Example: <code>enim</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>firm</code></b>&nbsp;&nbsp;
@@ -447,10 +447,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="firm"                data-endpoint="PUTapi-advertiser"
-               value="quae"
+               value="blanditiis"
                data-component="body">
     <br>
-<p>The firm of the advertiser. Example: <code>quae</code></p>
+<p>The firm of the advertiser. Example: <code>blanditiis</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
@@ -458,10 +458,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-advertiser"
-               value="reiciendis"
+               value="fuga"
                data-component="body">
     <br>
-<p>The name of the user. Example: <code>reiciendis</code></p>
+<p>The name of the user. Example: <code>fuga</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -469,10 +469,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="email"                data-endpoint="PUTapi-advertiser"
-               value="wmacejkovic@example.com"
+               value="boris81@example.net"
                data-component="body">
     <br>
-<p>The email of the user. Example: <code>wmacejkovic@example.com</code></p>
+<p>The email of the user. Example: <code>boris81@example.net</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone_number</code></b>&nbsp;&nbsp;
@@ -480,10 +480,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="phone_number"                data-endpoint="PUTapi-advertiser"
-               value="alias"
+               value="voluptatem"
                data-component="body">
     <br>
-<p>The phone number of the user. Example: <code>alias</code></p>
+<p>The phone number of the user. Example: <code>voluptatem</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -491,10 +491,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="PUTapi-advertiser"
-               value="<utF1|#n]m_(Ww%#A-N!"
+               value="5a~}1D2soU%kUc06"
                data-component="body">
     <br>
-<p>The password of the user. Example: <code>&lt;utF1|#n]m_(Ww%#A-N!</code></p>
+<p>The password of the user. Example: <code>5a~}1D2soU%kUc06</code></p>
         </div>
         </form>
 
@@ -773,7 +773,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/ads/tenetur" \
+    --get "http://localhost:8000/api/ads/ut" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -781,7 +781,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/ads/tenetur"
+    "http://localhost:8000/api/ads/ut"
 );
 
 const headers = {
@@ -903,10 +903,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                name="id"                data-endpoint="GETapi-ads--id-"
-               value="tenetur"
+               value="ut"
                data-component="url">
     <br>
-<p>The ID of the ad. Example: <code>tenetur</code></p>
+<p>The ID of the ad. Example: <code>ut</code></p>
             </div>
                     </form>
 
@@ -924,7 +924,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/ads/13" \
+    "http://localhost:8000/api/ads/7" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -932,7 +932,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/ads/13"
+    "http://localhost:8000/api/ads/7"
 );
 
 const headers = {
@@ -1041,10 +1041,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-ads--id-"
-               value="13"
+               value="7"
                data-component="url">
     <br>
-<p>The ID of the ad. Example: <code>13</code></p>
+<p>The ID of the ad. Example: <code>7</code></p>
             </div>
                     </form>
 
@@ -1323,7 +1323,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/payments/19" \
+    --get "http://localhost:8000/api/payments/2" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1331,7 +1331,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/payments/19"
+    "http://localhost:8000/api/payments/2"
 );
 
 const headers = {
@@ -1453,10 +1453,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-payments--id-"
-               value="19"
+               value="2"
                data-component="url">
     <br>
-<p>The ID of the ad. Example: <code>19</code></p>
+<p>The ID of the ad. Example: <code>2</code></p>
             </div>
                     </form>
 
@@ -1720,7 +1720,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-GETapi-packs">GET api/packs</h2>
+                    <h2 id="endpoints-GETapi-packs">Show all packs</h2>
 
 <p>
 </p>
@@ -1845,7 +1845,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-GETapi-packs--id-">GET api/packs/{id}</h2>
+                    <h2 id="endpoints-GETapi-packs--id-">show a specific pack</h2>
 
 <p>
 </p>

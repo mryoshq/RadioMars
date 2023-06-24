@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "cd6eefa5-1618-40f3-bc99-30f4441a6b30",
+        "_postman_id": "89cddb76-3574-415e-8484-1a6139079b60",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -90,7 +90,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"domain\":\"laudantium\",\"firm\":\"quae\",\"name\":\"reiciendis\",\"email\":\"wmacejkovic@example.com\",\"phone_number\":\"alias\",\"password\":\"<utF1|#n]m_(Ww%#A-N!\"}"
+                            "raw": "{\"domain\":\"enim\",\"firm\":\"blanditiis\",\"name\":\"fuga\",\"email\":\"boris81@example.net\",\"phone_number\":\"voluptatem\",\"password\":\"5a~}1D2soU%kUc06\"}"
                         },
                         "description": ""
                     },
@@ -182,7 +182,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "tenetur",
+                                    "value": "ut",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -239,7 +239,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "13",
+                                    "value": "7",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -346,7 +346,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "2",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -450,7 +450,7 @@
                     "response": []
                 },
                 {
-                    "name": "GET api\/packs",
+                    "name": "Show all packs",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -502,7 +502,7 @@
                     ]
                 },
                 {
-                    "name": "GET api\/packs\/{id}",
+                    "name": "show a specific pack",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
