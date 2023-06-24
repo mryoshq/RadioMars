@@ -122,6 +122,10 @@ class AdController extends Controller
             'programmed_for' => 'nullable|date',
         ]);
     
+
+
+
+        //updating data
         $updateData = $validated;
     
         if ($request->input('advertiser_id_disabled') === 'true') {
@@ -141,14 +145,29 @@ class AdController extends Controller
         }
         $updateData['text_content'] = $validated['final_text_content'];
         $updateData['audio_content'] = $validated['final_audio_content'];
-        $updateData['decision'] = $validated['decision']; // Add this
+        $updateData['decision'] = $validated['decision']; // Add this 
         $updateData['message'] = $validated['message']; // Add this
         $updateData['programmed_for'] = $validated['programmed_for']; 
     
-      
+
+
+
+        $paymentStatus = $ad->payment->status ?? '';
+
+        if($validated['decision'] == 'accepted') {
+            if($paymentStatus == 'paid') {
+                $updateData['status'] = 'active';
+            } else {
+                $updateData['status'] = 'paused';
+            }
+        } elseif($validated['decision'] == 'rejected') {
+            $updateData['status'] = 'not_active';
+        } elseif($validated['decision'] == 'in_queue') {
+            $updateData['status'] = 'paused';
+        }
         
         $ad->update($updateData);
-    
+        
         return redirect()->route('web.ads.index')->with('success', 'Ad updated successfully');
     }
     

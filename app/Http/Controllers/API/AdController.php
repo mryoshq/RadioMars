@@ -10,117 +10,190 @@ use Illuminate\Support\Facades\Validator;
 
 class AdController extends Controller
 {
-     
+   /**
+     * Display a listing of the ads.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function index(Request $request) 
     {
-        // Fetch the authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
-        if($advertiser){
-            // Fetch the ads for this advertiser
+        try {
+            $advertiser = $request->user()->advertiser;
+    
+            if(!$advertiser){
+                return response()->json(['error' => 'No advertiser associated with this user'], 404);
+            }
+    
             $ads = $advertiser->ads;
-            // Transform them to resources
-            return AdResource::collection($ads); 
-        }  
-        else{
-            // If the authenticated user has no advertiser model, ret urn empty collection
-            return AdResource::collection(collect());
+            return AdResource::collection($ads);
+            
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
     }
+    
 
+    /**
+     * Display the specified ad.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\AdResource
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function show(Request $request, $id)
     {
-        // Fetch the authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
+        try {
+            $advertiser = $request->user()->advertiser;
     
-        // Fetch the ad with the given id that belongs to the advertiser
-        $ad = $advertiser->ads()->find($id);
+            if(!$advertiser){
+                return response()->json(['error' => 'No advertiser associated with this user'], 404);
+            }
     
-        if(!$ad){
-            // If the ad does not exist, return error response
-            return response()->json(['error' => 'No ad with such id for this user'], 404);
+            $ad = $advertiser->ads()->find($id);
+    
+            if(!$ad){
+                return response()->json(['error' => 'No ad with such id for this user'], 404);
+            }
+    
+            $ad->load('pack', 'payment');
+            return (new AdResource($ad));
+    
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
-    
-        // Load relationships for the ad
-        $ad->load('pack', 'payment');
-    
-        // Transform the ad to a resource and pass pack_variation
-        return (new AdResource($ad))->additional(['pack_variation' => $ad->pack_variation]);
     }
     
 
+     /**
+     * Store a newly created ad in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\AdResource
+     * 
+     * @throws \Illuminate\Validation\ValidationException If validation fails
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'text_content' => 'required_without:audio_content|string|nullable',
-            'audio_content' => 'required_without:text_content|string|nullable',
-            'pack_id' => 'required|exists:packs,id',
-            'pack_variation' => 'required|string',
-        ]);
+        $messages = [
+            'text_content.required_without' => 'The text content field is required when audio content is not present.',
+            'text_content.string' => 'The text content must be a string.',
+            'audio_content.required_without' => 'The audio content field is required when text content is not present.',
+            'audio_content.string' => 'The audio content must be a string.',
+            'pack_id.required' => 'The pack id field is required.',
+            'pack_id.integer' => 'The pack id must be an integer.',
+            'pack_id.exists' => 'The selected pack id is invalid.',
+            'pack_variation.required' => 'The pack variation field is required.',
+            'pack_variation.integer' => 'The pack variation must be an integer.',
+            'programmed_for.required' => 'The programmed for field is required.',
+            'programmed_for.date' => 'The programmed for field must be a valid date.',
+        ];
     
-        if($validator->fails()){
-            return response()->json([
-                'status' => 'error',
-                'errors' => $validator->errors()
-            ], 400);
+        try { 
+            $validated = $request->validate([
+                'text_content' => 'required_without:audio_content|string|nullable',
+                'audio_content' => 'required_without:text_content|string|nullable',
+                'pack_id' => 'required|integer|exists:packs,id',
+                'pack_variation' => 'required|integer',
+                'programmed_for' => 'required|date',
+            ], $messages);
+    
+            $validated['decision'] = 'in_queue';
+            $validated['message'] = 'We will process your ad soon.';
+    
+            $advertiser = $request->user()->advertiser;
+            if (!$advertiser) {
+                return response()->json(['error' => 'Advertiser not found.'], 404);
+            }
+    
+            $ad = $advertiser->ads()->create($validated);
+            if (!$ad) {
+                return response()->json(['error' => 'Failed to create the Ad.'], 500);
+            }
+    
+            $ad->load('pack', 'payment');
+    
+            return new AdResource($ad);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // handle validation exception
+            return response()->json(['error' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            // catch other errors
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
-    
-        $validated = $validator->validated();
-    
-        $validated['decision'] = 'in_queue';
-        $validated['message'] = 'we will process your ad soon';
-        $validated['programmed_for'] = $request->input('programmed_for', now()->addDay());
-    
-        // Get the currently authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
-    
-        // Create a new ad associated with the advertiser
-        $ad = $advertiser->ads()->create($validated);
-    
-        // Load the pack (and payment if needed) relationship
-        $ad->load('pack', 'payment');
-    
-        return new AdResource($ad);
     }
     
-    
-
+   
+   /**
+     * Update the specified ad in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\AdResource
+     * 
+     * @throws \Illuminate\Validation\ValidationException If validation fails
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     * @urlParam id integer required The ID of the ad.
+     */
     public function update(Request $request, $id)
-{
-    $validator = Validator::make($request->all(), [
-        'text_content' => 'required_without:audio_content|string|nullable',
-        'audio_content' => 'required_without:text_content|string|nullable',
-        'pack_id' => 'required|exists:packs,id',
-        'pack_variation' => 'required|string',
-    ]);
+    {
+        $messages = [
+            'text_content.required_without' => 'The text content field is required when audio content is not present.',
+            'text_content.string' => 'The text content must be a string.',
+            'audio_content.required_without' => 'The audio content field is required when text content is not present.',
+            'audio_content.string' => 'The audio content must be a string.',
+            'pack_id.integer' => 'The pack id must be an integer.',
+            'pack_id.exists' => 'The selected pack id is invalid.',
+            'pack_variation.integer' => 'The pack variation must be an integer.',
+            'programmed_for.date' => 'The programmed for field must be a valid date.',
+        ];
 
-    if($validator->fails()){
-        return response()->json([
-            'status' => 'error',
-            'errors' => $validator->errors()
-        ], 400);
+        try {
+            $ad = Ad::find($id);
+            if (!$ad) {
+                return response()->json(['error' => 'Ad not found.'], 404);
+            }
+
+            $data = $request->validate([
+                'text_content' => 'sometimes|required_without:audio_content|string|nullable',
+                'audio_content' => 'sometimes|required_without:text_content|string|nullable',
+                'pack_id' => 'sometimes|integer|exists:packs,id',
+                'pack_variation' => 'sometimes|integer',
+                'programmed_for' => 'sometimes|date',
+            ], $messages);
+
+            $advertiser = $request->user()->advertiser;
+            if ($ad->advertiser_id !== $advertiser->id) {
+                return response()->json(['error' => 'Unauthorized to update this Ad.'], 403);
+            }
+
+            $ad->update($data);
+
+            $ad->load('pack', 'payment');
+
+            return new AdResource($ad);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // handle validation exception
+            return response()->json(['error' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            // catch other errors
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
+        }
     }
-
-    $validated = $validator->validated();
-
-    // Fetch the authenticated user's advertiser
-    $advertiser = $request->user()->advertiser;
-
-    // Fetch the ad with the given id that belongs to the advertiser
-    $ad = $advertiser->ads()->find($id);
-
-    if ($ad) {
-        // Update the ad
-        $ad->update($validated);
-
-        // Load the pack (and payment if needed) relationship
-        $ad->load('pack', 'payment');
-
-        return new AdResource($ad);
-    } else {
-        // If the ad does not exist, return error response
-        return response()->json(['error' => 'No ad with such id for this user'], 404);
     }
-}
-
-}
- 
+    

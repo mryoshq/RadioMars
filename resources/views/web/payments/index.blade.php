@@ -53,13 +53,13 @@
 
     switch ($payment->status) {
         case 'paid':
-            $paymentStatusTag = "<span class='badge bg-success' style='color: white;'>Paid</span>";
+            $paymentStatusTag = "<span class='badge bg-success' style='color: white;'>Payé</span>";
             break;
         case 'failed':
-            $paymentStatusTag = "<span class='badge bg-danger' style='color: white;'>Failed</span>";
+            $paymentStatusTag = "<span class='badge bg-danger' style='color: white;'>Échoué</span>";
             break;
         case 'pending':
-            $paymentStatusTag = "<span class='badge bg-warning' style='color: white;'>Pending</span>";
+            $paymentStatusTag = "<span class='badge bg-warning' style='color: white;'>En attente</span>";
             break;
     }
 
@@ -74,7 +74,21 @@
                     </button>
                   </form>";
 
-    $paymentsArray[] = [$payment->id, $payment->payment_method, $paymentStatusTag, $userName, $payment->ad_id, $adStatusTag, $btnEdit.$btnDelete];
+    switch ($payment->payment_method) {
+        case 'cc':
+            $paymentMethod = 'Carte de credit';
+            break;
+
+        case 'wire' :
+            $paymentMethod = 'Virment';
+            break;
+        case 'transfer' :
+            $paymentMethod = 'Wafa Cash';
+            break;
+
+    }
+
+    $paymentsArray[] = [$payment->id, $paymentMethod, $paymentStatusTag, $userName, $payment->ad_id, $adStatusTag, $btnEdit.$btnDelete];
 }
 
     $config = [

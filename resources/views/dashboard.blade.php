@@ -6,60 +6,58 @@
     <x-adminlte-card theme="dark" theme-mode="outline">
         <h1>Tableau de bord</h1>
     </x-adminlte-card>
- 
 @stop 
  
 @section('content')
     <div class="row"> 
+
         <div class="col-md-4 col-sm-6 col-12">
-            <x-adminlte-small-box :title="$newUsersCount" theme="teal" url="users" url-text="Voir la liste des clients"  id="sbUpdatable" text="Nouveau clients" icon="fas fa-lg fa-user-plus"/>
+            <x-adminlte-small-box :title="$newUsersCount" theme="teal" url="advertisers" url-text="Voir la liste des clients"  id="sbUpdatable" text="Nouveau clients" icon="fas fa-lg fa-user-plus"/>
         </div>
+
         <div class="col-md-4 col-sm-6 col-12">
             <x-adminlte-small-box :title="$pausedAdsCount" theme="primary" url="ads" url-text="Voir la liste des pubs" text="Publicités en pause" icon="fas fa-pause-circle"/>
         </div>
+
         <div class="col-md-4 col-sm-6 col-12">
             <x-adminlte-small-box :title="$totalPaidPayments" theme="danger" url="payments" url-text="Voir la liste des paiements" id="sbUpdatable" text="Fonds collectés" icon="fas fa-money-bill-wave"/>
         </div>
     </div>
-
+ 
     
 
 
     <div class="row">
-    <div class="col-md-10">
-        <x-adminlte-card title="Publicités par Packs / Variations" theme="dark">
-            <canvas id="Chart2"></canvas>
-        </x-adminlte-card>
+        <div class="col-md-10">
+            <x-adminlte-card title="Publicités par Packs / Variations" theme="dark">
+                <canvas id="Chart2"></canvas>
+            </x-adminlte-card>
+        </div>
+        <div class="col-md-2 d-flex align-items-stretch">
+            <x-adminlte-card title="Taux de paiements" theme="dark" style="width: 100%;">
+                <div class="d-flex flex-column justify-content-center " style="width: 100%; height: 100%;">
+                    @foreach ($packs2 as $pack)
+                        <span>{{$pack-> name }}{{ $pack->pack_variation }}</span>
+                        <x-adminlte-progress  theme="success" value="{{ $pack->confirmation_rate }}"  animated with-label/>
+                    @endforeach
+                </div>
+            </x-adminlte-card>
+        </div>
     </div>
-    <div class="col-md-2 d-flex align-items-stretch">
-        <x-adminlte-card title="Taux de paiements" theme="dark" style="width: 100%;">
-            <div class="d-flex flex-column justify-content-center " style="width: 100%; height: 100%;">
-                @foreach ($packs2 as $pack)
-                    <span>{{$pack-> name }}{{ $pack->pack_variation }}</span>
-                    <x-adminlte-progress  theme="success" value="{{ $pack->confirmation_rate }}"  animated with-label/>
-                @endforeach
-            </div>
-        </x-adminlte-card>
-    </div>
-</div>
 
 
 
     <div class="row">    
-
         <div class="col-md-6"> 
             <x-adminlte-card title="Status des paiements" theme="dark" >
-            <canvas id="Chart1"></canvas>
+                <canvas id="Chart1"></canvas>
             </x-adminlte-card>
         </div>
         <div class="col-md-6">
-    <x-adminlte-card title=" Nouveaux utilisateurs dans le temps" theme="dark" icon="fas fa-users">
-        <canvas id="userRegistrationChart"></canvas>
-    </x-adminlte-card>
-</div>
-
-
-       
+            <x-adminlte-card title=" Nouveaux utilisateurs dans le temps" theme="dark" icon="fas fa-users">
+                <canvas id="userRegistrationChart"></canvas>
+            </x-adminlte-card>
+         </div>
     </div>
         
 

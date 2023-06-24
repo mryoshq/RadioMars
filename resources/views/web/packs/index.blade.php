@@ -52,7 +52,7 @@
 
         $daysOfWeekTags = '';
         foreach ($pack->days_of_week as $dayOfWeek) {
-            $daysOfWeekTags .= "<span class='badge bg-primary'>$dayOfWeek</span>&nbsp;";
+            $daysOfWeekTags .= "<span class='badge bg-info'>$dayOfWeek</span>&nbsp;";
         }
 
         $timesOfDayTags = '';

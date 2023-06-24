@@ -55,17 +55,23 @@ class AdFactory extends Factory
     {
         return $this->afterCreating(function (Ad $ad) {
             $payment = Payment::factory()->create(['ad_id' => $ad->id, 'advertiser_id' => $ad->advertiser_id]);
-
-            if ($payment->status == 'paid') {
-                $ad->status = 'active';
-            } elseif ($payment->status == 'failed') {
+    
+            if($ad->decision == 'accepted') {
+                if($payment->status == 'paid') {
+                    $ad->status = 'active';
+                } else {
+                    // If payment status is 'pending' or 'failed', set ad status as 'paused'
+                    $ad->status = 'paused';
+                }
+            } else if($ad->decision == 'rejected') {
                 $ad->status = 'not_active';
-            } else {
+            } else if($ad->decision == 'in_queue') {
                 $ad->status = 'paused';
             }
-
+    
             $ad->save();
         });
     }
+    
 }
  

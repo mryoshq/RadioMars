@@ -5,10 +5,11 @@
 @section('content_header')
     <x-adminlte-card theme="dark" theme-mode="outline">
     <h1>Rôles</h1>
-    </x-adminlte-card>
+    </x-adminlte-card> 
 @stop
 
 @section('content')
+
     @php
         $heads = [
             'ID',
@@ -22,7 +23,7 @@
         foreach ($roles as $role) {
             $formattedPermissions = '';
             foreach ($role->permissions as $permission) {
-                $formattedPermissions .= "<span class='badge bg-primary'>" . $permission . "</span>&nbsp;";
+                $formattedPermissions .= "<span class='badge bg-danger'>" . $permission . "</span>&nbsp;";
             }
           
             $btnEdit = "<a href='".route('web.roles.edit', $role)."' class='btn btn-xs btn-default text-primary mx-1 shadow' title='Edit'>
@@ -58,16 +59,17 @@
 
 
     @if(session('deleted'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger"> 
             {{ session('deleted') }}
         </div>
     @endif
 
+
     <div class="mb-4" style="text-align: right;">
-        <a href="{{ route('web.roles.create') }}" class="btn btn-primary">
-            Create role
-        </a>
-    </div>
+    <a href="{{ route('web.roles.create') }}" class="btn btn-primary">
+        Create role
+    </a>
+</div>
 
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" :config="$config" beautify striped hoverable bordered compressed/>
 @stop
@@ -84,4 +86,5 @@
             }, 5000);
         });
     </script>
+    <
 @stop

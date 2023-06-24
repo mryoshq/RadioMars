@@ -11,106 +11,184 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    
+    /**
+     * Display a listing of the user's payments.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function index(Request $request)
     {
-        // Get the currently authenticated user
-        $advertiser = $request->user()->advertiser;
-     
-        // Get the Ads related to this advertiser
-        $ads = $advertiser->ads()->with('payment')->get();
+        try {
+            $advertiser = $request->user()->advertiser;
+            if (!$advertiser) {
+                return response()->json(['error' => 'Advertiser not found for this user.'], 404);
+            }
     
-        // Prepare an empty array to store the payments
-        $payments = [];
+            $ads = $advertiser->ads()->with('payment')->get();
     
-        // Check if $ads is not null
-        if($ads) {
-            // Get the payment related to these ads
+            $payments = [];
+    
             foreach ($ads as $ad) {
                 if ($ad->payment) {
                     $payments[] = $ad->payment;
                 }
             }
+    
+            return PaymentResource::collection(collect($payments));
+        } catch (\Exception $e) {
+            // catch other errors
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
-        
-        return PaymentResource::collection(collect($payments));
     }
     
-   
-
+    /**
+     * Display the specified payment.
+     *
+     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\PaymentResource
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     * @urlParam id integer required The ID of the ad.
+     */
     public function show($id, Request $request)
     {
-        // Get the currently authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
-        
-        // Find the payment
-        $payment = Payment::find($id);
-        
-        if(!$payment){
-            // Return a 404 Not Found HTTP response
-            return response()->json(['error' => 'Payment not found'], 404);
-        }
+        try {
+            $advertiser = $request->user()->advertiser;
+            if (!$advertiser) {
+                return response()->json(['error' => 'Advertiser not found for this user.'], 404);
+            }
     
-        // Load the ad relationship for the payment
-        $payment->load('ad'); 
+            $payment = Payment::find($id);
+            if (!$payment) {
+                return response()->json(['error' => 'Payment not found.'], 404);
+            }
     
-        // Check if the payment's related ad belongs to the authenticated user
-        if($payment->ad && $payment->ad->advertiser->id == $advertiser->id) {
-            // Return the payment
+            $payment->load('ad');
+            
+            if (!$payment->ad || $payment->ad->advertiser->id !== $advertiser->id) {
+                return response()->json(['error' => 'Payment not found for this user.'], 404);
+            }
+    
             return new PaymentResource($payment);
-        } else {
-            // Return a 404 Not Found HTTP response
-            return response()->json(['error' => 'Payment not found for this user'], 404);
+        } catch (\Exception $e) {
+            // catch other errors
+            return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
     }
     
+    
+
+
+    /**
+     * Store a newly created payment
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\PaymentResource
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'ad_id' => 'required|exists:ads,id',
-            'payment_method' => 'required|in:cc,transfer,wire',
-            'status' => 'required|in:pending,paid,failed',
-        ]);
-     
-        // Fetch the authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
+        try {
+            $messages = [
+                'ad_id.required' => 'The ad id field is required.',
+                'ad_id.integer' => 'The ad id must be an integer.',
+                'ad_id.exists' => 'The selected ad id is invalid.',
+                'payment_method.required' => 'The payment method field is required.',
+                'payment_method.in' => 'The selected payment method is invalid.',
+                'status.required' => 'The status field is required.',
+                'status.in' => 'The selected status is invalid.',
+            ];
     
-        // Fetch the ad with the given id that belongs to the advertiser
-        $ad = $advertiser->ads()->find($validated['ad_id']);
-    
-        if (!$ad) {
-            // If the ad does not exist, return error response
-            return response()->json(['error' => 'No ad with such id for this user'], 403);
+            $validated = $request->validate([
+                'ad_id' => 'required|integer|exists:ads,id',
+                'payment_method' => 'required|in:cc,transfer,wire',
+                'status' => 'required|in:pending,paid,failed',
+            ], $messages);
+         
+            // Fetch the authenticated user's advertiser
+            $advertiser = $request->user()->advertiser;
+        
+            // Fetch the ad with the given id that belongs to the advertiser
+            $ad = $advertiser->ads()->find($validated['ad_id']);
+        
+            if (!$ad) {
+                // If the ad does not exist, return error response
+                return response()->json(['error' => 'No ad with such id for this user'], 403);
+            }
+        
+            // Create the payment
+            $payment = $ad->payment()->create(array_merge($validated, ['advertiser_id' => $advertiser->id]));
+        
+            return new PaymentResource($payment);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to create payment. ' . $e->getMessage()
+            ], 500);
         }
-    
-        // Create the payment
-        $payment = $ad->payment()->create(array_merge($validated, ['advertiser_id' => $advertiser->id]));
-    
-        return new PaymentResource($payment);
     }
     
+    
      
     
+
+   /**
+     * Update the specified payment .
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Payment  $payment
+     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\PaymentResource
+     * 
+     * @throws \Exception If an unexpected error occurs
+     *
+     * @authenticated
+     */
     public function update(Request $request, Payment $payment)
     {
-        // Fetch the authenticated user's advertiser
-        $advertiser = $request->user()->advertiser;
+        try {
+            $messages = [
+                'payment_method.required' => 'The payment method field is required.',
+                'payment_method.in' => 'The selected payment method is invalid.',
+                'status.required' => 'The status field is required.',
+                'status.in' => 'The selected status is invalid.',
+            ];
     
-        // Check if the payment's related ad belongs to the authenticated user
-        if($payment->ad && $payment->ad->advertiser->id !== $advertiser->id) {
-            // Return a 403 Forbidden HTTP response
-            return response()->json(['error' => 'This payment does not belong to the authenticated user'], 403);
+            // Fetch the authenticated user's advertiser
+            $advertiser = $request->user()->advertiser;
+        
+            // Check if the payment's related ad belongs to the authenticated user
+            if($payment->ad && $payment->ad->advertiser->id !== $advertiser->id) {
+                // Return a 403 Forbidden HTTP response
+                return response()->json(['error' => 'This payment does not belong to the authenticated user'], 403);
+            }
+        
+            $validated = $request->validate([
+                'payment_method' => 'required|in:cc,transfer,wire',
+                'status' => 'required|in:pending,paid,failed',
+            ], $messages);
+        
+            $payment->update($validated);
+        
+            return new PaymentResource($payment);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update payment. ' . $e->getMessage()
+            ], 500);
         }
-    
-        $request->validate([
-            'payment_method' => 'required|in:cc,transfer,wire',
-            'status' => 'required|in:pending,paid,failed',
-        ]);
-    
-        $payment->update($request->all());
-    
-        return new PaymentResource($payment);
     }
+    
     
     
 }

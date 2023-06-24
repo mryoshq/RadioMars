@@ -19,7 +19,7 @@
              'Texte', 
              'Audio',
              'Status',
-             'Decision',
+             'Decision', 
              'Programmed For',
              'Pack - ID', 
              'Propriétaire - ID',
@@ -61,7 +61,7 @@
 
             $paymentStatusTag = '';
             if ($paymentStatus == 'paid') {
-                $paymentStatusTag = "<span class='badge bg-success' style='color: white;'>PAYÉ</span>";
+                $paymentStatusTag = "<span class='badge bg-success' style='color: white;'>Payé</span>";
             } elseif ($paymentStatus == 'pending') {
                 $paymentStatusTag = "<span class='badge bg-warning' style='color: white;'>En attente</span>";
             } elseif ($paymentStatus == 'failed') {
@@ -74,11 +74,11 @@
             $decisionTag = '';
 
             if ($decision === 'in_queue') {
-                $decisionTag = "<span class='badge bg-light' style='color: black;'>In Queue</span>";
+                $decisionTag = "<span class='badge bg-light' style='color: black;'> En Attente</span>";
             } elseif ($decision === 'accepted') {
-                $decisionTag = "<span class='badge bg-primary' style='color: white;'>Accepted</span>";
+                $decisionTag = "<span class='badge bg-primary' style='color: white;'>Accepté</span>";
             } elseif ($decision === 'rejected') {
-                $decisionTag = "<span class='badge bg-danger' style='color: white;'>Rejected</span>";
+                $decisionTag = "<span class='badge bg-danger' style='color: white;'>Rejetée</span>";
             }
 
             $programmedFor = $ad->programmed_for ? \Carbon\Carbon::parse($ad->programmed_for)->format('d-m') : 'N/A';

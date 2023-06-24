@@ -19,7 +19,7 @@ class AdvertiserController extends Controller
     
         return view('web.advertisers.index', compact('advertisers'));
     }
-    
+  
 
     public function create()
     {
@@ -30,8 +30,13 @@ class AdvertiserController extends Controller
     }
     
     
+
+
+
     public function store(Request $request)
 {
+
+    $domains = implode(',', Advertiser::getDomainEnumValues());
     // Validate the request data
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
@@ -39,7 +44,7 @@ class AdvertiserController extends Controller
         'password' => ['required', 'string', 'min:8'],
         'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/', 'unique:users'],
         'firm' => ['required', 'string', 'max:40'],
-        'domain' => ['required', 'in:artisanal1,artisanal2,artisanal3,artisanal4,artisanal5,artisanal6,artisanal7,artisanal8,artisanal9,artisanal10'],
+        'domain' => ['required', 'in' . $domains],
     ]);
 
     // Create a new User with the 'Advertiser' role
@@ -73,16 +78,16 @@ class AdvertiserController extends Controller
     public function edit(Advertiser $advertiser)
     {
         $user = $advertiser->user;
-        $domains = ['artisanal1', 'artisanal2', 'artisanal3', 'artisanal4', 'artisanal5', 'artisanal6', 'artisanal7', 'artisanal8', 'artisanal9', 'artisanal10'];
-
+        $domains = implode(',', Advertiser::getDomainEnumValues());
         return view('web.advertisers.edit', compact('advertiser', 'user', 'domains'));
     }
     
    
     public function update(Request $request, Advertiser $advertiser)
     {
+        $domains = implode(',', Advertiser::getDomainEnumValues());
         $data = $request->validate([
-            'domain' => 'required',
+            'domain' => ['required', 'in' . $domains],
             'firm' => 'required',
             'user_id' => 'required',
             'name' => ['required', 'string', 'max:255'],

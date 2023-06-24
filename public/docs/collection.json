@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "3df8cbe6-92a7-4149-97e0-6ee3be6c2ff4",
+        "_postman_id": "cd6eefa5-1618-40f3-bc99-30f4441a6b30",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "",
             "item": [
                 {
-                    "name": "GET api\/advertiser",
+                    "name": "Display the specified advertiser.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -40,10 +40,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -72,7 +69,7 @@
                     ]
                 },
                 {
-                    "name": "PUT api\/advertiser",
+                    "name": "Update the specified advertiser in storage.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -91,16 +88,16 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"domain\":\"laudantium\",\"firm\":\"quae\",\"name\":\"reiciendis\",\"email\":\"wmacejkovic@example.com\",\"phone_number\":\"alias\",\"password\":\"<utF1|#n]m_(Ww%#A-N!\"}"
+                        },
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "GET api\/ads",
+                    "name": "Display a listing of the ads.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -120,10 +117,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -152,7 +146,7 @@
                     ]
                 },
                 {
-                    "name": "POST api\/ads",
+                    "name": "Store a newly created ad in the database.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -171,19 +165,13 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"text_content\":\"et\",\"audio_content\":\"fuga\",\"pack_id\":\"amet\",\"pack_variation\":\"consequuntur\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "GET api\/ads\/{id}",
+                    "name": "Display the specified ad.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -194,7 +182,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quasi",
+                                    "value": "tenetur",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -211,10 +199,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -243,7 +228,7 @@
                     ]
                 },
                 {
-                    "name": "PUT api\/ads\/{id}",
+                    "name": "Update the specified ad in the database.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -254,7 +239,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "similique",
+                                    "value": "13",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -270,19 +255,13 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"text_content\":\"dignissimos\",\"audio_content\":\"molestiae\",\"pack_id\":\"eaque\",\"pack_variation\":\"harum\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "GET api\/payments",
+                    "name": "Display a listing of the user's payments.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -302,10 +281,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -334,7 +310,7 @@
                     ]
                 },
                 {
-                    "name": "POST api\/payments",
+                    "name": "Store a newly created payment",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -353,19 +329,13 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"ad_id\":\"debitis\",\"payment_method\":\"cc\",\"status\":\"failed\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "GET api\/payments\/{id}",
+                    "name": "Display the specified payment.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -376,8 +346,8 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "est",
-                                    "description": "The ID of the payment."
+                                    "value": "19",
+                                    "description": "The ID of the ad."
                                 }
                             ]
                         },
@@ -393,10 +363,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -425,7 +392,7 @@
                     ]
                 },
                 {
-                    "name": "PUT api\/payments\/{id}",
+                    "name": "Update the specified payment .",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -452,19 +419,13 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"payment_method\":\"transfer\",\"status\":\"paid\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "POST api\/logout",
+                    "name": "User logout",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -484,10 +445,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -604,7 +562,7 @@
                     ]
                 },
                 {
-                    "name": "POST api\/register",
+                    "name": "User register",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -623,7 +581,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"phone_number\":\"0612345678\",\"password\":\"securepassword\",\"firm\":\"My Firm\",\"domain\":\"mydomain.com\"}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -632,7 +593,7 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/login",
+                    "name": "User login",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -653,7 +614,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"phone_number\":\"xascuelcwkyiihwb\",\"password\":\"+UP+EgsbI&.U+w^\"}"
+                            "raw": "{\"phone_number\":\"0612345678\",\"password\":\"securepassword\"}"
                         },
                         "description": "",
                         "auth": {

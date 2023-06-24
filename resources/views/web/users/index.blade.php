@@ -20,9 +20,9 @@
         ];
 
         $roles = [
-            1 => 'Admin',
-            2 => 'Validator',
-            3 => 'Manager',
+            1 =>"<span class='badge bg-danger' style='color: white;'>Administrateur</span>",
+            2 => "<span class='badge bg-white' style='color: white;'>Validateur</span>",
+            3 => "<span class='badge bg-primary' style='color: white;'>Manager</span>",
             
         ];
 
@@ -39,6 +39,10 @@
                                 <i class='fa fa-lg fa-fw fa-trash'></i>
                             </button>
                           </form>";
+
+
+             
+    
           
             $usersArray[] = [$user->id, $user->name, $user->email, $user->phone_number, $roles[$user->role_id], $btnEdit.$btnDelete];
         }
@@ -52,6 +56,9 @@
             'autoWidth' => false,
             'stateSave' => true,
         ];
+
+
+
     @endphp
 
     

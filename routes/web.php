@@ -19,7 +19,7 @@ Route::get('/', function () {
     } else {
         return redirect()->route('login');
     }
-});
+}); 
 Route::get('/recommendations', function () {
     return view('recommendations');
 })->name('recommendations'); 
@@ -28,7 +28,9 @@ Route::get('/calendar', function () {
     return view('calendar');
 })->name('calendar'); 
  
+
 Route::get('/calendar', [DashboardController::class, 'getEvents']);
+Route::get('/recommendations', [DashboardController::class, 'sendRecommendations']);
 
 Auth::routes(['register' => false]); 
 
