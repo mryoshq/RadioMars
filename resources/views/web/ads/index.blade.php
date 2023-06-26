@@ -19,11 +19,11 @@
              'Texte', 
              'Audio',
              'Status',
-             'Decision', 
-             'Programmed For',
+             'Décision', 
+             'Prévu pour',
              'Pack - ID', 
              'Propriétaire - ID',
-             'Payment Status',
+             'Paiement',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -53,7 +53,7 @@
                 $statusTag = "<span class='badge bg-secondary' style='color: white;'>Désactivée</span>";
             }
 
-            $pack = $ad->pack ? $ad->pack->name . ' - ' . $ad->pack->id . ' - Variation: ' . $ad->pack_variation : 'N/A';
+            $pack = $ad->pack ? $ad->pack->name  . ' - Variation: ' . $ad->pack_variation : 'N/A';
             $owner = $ad->advertiser && $ad->advertiser->user ? $ad->advertiser->user->name . ' - ' . $ad->advertiser->id : 'N/A';
             
             
@@ -68,7 +68,7 @@
                 $paymentStatusTag = "<span class='badge bg-secondary' style='color: white;'>Échoué</span>";
             }
           
-
+ 
             $decision = $ad->decision;
 
             $decisionTag = '';
@@ -81,7 +81,7 @@
                 $decisionTag = "<span class='badge bg-danger' style='color: white;'>Rejetée</span>";
             }
 
-            $programmedFor = $ad->programmed_for ? \Carbon\Carbon::parse($ad->programmed_for)->format('d-m') : 'N/A';
+            $programmedFor = $ad->programmed_for ? \Carbon\Carbon::parse($ad->programmed_for)->format('d-m') : '';
 
             $adsArray[] = [$ad->id, $ad->text_content, $ad->audio_content, $statusTag, $decisionTag, $programmedFor , $pack, $owner, $paymentStatusTag, $btnEdit.$btnDelete];
          }

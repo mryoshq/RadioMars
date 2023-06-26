@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-md-4 col-sm-6 col-12">
-            <x-adminlte-small-box :title="$totalPaidPayments" theme="danger" url="payments" url-text="Voir la liste des paiements" id="sbUpdatable" text="Fonds collectés" icon="fas fa-money-bill-wave"/>
+            <x-adminlte-small-box :title="number_format($totalPaidPayments, 0, '.', ' '). ' DHs '" theme="danger" url="payments" url-text="Voir la liste des paiements" id="sbUpdatable" text="Fonds collectés" icon="fas fa-money-bill-wave"/>
         </div>
     </div>
  
@@ -37,9 +37,12 @@
             <x-adminlte-card title="Taux de paiements" theme="dark" style="width: 100%;">
                 <div class="d-flex flex-column justify-content-center " style="width: 100%; height: 100%;">
                     @foreach ($packs2 as $pack)
-                        <span>{{$pack-> name }}{{ $pack->pack_variation }}</span>
-                        <x-adminlte-progress  theme="success" value="{{ $pack->confirmation_rate }}"  animated with-label/>
+                        @if ($pack)
+                            <span>{{$pack->name}}{{ $pack->pack_variation }}</span>
+                            <x-adminlte-progress theme="success" value="{{ $pack->confirmation_rate }}" animated with-label/>
+                        @endif
                     @endforeach
+
                 </div>
             </x-adminlte-card>
         </div>

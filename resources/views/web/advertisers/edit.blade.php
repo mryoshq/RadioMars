@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-center">
     <div class="col-md-8 col-sm-8 col-12">
         <x-adminlte-card title="Remplir les informations" theme="dark" icon="fas fa-plus">
-            <form action="{{ route('web.advertisers.update', $advertiser) }}" method="POST">
+            <form action="{{ route('web.advertisers.update', $advertiser) }}" method="POST"> 
                 @csrf
                 @method('PUT')
                 <div class="card-body">

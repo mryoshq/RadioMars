@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "89cddb76-3574-415e-8484-1a6139079b60",
+        "_postman_id": "71a5ddb4-f4a5-4a57-9cda-5c2273cecf41",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -90,11 +90,71 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"domain\":\"enim\",\"firm\":\"blanditiis\",\"name\":\"fuga\",\"email\":\"boris81@example.net\",\"phone_number\":\"voluptatem\",\"password\":\"5a~}1D2soU%kUc06\"}"
+                            "raw": "{\"domain\":\"animi\",\"firm\":\"voluptatem\",\"name\":\"quibusdam\",\"email\":\"sherman.braun@example.com\",\"phone_number\":\"nostrum\",\"password\":\"Da];6bA7,w?cl>*\"}"
                         },
                         "description": ""
                     },
                     "response": []
+                },
+                {
+                    "name": "Get the ads related to a specific advertiser.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/advertiser\/:id\/ads",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/advertiser\/:id\/ads",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "vitae",
+                                    "description": "The ID of the advertiser."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:3000"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\"error\":\"Not Found!\"}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Display a listing of the ads.",
@@ -165,7 +225,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"text_content\":\"\\\"This is a sample text ad.\\\"\",\"audio_content\":\"quibusdam\",\"pack_id\":1,\"pack_variation\":1,\"programmed_for\":\"2023-06-25\"}"
+                        },
                         "description": ""
                     },
                     "response": []
@@ -182,7 +245,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ut",
+                                    "value": "vitae",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -239,7 +302,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "7",
+                                    "value": "1",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -255,7 +318,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"text_content\":\"\\\"Updated sample text ad.\\\"\",\"audio_content\":\"qui\",\"pack_id\":1,\"pack_variation\":1,\"programmed_for\":\"2023-06-26\"}"
+                        },
                         "description": ""
                     },
                     "response": []
@@ -310,7 +376,7 @@
                     ]
                 },
                 {
-                    "name": "Store a newly created payment",
+                    "name": "Store a newly created payment.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -329,7 +395,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"ad_id\":1,\"payment_method\":\"\\\"cc\\\"\",\"status\":\"\\\"pending\\\"\"}"
+                        },
                         "description": ""
                     },
                     "response": []
@@ -346,7 +415,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "2",
+                                    "value": "1",
                                     "description": "The ID of the ad."
                                 }
                             ]
@@ -392,7 +461,7 @@
                     ]
                 },
                 {
-                    "name": "Update the specified payment .",
+                    "name": "Update the specified payment.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -405,6 +474,12 @@
                                     "key": "id",
                                     "value": "1",
                                     "description": "The ID of the payment."
+                                },
+                                {
+                                    "id": "payment",
+                                    "key": "payment",
+                                    "value": "architecto",
+                                    "description": "The ID of the payment to be updated."
                                 }
                             ]
                         },
@@ -419,13 +494,16 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"payment_method\":\"\\\"cc\\\"\",\"status\":\"\\\"pending\\\"\"}"
+                        },
                         "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "User logout",
+                    "name": "Log out the current authenticated user.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -470,7 +548,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
+                        "description": "This function retrieves all packs in the database and returns them as a resource collection.\nEach pack is transformed into a JSON object by the PackResource.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -502,7 +580,7 @@
                     ]
                 },
                 {
-                    "name": "show a specific pack",
+                    "name": "Show a specific pack",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -530,7 +608,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
+                        "description": "This function retrieves a specific pack from the database using its ID and returns it as a JSON object\nThe pack is transformed by the PackResource.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -562,7 +640,7 @@
                     ]
                 },
                 {
-                    "name": "User register",
+                    "name": "User registration",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -583,7 +661,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"phone_number\":\"0612345678\",\"password\":\"securepassword\",\"firm\":\"My Firm\",\"domain\":\"mydomain.com\"}"
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"phone_number\":\"0612345678\",\"password\":\"Password@123\",\"firm\":\"My Firm\",\"domain\":\"mydomain.com\"}"
                         },
                         "description": "",
                         "auth": {
@@ -614,7 +692,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"phone_number\":\"0612345678\",\"password\":\"securepassword\"}"
+                            "raw": "{\"phone_number\":\"0612345678\",\"password\":\"Password@123\"}"
                         },
                         "description": "",
                         "auth": {

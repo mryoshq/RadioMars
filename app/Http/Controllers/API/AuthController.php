@@ -14,15 +14,20 @@ class AuthController extends Controller
 {
 
     /**
-     * User register
+     * User registration
      *
-     * 
      * @bodyParam name string required The name of the user. Example: John Doe
      * @bodyParam email string required The email of the user. Must be a valid email address. Example: john@example.com
      * @bodyParam phone_number string required The phone number of the user. Must follow the pattern '^0[67][0-9]{8}$'. Example: 0612345678
-     * @bodyParam password string required The password of the user. Must be at least 8 characters. Example: securepassword
+     * @bodyParam password string required The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&. Example: Password@123
      * @bodyParam firm string required The firm of the user. Example: My Firm
      * @bodyParam domain string required The domain of the user. Example: mydomain.com
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException if validation fails
+     * @throws \Exception if an unexpected error occurs
      */
     public function register(Request $request)
     {
@@ -88,13 +93,21 @@ class AuthController extends Controller
     }
     
     
-    
-    
+        
+        
     /**
      * User login
      *
      * @bodyParam phone_number string required The phone number of the user. Must follow the pattern '^0[67][0-9]{8}$'. Example: 0612345678
-     * @bodyParam password string required The password of the user. Must be at least 8 characters. Example: securepassword
+     * @bodyParam password string required The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&. Example: Password@123
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException if validation fails
+     * @throws \Exception if an unexpected error occurs
+     * 
+     * 
      */
     public function login(Request $request)
     {
@@ -139,11 +152,14 @@ class AuthController extends Controller
     }
 
      
-      /**
-     * User logout
+    /**
+     * Log out the current authenticated user.
      *
-     * @authenticated
+     * @param Request $request Incoming request instance.
      * 
+     * @return \Illuminate\Http\JsonResponse The response containing the success message.
+     * 
+     * @authenticated
      */
     public function logout(Request $request)
     {

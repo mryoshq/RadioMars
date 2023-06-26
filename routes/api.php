@@ -12,11 +12,13 @@ use App\Http\Controllers\Api\AuthController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/advertiser', [AdvertiserController::class, 'show'])->name('advertiser.show');
     Route::put('/advertiser', [AdvertiserController::class, 'update'])->name('advertiser.update');
+    Route::get('/advertiser/{id}/ads', [AdvertiserController::class, 'ads']);
     
     Route::apiResource('ads', AdController::class);
     Route::apiResource('payments', PaymentController::class);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
 
  
 }); 

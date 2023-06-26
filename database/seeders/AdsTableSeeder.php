@@ -17,7 +17,7 @@ class AdsTableSeeder extends Seeder
     {
         // create 200 ads with payment
         Ad::factory()
-        ->count(200)
+        ->count(500)
         ->withPayment()
         ->create();
     }

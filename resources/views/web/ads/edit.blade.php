@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center">
     <div class="col-md-8">
         <x-adminlte-card theme="lime" theme-mode="outline">
-            <h1>Modifier Publicité</h1>
+            <h1>Modifier la publicité</h1>
         </x-adminlte-card>
     </div>
 </div>
@@ -17,8 +17,8 @@
 @section('content')
 <div class="d-flex justify-content-center">
     <div class="col-md-8 col-sm-8 col-12">
-        <x-adminlte-card title="Informations de la Publicité" theme="dark" icon="fas fa-plus">
-            <form action="{{ route('web.ads.update', $ad) }}" method="POST">
+        <x-adminlte-card title="Veuillez remplir Informations de cette publicité" theme="dark" icon="fas fa-plus">
+            <form action="{{ route('web.ads.update', $ad) }}" method="POST"> 
                 @csrf
                 @method('PUT')
 
@@ -50,9 +50,10 @@
 
 
 
-
-                <x-adminlte-select-bs name="pack_id" id="pack_id" label="Pack" label-class="text-lightblue" data-placeholder="Select pack" :config="$config">
-                    @foreach ($packs as $id => $name)
+                <div class="row">
+    <div class="col-md-6">
+        <x-adminlte-select-bs name="pack_id" id="pack_id" label="Pack" label-class="text-lightblue" data-placeholder="Select pack" :config="$config">
+             @foreach ($packs as $id => $name)
                        
                         <option value="{{ $id }}" {{ $ad->pack_id == $id ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
@@ -61,7 +62,8 @@
 
                 <input type="hidden" name="pack_id_disabled" id="pack_id_disabled" value="{{ empty($ad->pack_id) ? 'true' : '' }}">
 
-           
+                </div>
+    <div class="col-md-6">
 
                 <input type="hidden" name="pack_variation_initial" id="pack_variation_initial" value="{{ $ad->pack_variation }}">
 
@@ -70,74 +72,98 @@
                 </x-adminlte-select2>
 
                 <input type="hidden" name="pack_variation_disabled" id="pack_variation_disabled" value="{{ empty($ad->pack_variation) ? 'true' : '' }}">
-
-
-                <div class="form-group">
-    <label for="text_content" class="text-lightblue">Contenu Textuel</label>
-    <input type="text" name="text_content" id="text_content" class="form-control" placeholder="Entrer le texte de la pub" value="{{ $ad->text_content }}">
-    <input type="hidden" id="text_content_hidden" name="text_content_hidden" value="{{ $ad->text_content }}">
+                </div>
 </div>
 
-<div class="form-group">
-    <label for="audio_content" class="text-lightblue">Audio content</label>
-    <input type="url" name="audio_content" id="audio_content" class="form-control" placeholder="Enter the URL of the audio" value="{{ $ad->audio_content }}">
-    <input type="hidden" id="audio_content_hidden" name="audio_content_hidden" value="{{ $ad->audio_content }}">
-</div>
-
-
-<!-- Add these hidden fields -->
-    <input type="hidden" name="final_text_content" id="final_text_content" value="{{ $ad->text_content }}">
-    <input type="hidden" name="final_audio_content" id="final_audio_content" value="{{ $ad->audio_content }}">
-
-  
-    <x-adminlte-select-bs name="status" id="status" label="Status" label-class="text-lightblue" data-placeholder="Select status">
-   
-            <option value="active" {{ old('status', $ad->status) === 'active' ? 'selected' : '' }}>Active</option>
-            <option value="not_active" {{ old('status', $ad->status) === 'not_active' ? 'selected' : '' }}>Not Active</option>
-            <option value="paused" {{ old('status', $ad->status) === 'paused' ? 'selected' : '' }}>Paused</option>
-            </x-adminlte-select-bs>
-        <!-- Decision field -->
-        <x-adminlte-select-bs name="decision" id="decision" label="Decision" label-class="text-lightblue" data-placeholder="Select decision">
-            <option value="accepted" {{ old('decision', $ad->decision) === 'accepted' ? 'selected' : '' }}>Accepted</option>
-            <option value="in_queue" {{ old('decision', $ad->decision) === 'in_queue' ? 'selected' : '' }}>In Queue</option>
-            <option value="rejected" {{ old('decision', $ad->decision) === 'rejected' ? 'selected' : '' }}>Rejected</option>
-        </x-adminlte-select-bs>
-
-<!-- Message field -->
-        <div class="form-group">
-            <label for="message" class="text-lightblue">Message</label>
-            <input type="text" name="message" id="message" class="form-control" placeholder="Enter a message" value="{{ old('message', $ad->message) }}">
-        </div>
-
-        <!-- Programmed For field -->
-       
-
-        <!-- Programmed For field -->
-<!-- Programmed For field --> 
                 <div class="form-group">
-                    <label for="programmed_for" class="text-lightblue">Programmed For</label>
-                    @php
-                    $config3 = ['format' => 'YYYY-MM-DD'];
-                    $value = old('programmed_for', $ad->programmed_for) ? (is_string($ad->programmed_for) ? Carbon\Carbon::parse($ad->programmed_for)->format('Y-m-d') : $ad->programmed_for->format('Y-m-d')) : '';
-                    @endphp
-                 
-                    <x-adminlte-input-date name="programmed_for" id="programmed_for" :config="$config3" placeholder="Select Date" :value="$value">
-                    <x-slot name="appendSlot">
-        <div class="input-group-text bg-gradient-danger">
-            <i class="fas fa-calendar-alt"></i>
-        </div>
-    </x-slot>
-</x-adminlte-input-date>
+                    <label for="text_content" class="text-lightblue">Contenu Textuel</label>
+                    <input type="text" name="text_content" id="text_content" class="form-control" placeholder="Entrer le texte de la pub" value="{{ $ad->text_content }}">
+                    <input type="hidden" id="text_content_hidden" name="text_content_hidden" value="{{ $ad->text_content }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="audio_content" class="text-lightblue">Audio content</label>
+                    <input type="url" name="audio_content" id="audio_content" class="form-control" placeholder="Enter the URL of the audio" value="{{ $ad->audio_content }}">
+                    <input type="hidden" id="audio_content_hidden" name="audio_content_hidden" value="{{ $ad->audio_content }}">
                 </div>
 
 
-                    <div class="d-flex justify-content-end">
-                      <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
+                            <!-- Add these hidden fields -->
+                <input type="hidden" name="final_text_content" id="final_text_content" value="{{ $ad->text_content }}">
+                <input type="hidden" name="final_audio_content" id="final_audio_content" value="{{ $ad->audio_content }}">
+
+                <x-adminlte-select-bs name="status" id="status" label="Status de la Publicité" label-class="text-lightblue" data-placeholder="Select status">
+ 
+            
+        
+                <option value="active" {{ old('status', $ad->status) === 'active' ? 'selected' : '' }}>Activée</option>
+                <option value="not_active" {{ old('status', $ad->status) === 'not_active' ? 'selected' : '' }}>Désactivée</option>
+                <option value="paused" {{ old('status', $ad->status) === 'paused' ? 'selected' : '' }}>En pause</option>
+                </x-adminlte-select-bs>
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <!-- Decision field -->
+                        <x-adminlte-select-bs name="decision" id="decision" label="Decision" label-class="text-danger" data-placeholder="Select decision">
+                            <option value="accepted" {{ old('decision', $ad->decision) === 'accepted' ? 'selected' : '' }}>Acceptée</option>
+                            <option value="in_queue" {{ old('decision', $ad->decision) === 'in_queue' ? 'selected' : '' }}>En attente</option>
+                            <option value="rejected" {{ old('decision', $ad->decision) === 'rejected' ? 'selected' : '' }}>Rejetée</option>
+                        </x-adminlte-select-bs>
+
                     </div>
-            </form>
-        </x-adminlte-card>
-    </div>
-</div>
+
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="payment_status" class="text-lightblue" style="color: gold;">Statut de Paiement</label>
+                        <input type="text" name="payment_status" id="payment_status" class="form-control" placeholder="Statut de Paiement" disabled value="{{ $paymentStatus }}">
+                    </div>
+
+                    </div>
+               
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                  <!-- Message field -->
+                        <div class="form-group">
+                            <label for="message" class="text-lightblue">Message</label>
+                            <input type="text" name="message" id="message" class="form-control"  rows="3" placeholder="Enter a message" value="{{ old('message', $ad->message) }}">
+                        </div>
+                    </div>
+                <!-- Programmed For field -->
+                    <div class="col-md-6">
+                    <!-- Programmed For field -->
+                    <!-- Programmed For field --> 
+                        <div class="form-group">
+                            <label for="programmed_for" class="text-lightblue">Programmed For</label>
+                            @php
+                            $config3 = ['format' => 'YYYY-MM-DD'];
+                            $value = old('programmed_for', $ad->programmed_for) ? (is_string($ad->programmed_for) ? Carbon\Carbon::parse($ad->programmed_for)->format('Y-m-d') : $ad->programmed_for->format('Y-m-d')) : '';
+                            @endphp
+                        
+                            <x-adminlte-input-date name="programmed_for" id="programmed_for" :config="$config3" placeholder="Select Date" :value="$value">
+                                <x-slot name="appendSlot">
+                                    <div class="input-group-text bg-gradient-danger">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    
+                                </x-slot>
+                            </x-adminlte-input-date>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                                <div class="d-flex justify-content-end">
+                                <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
+                                </div>
+                        </form>
+                    </x-adminlte-card>
+                </div>
+            </div>
 @stop 
  
 @section('js')
@@ -249,12 +275,7 @@ function loadPackVariations(packId, selectedVariation) {
     } else {
         $('#pack_variation').empty();
     }
-
-
 }
-
-
-
 
 </script>
 @stop

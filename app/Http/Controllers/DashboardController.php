@@ -182,9 +182,11 @@ class DashboardController extends Controller
             // Calculate the total sum
             $totalPaidPayments = 0;
             foreach ($paidPayments as $payment) {
-            $packVariation = $payment->ad->pack_variation - 1;  // adjust for array index starting at 0
-            $totalPaidPayments += $payment->ad->pack->price[$packVariation];
-            (int) $totalPaidPayments;   
+                if ($payment->ad) {
+                    $packVariation = $payment->ad->pack_variation - 1;  // adjust for array index starting at 0
+                    $totalPaidPayments += $payment->ad->pack->price[$packVariation];
+                }
+                (int) $totalPaidPayments;   
             }
 
            

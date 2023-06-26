@@ -21,20 +21,27 @@
                 @csrf
 
                 @php
-                    $config = [
+                    $config = [ 
                         "title" => "Select an Advertiser",
                         "liveSearch" => true,
                         "liveSearchPlaceholder" => "Search",
                         "showTick" => true,
                         "actionsBox" => true,
-                    ];
+                    ]; 
                 @endphp
  
-                <x-adminlte-select2 name="advertiser_id" id="advertiser_id" label="Client - ID" label-class="text-lightblue" data-placeholder="Select an advertiser" required :config="$config">
+                <x-adminlte-select2 name="advertiser_id" id="advertiser_id" label="Client - ID" label-class="text-lightblue" data-placeholder="Select an advertiser" required :config="$config" >
                     @foreach ($advertisers as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
                     @endforeach
+                   
                 </x-adminlte-select2>
+
+                    <!-- Ad ID field -->
+                    <x-adminlte-select2 name="ad_id" id="ad_id" label="ID de la pub" label-class="text-lightblue" data-placeholder="Select an ad" required :config="$config" >
+                        <!-- Ad options will be populated dynamically -->
+                      
+                    </x-adminlte-select2>
  
                 <x-adminlte-select2 name="payment_method" label="Méthode de paiement" label-class="text-lightblue" data-placeholder="Select a payment method" required>
                     <option value="cc">Carte de crédit</option>

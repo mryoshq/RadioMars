@@ -20,32 +20,49 @@
                     @csrf
                     @method('PUT')
 
-<!-- Client - ID field -->
-<x-adminlte-input name="advertiser_id" id="advertiser_id" label="Client - ID" label-class="text-lightblue" :value="$payment->advertiser_id" readonly>
-  <x-slot name="appendSlot">
-        <div class="input-group-text">
-            <button class="btn btn-sm" type="button" id="editAdvertiserBtn" style="background: none; padding: 0;">
-                <i class="fas fa-edit text-lightblue"></i>
-            </button>
-        </div>
-    </x-slot>
-</x-adminlte-input>
+                    <!-- Client - ID field -->
 
-<!-- ID de la pub field -->
-<x-adminlte-input name="ad_id" id="ad_id" label="ID de la pub" label-class="text-lightblue" :value="$payment->ad_id" readonly>
-    <x-slot name="appendSlot">
-        <div class="input-group-text">
-            <button class="btn btn-sm" type="button" id="editAdBtn" style="background: none; padding: 0;">
-                <i class="fas fa-edit text-lightblue"></i>
-            </button>
-        </div>
-    </x-slot>
-</x-adminlte-input>
+                    @php
+                    $config = [
+                        "title" => "Select an Advertiser",
+                        "liveSearch" => true,
+                        "liveSearchPlaceholder" => "Search",
+                        "showTick" => true, 
+                        "actionsBox" => true,
+                    ];
+               
+                    switch ($ad_status) {
+                        case 'active':
+                            $displayStatus = 'Activée';
+                            break;
+                        case 'not_active':
+                            $displayStatus = 'Désactivée';
+                            break;
+                        case 'paused':
+                            $displayStatus = 'En pause';
+                            break;
+                        default:
+                            $displayStatus = 'Unknown Status';
+                    }
+                @endphp
 
-<!-- Hidden fields -->
-<input type="hidden" name="advertiser_id_disabled" id="advertiser_id_disabled" :value="!$payment->ad ? 'true' : ''">
-<input type="hidden" name="ad_id_disabled" id="ad_id_disabled" :value="!$payment->ad_id ? 'true' : ''">
+                    <!-- Client - ID field --> 
 
+                    <x-adminlte-input name="advertiser_id" label="Client - ID" label-class="text-lightblue" placeholder="Advertiser ID" disabled value="{{ old('advertiser_id', $payment->advertiser_id ?? '') }}"/>
+
+                    <!-- Ad ID field -->
+                    <x-adminlte-input name="ad_id" label="ID de la pub" label-class="text-lightblue" placeholder="Ad ID" disabled value="{{ old('ad_id', $payment->ad_id ?? '') }}"/>
+
+                 
+                    <x-adminlte-input name="ad_status" label="Status de la pub" label-class="text-lightblue" placeholder="Ad Status" disabled value="{{ old('ad_status', $displayStatus ?? '') }}"/>
+
+
+                    <!-- Hidden fields -->
+                    <input type="hidden" name="advertiser_id_disabled" id="advertiser_id_disabled" value="{{ old('advertiser_id_disabled', $payment->ad ? 'true' : 'false') }}">
+                    <input type="hidden" name="ad_id_disabled" id="ad_id_disabled" value="{{ old('ad_id_disabled', $payment->ad_id ? 'true' : 'false') }}">
+
+
+                    
                     <x-adminlte-select2 name="payment_method" label="Méthode de paiement" label-class="text-lightblue" data-placeholder="Select a payment method" required>
                         <option value="cc" {{ $payment->payment_method == 'cc' ? 'selected' : '' }}>Carte de crédit</option>
                         <option value="transfer" {{ $payment->payment_method == 'transfer' ? 'selected' : '' }}>Transfert bancaire </option>
@@ -66,37 +83,6 @@
         </div>
     </div>
 @stop
-
 @section('js')
-    <script>
-        $(document).ready(function() {
-            $('#editAdvertiserBtn').click(function() {
-                let input = $('#advertiser_id');
-                let hiddenInput = $('#advertiser_id_disabled');
-                if (input.attr('readonly')) {
-                    input.removeAttr('readonly');
-                    hiddenInput.val('false');
-                    $(this).children('i').removeClass('fa-edit').addClass('fa-save');
-                } else {
-                    input.attr('readonly', true);
-                    hiddenInput.val('true');
-                    $(this).children('i').removeClass('fa-save').addClass('fa-edit');
-                }
-            });
 
-            $('#editAdBtn').click(function() {
-                let input = $('#ad_id');
-                let hiddenInput = $('#ad_id_disabled');
-                if (input.attr('readonly')) {
-                    input.removeAttr('readonly');
-                    hiddenInput.val('false');
-                    $(this).children('i').removeClass('fa-edit').addClass('fa-save');
-                } else {
-                    input.attr('readonly', true);
-                    hiddenInput.val('true');
-                    $(this).children('i').removeClass('fa-save').addClass('fa-edit');
-                }
-            });
-        });
-    </script>
 @endsection

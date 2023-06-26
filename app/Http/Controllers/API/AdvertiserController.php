@@ -14,7 +14,24 @@ use Illuminate\Support\Facades\Log;
 
 class AdvertiserController extends Controller 
 {
-     
+
+     /**
+     * Get the ads related to a specific advertiser.
+     *
+     * @param int $id The advertiser's id.
+     *
+     * @return \Illuminate\Http\JsonResponse The response containing the advertiser's ads.
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException If the advertiser is not found.
+     */
+    public function ads($id)
+    {
+        $advertiser = Advertiser::findOrFail($id);
+    
+        // Include the 'status' column when plucking
+        return response()->json($advertiser->ads()->pluck('id', 'status'));
+    }
+    
     /**
      * Store a newly created advertiser
      *
@@ -88,7 +105,7 @@ class AdvertiserController extends Controller
     
 
 
-        /**
+    /**
      * Display the specified advertiser.
      *
      * @param  \Illuminate\Http\Request  $request

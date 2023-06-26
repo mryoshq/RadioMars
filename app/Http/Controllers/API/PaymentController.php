@@ -86,12 +86,15 @@ class PaymentController extends Controller
     
     
 
-
     /**
-     * Store a newly created payment
+     * Store a newly created payment.
+     *
+     * @bodyParam ad_id integer required The ID of the ad associated with the payment. Example: 1
+     * @bodyParam payment_method string required The method of the payment. Can be one of: cc (credit card), transfer, wire. Example: "cc"
+     * @bodyParam status string required The status of the payment. Can be one of: pending, paid, failed. Example: "pending"
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\PaymentResource
+     * @return \Illuminate\Http\JsonResponse|\App\Http\Resources\PaymentResource
      * 
      * @throws \Exception If an unexpected error occurs
      *
@@ -140,15 +143,18 @@ class PaymentController extends Controller
     }
     
     
-     
-    
-
-   /**
-     * Update the specified payment .
+        
+        
+    /**
+     * Update the specified payment.
+     *
+     * @bodyParam payment_method string required The method of the payment. Can be one of: cc (credit card), transfer, wire. Example: "cc"
+     * @bodyParam status string required The status of the payment. Can be one of: pending, paid, failed. Example: "pending"
+     * @urlParam payment required The ID of the payment to be updated.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\PaymentResource
+     * @return \Illuminate\Http\JsonResponse|\App\Http\Resources\PaymentResource
      * 
      * @throws \Exception If an unexpected error occurs
      *

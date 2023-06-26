@@ -17,10 +17,12 @@ class AdFactory extends Factory
         // Use a 50% chance to choose text_content or audio_content 
         if ($this->faker->boolean(50)) {
             $content_type = 'text_content';
-            $content_value = $this->faker->text(200);
+            $content_value = $this->faker->text(43);
         } else {
+            $base_url = 'radioMars.com';
+            $audio_filename = 'audio' . $this->faker->unique()->numberBetween(1, 1000) . '.mp3';
             $content_type = 'audio_content';
-            $content_value = $this->faker->url;
+            $content_value = $base_url . '/' . $audio_filename;
         }
 
         // define the $pack object here
@@ -30,9 +32,10 @@ class AdFactory extends Factory
         
         $programmed_for = null;
         $message = null;
-
+ 
         if($decision === 'accepted') {
-            $programmed_for = $this->faker->dateTimeBetween('+1 week', '+1 month');
+         
+            $programmed_for = $this->faker->dateTimeBetween('-2 months', '+3 months');
             $message = $this->faker->sentence;
         }
         else if($decision === 'rejected') {

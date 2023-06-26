@@ -82,43 +82,43 @@
                     </x-adminlte-select-bs>
                     {{-- Decision --}}
                     <x-adminlte-select-bs name="decision" label="Decision" label-class="text-lightblue" data-placeholder="Select Decision" required>
-    <option value="in_queue" selected>In Queue</option>
-    <option value="accepted">Accepted</option>
-    <option value="rejected">Rejected</option>
-</x-adminlte-select-bs>
+                        <option value="in_queue" selected>In Queue</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                    </x-adminlte-select-bs>
 
-{{-- Message --}} 
-<div class="form-group">
-    <label for="message" class="text-lightblue">Message</label>
-    <textarea name="message" id="message" class="form-control" placeholder="Enter a message"></textarea>
-</div> 
+                    {{-- Message --}} 
+                    <div class="form-group">
+                        <label for="message" class="text-lightblue">Message</label>
+                        <textarea name="message" id="message" class="form-control" placeholder="Enter a message"></textarea>
+                    </div> 
 
-{{-- Programmed For --}}
-{{-- Programmed For --}}
-@php
-$config3= ['format' => 'YYYY-MM-DD'];
-@endphp
-<x-adminlte-input-date name="programmed_for" :config="$config3" value="{{ date('Y-m-d', strtotime('+1 day')) }}" required label="Programmed For" label-class="text-lightblue">
-    <x-slot name="appendSlot">
-        <div class="input-group-text bg-gradient-danger">
-            <i class="fas fa-calendar-alt"></i>
-        </div> 
-    </x-slot>
-</x-adminlte-input-date>
+                    {{-- Programmed For --}}
+                    {{-- Programmed For --}}
+                    @php
+                    $config3= ['format' => 'YYYY-MM-DD'];
+                    @endphp
+                    <x-adminlte-input-date name="programmed_for" :config="$config3" value="{{ date('Y-m-d', strtotime('+1 day')) }}" required label="Programmed For" label-class="text-lightblue">
+                        <x-slot name="appendSlot">
+                            <div class="input-group-text bg-gradient-danger">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div> 
+                        </x-slot>
+                    </x-adminlte-input-date>
 
-             
+                                
                     <div class="d-flex justify-content-end">
                         <x-adminlte-button class="mr-2" type="submit" theme="success" icon="fas fa-lg fa-save" label="Save"/>
                     </div>
 
 
-             
-             
-             
-                </form>
-            </x-adminlte-card> 
-        </div>
-    </div>
+                                
+                                
+                    
+                        </form>
+                    </x-adminlte-card> 
+                </div>
+            </div>
 
 
     

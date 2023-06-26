@@ -73,13 +73,18 @@ class AdController extends Controller
             return response()->json(['error' => 'Unexpected error occurred. Please try again.'], 500);
         }
     }
-    
-
-     /**
+        
+    /**
      * Store a newly created ad in the database.
      *
+     * @bodyParam text_content string required_without:audio_content The text content of the ad. Example: "This is a sample text ad."
+     * @bodyParam audio_content string required_without:text_content The audio content of the ad.
+     * @bodyParam pack_id integer required The ID of the pack associated with the ad. Example: 1
+     * @bodyParam pack_variation integer required The variation of the pack associated with the ad. Example: 1
+     * @bodyParam programmed_for date required The date when the ad is programmed for. Example: 2023-06-25
+     * 
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\AdResource
+     * @return \Illuminate\Http\JsonResponse|\App\Http\Resources\AdResource
      * 
      * @throws \Illuminate\Validation\ValidationException If validation fails
      * @throws \Exception If an unexpected error occurs
@@ -136,19 +141,25 @@ class AdController extends Controller
         }
     }
     
-   
-   /**
+    
+    /**
      * Update the specified ad in the database.
      *
+     * @bodyParam text_content string required_without:audio_content The text content of the ad. Example: "Updated sample text ad."
+     * @bodyParam audio_content string required_without:text_content The audio content of the ad.
+     * @bodyParam pack_id integer The ID of the pack associated with the ad. Example: 1
+     * @bodyParam pack_variation integer The variation of the pack associated with the ad. Example: 1
+     * @bodyParam programmed_for date The date when the ad is programmed for. Example: 2023-06-26
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse|App\Http\Resources\AdResource
+     * @return \Illuminate\Http\JsonResponse|\App\Http\Resources\AdResource
      * 
      * @throws \Illuminate\Validation\ValidationException If validation fails
      * @throws \Exception If an unexpected error occurs
      *
      * @authenticated
-     * @urlParam id integer required The ID of the ad.
+     * @urlParam id integer required The ID of the ad. Example: 1
      */
     public function update(Request $request, $id)
     {

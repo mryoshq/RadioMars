@@ -8,6 +8,7 @@ use App\Models\Advertiser;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use Illuminate\Validation\Rule;
 
 
 class AdvertiserController extends Controller
@@ -36,7 +37,7 @@ class AdvertiserController extends Controller
     public function store(Request $request)
 {
 
-    $domains = implode(',', Advertiser::getDomainEnumValues());
+    $domains = Advertiser::getDomainEnumValues();
     // Validate the request data
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
@@ -44,7 +45,7 @@ class AdvertiserController extends Controller
         'password' => ['required', 'string', 'min:8'],
         'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/', 'unique:users'],
         'firm' => ['required', 'string', 'max:40'],
-        'domain' => ['required', 'in' . $domains],
+        'domain' => ['required', Rule::in($domains)],
     ]);
 
     // Create a new User with the 'Advertiser' role
@@ -78,29 +79,32 @@ class AdvertiserController extends Controller
     public function edit(Advertiser $advertiser)
     {
         $user = $advertiser->user;
-        $domains = implode(',', Advertiser::getDomainEnumValues());
+        $domains = Advertiser::getDomainEnumValues();
         return view('web.advertisers.edit', compact('advertiser', 'user', 'domains'));
     }
     
    
     public function update(Request $request, Advertiser $advertiser)
     {
-        $domains = implode(',', Advertiser::getDomainEnumValues());
+        //dd($request->all());
+        $domains = Advertiser::getDomainEnumValues();
+
         $data = $request->validate([
-            'domain' => ['required', 'in' . $domains],
-            'firm' => 'required',
-            'user_id' => 'required',
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$advertiser->user->id],
-            'phone_number' => ['required', 'regex:/^0[67][0-9]{8}$/', 'unique:users,phone_number,'.$advertiser->user->id],
+            'domain' => ['sometimes', Rule::in($domains)],
+            'firm' => 'sometimes',
+            'user_id' => 'sometimes',
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,'.$advertiser->user->id],
+            'phone_number' => ['sometimes', 'regex:/^0[67][0-9]{8}$/', 'unique:users,phone_number,'.$advertiser->user->id],
         ]);
-    
+
+        //dd($request->all());
         if($request->filled('password')) {
-            $data['password'] = bcrypt($request->password);
+            $data['password'] = bcrypt($request->password); 
         }
     
-        $advertiser->update([
-            'domain' => $data['domain'],
+        $advertiser->update([ 
+            'domain' => $data['domain'], 
             'firm' => $data['firm'],
         ]);
      
@@ -108,8 +112,9 @@ class AdvertiserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'phone_number' => $data['phone_number'],
-            'password' => $data['password'] ?? $advertiser->user->password,
+            'password' => isset($data['password']) ? $data['password'] : $advertiser->user->password,
         ]);
+        
     
         return redirect()->route('web.advertisers.index')->with('success', 'Advertiser updated successfully.');
     }

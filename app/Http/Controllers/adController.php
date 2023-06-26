@@ -102,9 +102,28 @@ class AdController extends Controller
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
                                  ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
                                  ->pluck('name', 'id');
+        
+        $paymentStatus = null;
+        $payment = $ad->payment()->first();
+        if ($payment) {
+            $paymentStatus = $this->translatePaymentStatus($payment->status);
+        }
     
-        return view('web.ads.edit', compact('ad', 'packs', 'advertisers'));
+        return view('web.ads.edit', compact('ad', 'packs', 'advertisers', 'paymentStatus'));
     }
+    
+    private function translatePaymentStatus($status) {
+        $translations = [
+            'paid' => 'Payé',
+            'pending' => 'En attente',
+            'failed' => 'Échoué',
+            // Add other statuses here
+        ];
+    
+        return $translations[$status] ?? $status;
+    }
+    
+    
      
     public function update(Request $request, Ad $ad)
     {
@@ -121,9 +140,6 @@ class AdController extends Controller
             'message' => 'nullable|string',
             'programmed_for' => 'nullable|date',
         ]);
-    
-
-
 
         //updating data
         $updateData = $validated;
@@ -168,6 +184,7 @@ class AdController extends Controller
         
         $ad->update($updateData);
         
+
         return redirect()->route('web.ads.index')->with('success', 'Ad updated successfully');
     }
     

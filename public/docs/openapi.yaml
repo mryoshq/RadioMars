@@ -60,27 +60,58 @@ paths:
                 domain:
                   type: string
                   description: 'The domain of the advertiser.'
-                  example: enim
+                  example: animi
                 firm:
                   type: string
                   description: 'The firm of the advertiser.'
-                  example: blanditiis
+                  example: voluptatem
                 name:
                   type: string
                   description: 'The name of the user.'
-                  example: fuga
+                  example: quibusdam
                 email:
                   type: string
                   description: 'The email of the user.'
-                  example: boris81@example.net
+                  example: sherman.braun@example.com
                 phone_number:
                   type: string
                   description: 'The phone number of the user.'
-                  example: voluptatem
+                  example: nostrum
                 password:
                   type: string
                   description: 'The password of the user.'
-                  example: '5a~}1D2soU%kUc06'
+                  example: 'Da];6bA7,w?cl>*'
+  '/api/advertiser/{id}/ads':
+    get:
+      summary: 'Get the ads related to a specific advertiser.'
+      operationId: getTheAdsRelatedToASpecificAdvertiser
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: 'Not Found!'
+                properties:
+                  error:
+                    type: string
+                    example: 'Not Found!'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the advertiser.'
+        example: vitae
+        required: true
+        schema:
+          type: string
   /api/ads:
     get:
       summary: 'Display a listing of the ads.'
@@ -124,6 +155,37 @@ paths:
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_content:
+                  type: string
+                  description: 'required_without:audio_content The text content of the ad.'
+                  example: '"This is a sample text ad."'
+                audio_content:
+                  type: string
+                  description: 'required_without:text_content The audio content of the ad.'
+                  example: quibusdam
+                pack_id:
+                  type: integer
+                  description: 'The ID of the pack associated with the ad.'
+                  example: 1
+                pack_variation:
+                  type: integer
+                  description: 'The variation of the pack associated with the ad.'
+                  example: 1
+                programmed_for:
+                  type: date
+                  description: 'The date when the ad is programmed for.'
+                  example: '2023-06-25'
+              required:
+                - pack_id
+                - pack_variation
+                - programmed_for
   '/api/ads/{id}':
     get:
       summary: 'Display the specified ad.'
@@ -167,12 +229,39 @@ paths:
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_content:
+                  type: string
+                  description: 'required_without:audio_content The text content of the ad.'
+                  example: '"Updated sample text ad."'
+                audio_content:
+                  type: string
+                  description: 'required_without:text_content The audio content of the ad.'
+                  example: qui
+                pack_id:
+                  type: integer
+                  description: 'The ID of the pack associated with the ad.'
+                  example: 1
+                pack_variation:
+                  type: integer
+                  description: 'The variation of the pack associated with the ad.'
+                  example: 1
+                programmed_for:
+                  type: date
+                  description: 'The date when the ad is programmed for.'
+                  example: '2023-06-26'
     parameters:
       -
         in: path
         name: id
         description: 'The ID of the ad.'
-        example: ut
+        example: vitae
         required: true
         schema:
           type: string
@@ -205,7 +294,7 @@ paths:
       tags:
         - Endpoints
     post:
-      summary: 'Store a newly created payment'
+      summary: 'Store a newly created payment.'
       operationId: storeANewlyCreatedPayment
       description: ''
       parameters:
@@ -219,6 +308,29 @@ paths:
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ad_id:
+                  type: integer
+                  description: 'The ID of the ad associated with the payment.'
+                  example: 1
+                payment_method:
+                  type: string
+                  description: 'The method of the payment. Can be one of: cc (credit card), transfer, wire.'
+                  example: '"cc"'
+                status:
+                  type: string
+                  description: 'The status of the payment. Can be one of: pending, paid, failed.'
+                  example: '"pending"'
+              required:
+                - ad_id
+                - payment_method
+                - status
   '/api/payments/{id}':
     get:
       summary: 'Display the specified payment.'
@@ -248,7 +360,7 @@ paths:
       tags:
         - Endpoints
     put:
-      summary: 'Update the specified payment .'
+      summary: 'Update the specified payment.'
       operationId: updateTheSpecifiedPayment
       description: ''
       parameters:
@@ -262,19 +374,37 @@ paths:
       responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_method:
+                  type: string
+                  description: 'The method of the payment. Can be one of: cc (credit card), transfer, wire.'
+                  example: '"cc"'
+                status:
+                  type: string
+                  description: 'The status of the payment. Can be one of: pending, paid, failed.'
+                  example: '"pending"'
+              required:
+                - payment_method
+                - status
     parameters:
       -
         in: path
         name: id
         description: 'The ID of the ad.'
-        example: 2
+        example: 1
         required: true
         schema:
           type: integer
   /api/logout:
     post:
-      summary: 'User logout'
-      operationId: userLogout
+      summary: 'Log out the current authenticated user.'
+      operationId: logOutTheCurrentAuthenticatedUser
       description: ''
       parameters:
         -
@@ -291,7 +421,7 @@ paths:
     get:
       summary: 'Show all packs'
       operationId: showAllPacks
-      description: ''
+      description: "This function retrieves all packs in the database and returns them as a resource collection.\nEach pack is transformed into a JSON object by the PackResource."
       parameters: []
       responses:
         404:
@@ -311,9 +441,9 @@ paths:
       security: []
   '/api/packs/{id}':
     get:
-      summary: 'show a specific pack'
+      summary: 'Show a specific pack'
       operationId: showASpecificPack
-      description: ''
+      description: "This function retrieves a specific pack from the database using its ID and returns it as a JSON object\nThe pack is transformed by the PackResource."
       parameters: []
       responses:
         404:
@@ -342,8 +472,8 @@ paths:
           type: integer
   /api/register:
     post:
-      summary: 'User register'
-      operationId: userRegister
+      summary: 'User registration'
+      operationId: userRegistration
       description: ''
       parameters: []
       responses: {  }
@@ -370,8 +500,8 @@ paths:
                   example: '0612345678'
                 password:
                   type: string
-                  description: 'The password of the user. Must be at least 8 characters.'
-                  example: securepassword
+                  description: 'The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&.'
+                  example: Password@123
                 firm:
                   type: string
                   description: 'The firm of the user.'
@@ -410,8 +540,8 @@ paths:
                   example: '0612345678'
                 password:
                   type: string
-                  description: 'The password of the user. Must be at least 8 characters.'
-                  example: securepassword
+                  description: 'The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&.'
+                  example: Password@123
               required:
                 - phone_number
                 - password

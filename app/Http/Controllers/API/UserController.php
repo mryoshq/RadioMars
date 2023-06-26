@@ -12,12 +12,30 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 { 
-    public function index()
+
+    /**
+     * Fetch all users with the latest ones first.
+     * Paginate the results into chunks of 25 users.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection Collection of User resources.
+     */
+    public function index() 
     {
         $users = User::latest()->paginate(25);
         return UserResource::collection($users);
     } 
 
+
+
+    /**
+     * Create a new user in the database after validating incoming request data.
+     *
+     * @param Request $request Incoming request instance.
+     * 
+     * @return \Illuminate\Http\Resources\Json\JsonResource Single User resource.
+     * 
+     * @throws \Illuminate\Validation\ValidationException If validation fails.
+     */
     public function store(Request $request) 
     { 
         $request->validate([
@@ -39,10 +57,31 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+
+    /**
+     * Fetch a single user by its primary key.
+     *
+     * @param User $user The user instance being accessed.
+     * 
+     * @return \Illuminate\Http\Resources\Json\JsonResource Single User resource.
+     */
     public function show(User $user)
     {
         return new UserResource($user);
     }
+    
+    
+    
+    /**
+     * Update an existing user's data in the database after validating incoming request data.
+     *
+     * @param Request $request Incoming request instance.
+     * @param User $user The user instance being updated.
+     * 
+     * @return \Illuminate\Http\Resources\Json\JsonResource Single updated User resource.
+     * 
+     * @throws \Illuminate\Validation\ValidationException If validation fails.
+     */
 
     public function update(Request $request, User $user)
     {

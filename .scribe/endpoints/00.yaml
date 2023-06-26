@@ -71,51 +71,51 @@ endpoints:
         name: domain
         description: 'The domain of the advertiser.'
         required: false
-        example: enim
+        example: animi
         type: string
         custom: []
       firm:
         name: firm
         description: 'The firm of the advertiser.'
         required: false
-        example: blanditiis
+        example: voluptatem
         type: string
         custom: []
       name:
         name: name
         description: 'The name of the user.'
         required: false
-        example: fuga
+        example: quibusdam
         type: string
         custom: []
       email:
         name: email
         description: 'The email of the user.'
         required: false
-        example: boris81@example.net
+        example: sherman.braun@example.com
         type: string
         custom: []
       phone_number:
         name: phone_number
         description: 'The phone number of the user.'
         required: false
-        example: voluptatem
+        example: nostrum
         type: string
         custom: []
       password:
         name: password
         description: 'The password of the user.'
         required: false
-        example: '5a~}1D2soU%kUc06'
+        example: 'Da];6bA7,w?cl>*'
         type: string
         custom: []
     cleanBodyParameters:
-      domain: enim
-      firm: blanditiis
-      name: fuga
-      email: boris81@example.net
-      phone_number: voluptatem
-      password: '5a~}1D2soU%kUc06'
+      domain: animi
+      firm: voluptatem
+      name: quibusdam
+      email: sherman.braun@example.com
+      phone_number: nostrum
+      password: 'Da];6bA7,w?cl>*'
     fileParameters: []
     responses: []
     responseFields: []
@@ -123,6 +123,54 @@ endpoints:
       - headers
       - Authorization
       - 'Bearer your token here'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/advertiser/{id}/ads'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get the ads related to a specific advertiser.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the advertiser.'
+        required: true
+        example: vitae
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: vitae
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 404
+        content: '{"error":"Not Found!"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
     controller: null
     method: null
     route: null
@@ -192,8 +240,48 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      text_content:
+        name: text_content
+        description: 'required_without:audio_content The text content of the ad.'
+        required: false
+        example: '"This is a sample text ad."'
+        type: string
+        custom: []
+      audio_content:
+        name: audio_content
+        description: 'required_without:text_content The audio content of the ad.'
+        required: false
+        example: quibusdam
+        type: string
+        custom: []
+      pack_id:
+        name: pack_id
+        description: 'The ID of the pack associated with the ad.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      pack_variation:
+        name: pack_variation
+        description: 'The variation of the pack associated with the ad.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      programmed_for:
+        name: programmed_for
+        description: 'The date when the ad is programmed for.'
+        required: true
+        example: '2023-06-25'
+        type: date
+        custom: []
+    cleanBodyParameters:
+      text_content: '"This is a sample text ad."'
+      audio_content: quibusdam
+      pack_id: 1
+      pack_variation: 1
+      programmed_for: '2023-06-25'
     fileParameters: []
     responses: []
     responseFields: []
@@ -227,11 +315,11 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: ut
+        example: vitae
         type: string
         custom: []
     cleanUrlParameters:
-      id: ut
+      id: vitae
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -280,15 +368,55 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: 7
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 7
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      text_content:
+        name: text_content
+        description: 'required_without:audio_content The text content of the ad.'
+        required: false
+        example: '"Updated sample text ad."'
+        type: string
+        custom: []
+      audio_content:
+        name: audio_content
+        description: 'required_without:text_content The audio content of the ad.'
+        required: false
+        example: qui
+        type: string
+        custom: []
+      pack_id:
+        name: pack_id
+        description: 'The ID of the pack associated with the ad.'
+        required: false
+        example: 1
+        type: integer
+        custom: []
+      pack_variation:
+        name: pack_variation
+        description: 'The variation of the pack associated with the ad.'
+        required: false
+        example: 1
+        type: integer
+        custom: []
+      programmed_for:
+        name: programmed_for
+        description: 'The date when the ad is programmed for.'
+        required: false
+        example: '2023-06-26'
+        type: date
+        custom: []
+    cleanBodyParameters:
+      text_content: '"Updated sample text ad."'
+      audio_content: qui
+      pack_id: 1
+      pack_variation: 1
+      programmed_for: '2023-06-26'
     fileParameters: []
     responses: []
     responseFields: []
@@ -353,7 +481,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created payment'
+      title: 'Store a newly created payment.'
       description: ''
       authenticated: true
       custom: []
@@ -365,8 +493,32 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      ad_id:
+        name: ad_id
+        description: 'The ID of the ad associated with the payment.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      payment_method:
+        name: payment_method
+        description: 'The method of the payment. Can be one of: cc (credit card), transfer, wire.'
+        required: true
+        example: '"cc"'
+        type: string
+        custom: []
+      status:
+        name: status
+        description: 'The status of the payment. Can be one of: pending, paid, failed.'
+        required: true
+        example: '"pending"'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      ad_id: 1
+      payment_method: '"cc"'
+      status: '"pending"'
     fileParameters: []
     responses: []
     responseFields: []
@@ -400,11 +552,11 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: 2
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -440,7 +592,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified payment .'
+      title: 'Update the specified payment.'
       description: ''
       authenticated: true
       custom: []
@@ -456,12 +608,36 @@ endpoints:
         example: 1
         type: integer
         custom: []
+      payment:
+        name: payment
+        description: 'The ID of the payment to be updated.'
+        required: true
+        example: architecto
+        type: string
+        custom: []
     cleanUrlParameters:
       id: 1
+      payment: architecto
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      payment_method:
+        name: payment_method
+        description: 'The method of the payment. Can be one of: cc (credit card), transfer, wire.'
+        required: true
+        example: '"cc"'
+        type: string
+        custom: []
+      status:
+        name: status
+        description: 'The status of the payment. Can be one of: pending, paid, failed.'
+        required: true
+        example: '"pending"'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      payment_method: '"cc"'
+      status: '"pending"'
     fileParameters: []
     responses: []
     responseFields: []
@@ -482,7 +658,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'User logout'
+      title: 'Log out the current authenticated user.'
       description: ''
       authenticated: true
       custom: []
@@ -517,7 +693,9 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: 'Show all packs'
-      description: ''
+      description: |-
+        This function retrieves all packs in the database and returns them as a resource collection.
+        Each pack is transformed into a JSON object by the PackResource.
       authenticated: false
       custom: []
     headers:
@@ -556,8 +734,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'show a specific pack'
-      description: ''
+      title: 'Show a specific pack'
+      description: |-
+        This function retrieves a specific pack from the database using its ID and returns it as a JSON object
+        The pack is transformed by the PackResource.
       authenticated: false
       custom: []
     headers:
@@ -604,7 +784,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'User register'
+      title: 'User registration'
       description: ''
       authenticated: false
       custom: []
@@ -639,9 +819,9 @@ endpoints:
         custom: []
       password:
         name: password
-        description: 'The password of the user. Must be at least 8 characters.'
+        description: 'The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&.'
         required: true
-        example: securepassword
+        example: Password@123
         type: string
         custom: []
       firm:
@@ -662,7 +842,7 @@ endpoints:
       name: 'John Doe'
       email: john@example.com
       phone_number: '0612345678'
-      password: securepassword
+      password: Password@123
       firm: 'My Firm'
       domain: mydomain.com
     fileParameters: []
@@ -703,14 +883,14 @@ endpoints:
         custom: []
       password:
         name: password
-        description: 'The password of the user. Must be at least 8 characters.'
+        description: 'The password of the user. Must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character from @$!%*#?&.'
         required: true
-        example: securepassword
+        example: Password@123
         type: string
         custom: []
     cleanBodyParameters:
       phone_number: '0612345678'
-      password: securepassword
+      password: Password@123
     fileParameters: []
     responses: []
     responseFields: []

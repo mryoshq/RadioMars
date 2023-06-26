@@ -19,16 +19,37 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+
+
+      
+    public function getAds(Request $request)
+    {
+        $advertiserId = $request->input('advertiser_id');
+        $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id')->toArray();
+        return response()->json($ads);
+    }
+
+
+
+
     public function index()
     {
-        $payments = Payment::with(['ad' => function ($query) {
-            $query->withTrashed();
-            // withTrashed will allow fetching advertisers even when ad is deleted bc relationship is user to adv to ad to payment
-        }])->get();
+        $payments = Payment::with([
+            'ad' => function ($query) {
+                $query->withTrashed();
+                // withTrashed will allow fetching advertisers even when ad is deleted bc relationship is user to adv to ad to payment
+            },
+            'ad.pack'
+        ])->get();
         
         return view('web.payments.index', compact('payments'));
     }
-    
+
+
+
+
+
+
      
     public function create() 
     {
@@ -38,12 +59,11 @@ class PaymentController extends Controller
         return view('web.payments.create', compact('advertisers'));
     }
 
-    public function getAds(Request $request)
-    {
-        $advertiserId = $request->input('advertiser_id');
-        $ads = Ad::where('advertiser_id', $advertiserId)->pluck('id', 'id')->toArray();
-        return response()->json($ads);
-    }
+
+
+
+
+
 
     public function store(Request $request)
     {
@@ -59,18 +79,34 @@ class PaymentController extends Controller
         return redirect()->route('web.payments.index', $payment)->with('success', 'Payment created successfully');
     }
     
+
+
+
+
+
     public function show(Payment $payment)
     {
         return view('web.payments.show', compact('payment'));
     }
 
-  public function edit(Payment $payment)
+
+
+
+
+
+    public function edit(Payment $payment)
     {
         $advertisers = Advertiser::join('users', 'advertisers.user_id', '=', 'users.id')
                                 ->select(DB::raw("CONCAT(users.name, ' - ', advertisers.id) AS name"), 'advertisers.id')
                                 ->pluck('name', 'id');
-        return view('web.payments.edit', compact('payment', 'advertisers'));
+                                
+        $ad_status = $payment->ad->status;
+        return view('web.payments.edit', compact('payment', 'advertisers', 'ad_status'));
     }
+
+
+
+
 
     public function update(Request $request, Payment $payment)
     {
@@ -91,10 +127,32 @@ class PaymentController extends Controller
 
         $payment->update($validated);
 
+        $ad = $payment->ad;
+
+        if ($request->input('status') == 'paid') {
+            if ($ad->decision == 'accepted') {
+                $ad->status = 'active';
+            } else {
+                $ad->status = 'paused';
+            }
+        } else {
+            if ($ad->decision == 'rejected') {
+                $ad->status = 'not_active';
+            } elseif ($ad->decision == 'in_queue') {
+                $ad->status = 'paused';
+            }
+        }
+        
+        $ad->save();
+
         return redirect()->route('web.payments.index', ['page' => $request->page]);
 
     }
 
+
+
+
+    
 
     public function destroy(Payment $payment)
     {
