@@ -22,7 +22,7 @@ class AdResource extends JsonResource
             //'advertiser' => new AdvertiserResource($this->whenLoaded('advertiser')),
             'pack' => new PackResource($this->whenLoaded('pack'), $this->pack_variation),
             
-            //'pack' => $this->pack_id,
+            'pack_id' => $this->pack_id,
             'payment' => new PaymentResource($this->whenLoaded('payment')),
             'decision' => $this->decision,
             'message' => $this->message,

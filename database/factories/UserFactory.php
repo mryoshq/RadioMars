@@ -28,7 +28,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => Hash::make('password'),
+            'password' => Hash::make('pass@2Uword'),
             'phone_number' => $this->faker->unique()->regexify('^0[67][0-9]{8}$'),
             'remember_token' => Str::random(10),
             'created_at' => $this->faker->dateTimeBetween('-30 days', 'now'),

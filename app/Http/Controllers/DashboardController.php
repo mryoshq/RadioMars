@@ -166,7 +166,7 @@ class DashboardController extends Controller
             ],
         ];
         
-
+ 
             // Get the new users count for the last week
             $newUsersCount = User::where('created_at', '>=', now()->subWeek())->count();
 
