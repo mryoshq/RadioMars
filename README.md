@@ -1,6 +1,6 @@
 # Admin Panel Guide
 
-Welcome to the yDays Admin Guide. This document aims to help you navigate through database migration, seeding, API usage, and more within our Laravel application. Let's get started with setting up your environment and dive into the details of how to manage your database and explore the API functionalities.
+Welcome to the Admin Guide. This document aims to help you navigate through database migration, seeding, API usage, and more within our Laravel application. Let's get started with setting up your environment and dive into the details of how to manage your database and explore the API functionalities.
 
 ## Table of Contents
 
